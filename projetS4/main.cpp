@@ -1,9 +1,10 @@
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
-    cout << "Hello world!" << endl;
+    std::cout << "Hello world!" << std::endl;
+    int a = 2;
+    a +=2;
+    std::cout <<a;
     return 0;
 }
