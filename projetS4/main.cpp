@@ -17,6 +17,7 @@ int main()
     //VA T ON Y ARRIVER UN JOUR ?
     //oui!!!!
     //peut un jour !!
+    //c bon
     return 0;
 
 }//Je suis la
