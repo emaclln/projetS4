@@ -1,0 +1,15 @@
+//
+//  coord.cpp
+//  projet
+//
+//  Created by Charles HAMERY on 26/04/2020.
+//  Copyright © 2020 Charles HAMERY. All rights reserved.
+//
+
+#include "coord.h"
+
+void Coord::set_coord(int x, int y)
+{
+    m_x = x;
+    m_y = y;
+}
