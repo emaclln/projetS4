@@ -1,12 +1,16 @@
-#include <iostream>
+//
+//  main.cpp
+//  projet
+//
+//  Created by Charles HAMERY on 26/04/2020.
+//  Copyright © 2020 Charles HAMERY. All rights reserved.
+//
 
-int main()
+#include "graphe.h"
+
+int main(int argc, const char * argv[])
 {
-    std::cout << "Hello world!" << std::endl;
-    int a = 2;
-    int b=3;
-    a +=2;
-    std::cout <<a;
-    std::cout<<b;
+    Graphe graphe{"graphe.txt"};//instance de graphe
+
     return 0;
-}//Je suis la 
+}
