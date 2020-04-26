@@ -1,26 +1,11 @@
 #include <iostream>
+#include "graphisme/svgfile.h"
 
 int main()
 {
+    Svgfile plan;
+    plan.addLine(20,70,80,90,"blue");
     std::cout << "Hello world!" << std::endl;
-    int a = 2;
-
-    int b;
-    a +=2;
-    std::cout <<a;
-    std::cin b;
-
-    int b=3;
-    a +=2;
-    std::cout <<a;
-    std::cout<<b;
-    //VA T ON Y ARRIVER UN JOUR ?
-    //oui!!!!
-    //peut un jour !!
-    //c bon
     return 0;
-
-}//Je suis la
-//azerty
-
+}
 

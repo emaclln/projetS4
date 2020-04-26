@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1587935799 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
+	"svgfile.h"
+	<iostream>
+	<sstream>
+
+1587935904 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1587937342 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
+	<iostream>
+	"graphisme/svgfile.h"
+
+1587937133 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\couleur.cpp
+	<iostream>
+	<string>
+
