@@ -42,6 +42,8 @@
 		<Unit filename="graphisme/svgfile.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="sommet.cpp" />
+		<Unit filename="sommet.h" />
+
 		<Extensions>
 			<code_completion />
 			<envvars />
