@@ -5,6 +5,7 @@
 #include <fstream>
 #include <set>
 
+
 constexpr char defcol[] = "black";
 
 class Svgfile

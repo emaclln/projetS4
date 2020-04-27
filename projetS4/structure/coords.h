@@ -6,8 +6,8 @@
 //  Copyright © 2020 Charles HAMERY. All rights reserved.
 //
 
-#ifndef coord_h
-#define coord_h
+#ifndef COORDS_H_INCLUDED
+#define COORDS_H_INCLUDED
 
 #include <iostream>
 #include <iomanip>
@@ -20,15 +20,19 @@
 #include <stack>
 #include <map>
 
+
 class Coord
 {
-    private :
-        int m_x;
-        int m_y;
-    
-    public :
-    
-        void set_coord(int x, int y);
+private :
+    int m_x;
+    int m_y;
+
+public :
+    void set_coord(int x, int y);
+    int getY()const;
+    int getX()const;
+
 };
-#endif /* coord_hpp */
+
+#endif // COORDS_H_INCLUDED
 

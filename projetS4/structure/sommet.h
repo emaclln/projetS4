@@ -10,7 +10,7 @@
 #define SOMMET_H_INCLUDED
 
 #include "coords.h"
-
+#include "../graphisme/svgfile.h"
 
 class Arrete;
 
@@ -28,6 +28,9 @@ private :
 
 public :
     Sommet(int indice, std::string nom, Coord mesCoord);
+    Coord getCoords()const;
+    std::string getNom()const;
+    void affichageSVG (Svgfile& svgout,int& indice)const;
 
 };
 

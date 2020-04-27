@@ -20,7 +20,8 @@ private :
     float m_poids;
     std::vector<Sommet*> m_extremite; //0 départ, 1 arrivé
 public :
-    Arrete(int indice, float poids, Sommet* un, Sommet* deux);
+    Arrete(int indice, Sommet* un, Sommet* deux);
+    void affichageSVG(Svgfile& svgout,int& indice)const;
 };
 
 #endif // ARRETE_H_INCLUDED

@@ -32,18 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="arrete.cpp" />
-		<Unit filename="arrete.h" />
-		<Unit filename="coords.cpp" />
-		<Unit filename="coords.h" />
-		<Unit filename="graphe.cpp" />
-		<Unit filename="graphe.h" />
 		<Unit filename="graphisme/svgfile.cpp" />
 		<Unit filename="graphisme/svgfile.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="sommet.cpp" />
-		<Unit filename="sommet.h" />
-
+		<Unit filename="structure/arrete.cpp" />
+		<Unit filename="structure/arrete.h" />
+		<Unit filename="structure/coords.cpp" />
+		<Unit filename="structure/coords.h" />
+		<Unit filename="structure/graphe.cpp" />
+		<Unit filename="structure/graphe.h" />
+		<Unit filename="structure/sommet.cpp" />
+		<Unit filename="structure/sommet.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
