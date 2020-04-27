@@ -1,7 +1,16 @@
+//
+//  sommet.hpp
+//  projet
+//
+//  Created by Charles HAMERY on 26/04/2020.
+//  Copyright © 2020 Charles HAMERY. All rights reserved.
+//
+
 #ifndef SOMMET_H_INCLUDED
 #define SOMMET_H_INCLUDED
 
 #include "coords.h"
+
 
 class Arrete;
 
@@ -23,3 +32,4 @@ public :
 };
 
 #endif // SOMMET_H_INCLUDED
+
