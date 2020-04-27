@@ -6,7 +6,7 @@
 //  Copyright © 2020 Charles HAMERY. All rights reserved.
 //
 
-#include "coord.h"
+#include "coords.h"
 
 void Coord::set_coord(int x, int y)
 {
