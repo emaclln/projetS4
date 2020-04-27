@@ -38,7 +38,6 @@
 		<Unit filename="coords.h" />
 		<Unit filename="graphe.cpp" />
 		<Unit filename="graphe.h" />
-		<Unit filename="graphisme/affichageSvg.cpp" />
 		<Unit filename="graphisme/svgfile.cpp" />
 		<Unit filename="graphisme/svgfile.h" />
 		<Unit filename="main.cpp" />

@@ -10,7 +10,7 @@
 #define SOMMET_H_INCLUDED
 
 #include "coords.h"
-#include "graphisme/svgfile.h"
+#include "../graphisme/svgfile.h"
 
 class Arrete;
 

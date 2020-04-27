@@ -1,5 +1,5 @@
 #include "arrete.h"
-#include "graphisme/svgfile.h"
+#include "../graphisme/svgfile.h"
 
 Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
 {

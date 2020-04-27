@@ -1,5 +1,5 @@
 #include "graphe.h"
-#include "graphisme/svgfile.h"
+#include "../graphisme/svgfile.h"
 
 Graphe::Graphe(std::string nomFichier)
 {
