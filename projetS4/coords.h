@@ -21,6 +21,8 @@ private :
 
 public :
     void set_coord(int x, int y);
+    int getY()const;
+    int getX()const;
 
 };
 

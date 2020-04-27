@@ -1,26 +1,26 @@
 # depslib dependency file v1.0
-1587975568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
+1587980007 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
 	"svgfile.h"
 	<iostream>
 	<sstream>
 
-1587975568 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
+1587978298 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
 	<string>
 	<fstream>
 	<set>
 
-1587975568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
+1587979224 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
 	<iostream>
-	"graphisme/svgfile.h"
+	"graphe.h"
 
 1587937133 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\couleur.cpp
 	<iostream>
 	<string>
 
-1587976568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\coords.cpp
+1587978997 source:c:\users\emmac\documents\github\versionning\projets4\projets4\coords.cpp
 	"coords.h"
 
-1587976104 c:\users\emmac\documents\github\versionning\projets4\projets4\coords.h
+1587979003 c:\users\emmac\documents\github\versionning\projets4\projets4\coords.h
 	<iostream>
 	<iomanip>
 	<fstream>
@@ -31,4 +31,27 @@
 	<cmath>
 	<stack>
 	<map>
+
+1587978297 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\affichagesvg.cpp
+
+1587978489 c:\users\emmac\documents\github\versionning\projets4\projets4\graphe.h
+	"arrete.h"
+
+1587983099 c:\users\emmac\documents\github\versionning\projets4\projets4\arrete.h
+	"sommet.h"
+
+1587983099 c:\users\emmac\documents\github\versionning\projets4\projets4\sommet.h
+	"coords.h"
+	"graphisme/svgfile.h"
+
+1587983109 source:c:\users\emmac\documents\github\versionning\projets4\projets4\sommet.cpp
+	"sommet.h"
+
+1587983099 source:c:\users\emmac\documents\github\versionning\projets4\projets4\arrete.cpp
+	"arrete.h"
+	"graphisme/svgfile.h"
+
+1587983099 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphe.cpp
+	"graphe.h"
+	"graphisme/svgfile.h"
 

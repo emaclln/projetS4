@@ -7,3 +7,19 @@ Sommet::Sommet(int indice, std::string nom, Coord mesCoord)
     m_nom = nom;
     m_coord = mesCoord;
 }
+
+Coord Sommet::getCoords () const
+{
+    return m_coord;
+}
+
+std::string Sommet::getNom()const
+{
+    return m_nom;
+}
+
+void Sommet::affichageSVG (Svgfile& svgout,int& indice)const
+{
+    svgout.addDisk(m_coord.getX()*indice,m_coord.getY()*indice,5,"red");
+    svgout.addText(m_coord.getX()*indice-5,m_coord.getY()*indice-10,m_nom,"red");
+}
