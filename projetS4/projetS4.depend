@@ -1,17 +1,17 @@
 # depslib dependency file v1.0
-1587983979 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
+1587984855 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
 	"svgfile.h"
 	<iostream>
 	<sstream>
 
-1587983979 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
+1587984855 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
 	<string>
 	<fstream>
 	<set>
 
-1587983979 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
+1587985872 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
 	<iostream>
-	"graphe.h"
+	"structure/graphe.h"
 
 1587937133 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\couleur.cpp
 	<iostream>
@@ -55,10 +55,10 @@
 	"graphe.h"
 	"graphisme/svgfile.h"
 
-1587983979 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.cpp
+1587985840 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.cpp
 	"coords.h"
 
-1587983979 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.h
+1587985631 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.h
 	<iostream>
 	<iomanip>
 	<fstream>
@@ -73,14 +73,19 @@
 1587983979 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.cpp
 	"sommet.h"
 
-1587984546 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.h
+1587984855 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.h
 	"coords.h"
 	"../graphisme/svgfile.h"
 
-1587984553 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.cpp
+1587985913 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.cpp
 	"arrete.h"
-	"../graphisme/svgfile.h"
 
-1587983979 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.h
+1587984855 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.h
 	"sommet.h"
+
+1587984855 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.h
+	"arrete.h"
+
+1587985927 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.cpp
+	"graphe.h"
 

@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "graphe.h"
+#include "structure/graphe.h"
 
 int main()
 {

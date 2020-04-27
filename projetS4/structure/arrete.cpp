@@ -8,10 +8,16 @@
 
 #include "arrete.h"
 
-Arrete::Arrete(int indice, float poids, Sommet* un, Sommet* deux)
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
 {
     m_indice = indice;
-    m_poids = poids;
+    m_poids = 0;
     m_extremite.push_back( un );
     m_extremite.push_back( deux );
+}
+
+void Arrete::affichageSVG(Svgfile& svgout, int& indice)const
+{
+    svgout.addLine(m_extremite[0]->getCoords().getX()*indice,m_extremite[0]->getCoords().getY()*indice,
+                   m_extremite[1]->getCoords().getX()*indice,m_extremite[1]->getCoords().getY()*indice,"black");
 }
