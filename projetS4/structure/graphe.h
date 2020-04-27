@@ -6,8 +6,8 @@
 //  Copyright © 2020 Charles HAMERY. All rights reserved.
 //
 
-#ifndef graphe_h
-#define graphe_h
+#ifndef GRAPHE_H_INCLUDED
+#define GRAPHE_H_INCLUDED
 
 #include "arrete.h"
 
@@ -23,9 +23,11 @@ class Graphe
     std::vector<Arrete*> m_arretes;
     
     public :
-    
-    Graphe(std::string nomFichier);//constructeur de graphe
+		Graphe(std::string nomFichier);//constructeur de graphe
 
 };
 
-#endif /* graphe_hpp */
+
+
+#endif // GRAPHE_H_INCLUDED
+

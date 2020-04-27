@@ -1,3 +1,6 @@
+
+#ifndef ARRETE_H_INCLUDED
+#define ARRETE_H_INCLUDED
 //
 //  arrete.hpp
 //  projet
@@ -6,23 +9,19 @@
 //  Copyright Â© 2020 Charles HAMERY. All rights reserved.
 //
 
-#ifndef arrete_h
-#define arrete_h
 
 #include "sommet.h"
 
 class Arrete
 {
-    private :
-    
+
+private :
     int m_indice;
     float m_poids;
-    std::vector<Sommet*> m_extremite; //0 dÃ©part, 1 arrivÃ©
-    
-    public :
-    
+    std::vector<Sommet*> m_extremite; //0 départ, 1 arrivé
+public :
     Arrete(int indice, float poids, Sommet* un, Sommet* deux);
-    
 };
 
-#endif /* arrete_hpp */
+#endif // ARRETE_H_INCLUDED
+

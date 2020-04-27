@@ -1,16 +1,17 @@
-//
-//  main.cpp
-//  projet
-//
-//  Created by Charles HAMERY on 26/04/2020.
-//  Copyright © 2020 Charles HAMERY. All rights reserved.
-//
 
+#include <iostream>
+#include "graphisme/svgfile.h"
 #include "graphe.h"
 
-int main(int argc, const char * argv[])
+int main()
 {
-    Graphe graphe{"graphe.txt"};//instance de graphe
-
+    Svgfile plan;
+    plan.addLine(20,70,80,90,"blue");
+	Graphe graphe{"graphe.txt"};//instance de graphe
+    std::cout << "Hello world!" << std::endl;
     return 0;
 }
+
+
+
+

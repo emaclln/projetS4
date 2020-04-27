@@ -6,32 +6,30 @@
 //  Copyright © 2020 Charles HAMERY. All rights reserved.
 //
 
-#ifndef sommet_h
-#define sommet_h
+#ifndef SOMMET_H_INCLUDED
+#define SOMMET_H_INCLUDED
 
-#include "coord.h"
+#include "coords.h"
+
 
 class Arrete;
 
 class Sommet
 {
-    private :
-    
-        int m_indice;
-        std::string m_nom;
-        Coord m_coord;
-        int m_Cvp;
-        int m_Cd;
-        int m_Cp;
-        int m_Ci;
-        std::vector<Arrete*> m_adjacent;
-    
-    public :
-    
-        Sommet(int indice, std::string nom, Coord mesCoord);
-    
-           
+private :
+    int m_indice;
+    std::string m_nom;
+    Coord m_coord;
+    int m_Cvp;
+    int m_Cd;
+    int m_Cp;
+    int m_Ci;
+    std::vector<Arrete*> m_adjacent;
+
+public :
+    Sommet(int indice, std::string nom, Coord mesCoord);
+
 };
 
-#endif /* sommet_hpp */
+#endif // SOMMET_H_INCLUDED
 
