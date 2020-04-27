@@ -16,8 +16,31 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
-void Arrete::affichageSVG(Svgfile& svgout, int& indice)const
+void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu)const
 {
-    svgout.addLine(m_extremite[0]->getCoords().getX()*indice,m_extremite[0]->getCoords().getY()*indice,
-                   m_extremite[1]->getCoords().getX()*indice,m_extremite[1]->getCoords().getY()*indice,"black");
+    if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
+    {
+        int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
+        int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
+        svgout.addLine(500,400,500-ecart_x1,400-ecart_y1,"black");
+    }
+    else
+    {
+        if (m_extremite[1]->getCoords().getX()==milieu.getX() && m_extremite[1]->getCoords().getY()==milieu.getY() )
+        {
+            int ecart_x0=(milieu.getX()-m_extremite[0]->getCoords().getX())*indice;
+            int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
+            svgout.addLine(500,400,500-ecart_x0,400-ecart_y0,"black");
+        }
+        else
+        {
+            int ecart_x0=(milieu.getX()-m_extremite[0]->getCoords().getX())*indice;
+            int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
+            int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
+            int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
+
+            svgout.addLine(500-ecart_x0,400-ecart_y0,500-ecart_x1,400-ecart_y1,"black");
+        }
+
+    }
 }

@@ -30,7 +30,7 @@ public :
     Sommet(int indice, std::string nom, Coord mesCoord);
     Coord getCoords()const;
     std::string getNom()const;
-    void affichageSVG (Svgfile& svgout,int& indice)const;
+    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu)const;
 
 };
 

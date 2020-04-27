@@ -57,14 +57,12 @@ void Graphe::affichageSvg () const
 {
     Svgfile svgout;
     svgout.addGrid();
-    //cherhons l'indice pour adapté le graphe à la taille de l'écran 1000*800
+    ///cherhons l'indice pour adapté le graphe à la taille de l'écran 1000*800
     int indice=100; // par défaut on le met à 100
     bool stop;
     //on verifie qu'avec cette indice on peut construire tout le grpahe sinon on le réduit
-    int max_x=0;
-    int temp_x;
-    int max_y=0;
-    int temp_y;
+    int max_x=0,temp_x,max_y=0,temp_y;
+    int min_x=0,min_y=0; //pour trouver le sommet centre par la suite
     //recherche des points extreme du graphe
     do
     {
@@ -74,10 +72,14 @@ void Graphe::affichageSvg () const
             temp_x=it->getCoords().getX();
             if (temp_x>max_x)
                 max_x=temp_x;
+            else if (temp_x<min_x)
+                min_x=temp_x;
 
             temp_y=it->getCoords().getY();
             if (temp_y>max_y)
                 max_y=temp_y;
+            else if (temp_x<min_x)
+                min_x=temp_x;
         }
         if (max_x*indice>1000 || max_y*indice>800) //depace
         {
@@ -88,15 +90,33 @@ void Graphe::affichageSvg () const
     }
     while (!stop);//tant que le grpahe rentre enier
 
+    ///centrage
 
+    //trouver le sommet centre
+    temp_x=max_x-min_x;
+    if (temp_x%2==0)//si la ifférence est pair
+        temp_x=temp_x/2;
+    else
+        temp_x=(temp_x+1)/2; //milieu
+
+    temp_y=max_y-min_y;
+    if (temp_y%2==0)//si la ifférence est pair
+        temp_y=temp_y/2;
+    else
+        temp_y=(temp_y+1)/2; //milieu
+
+    Coord milieu;
+    milieu.set_coord(temp_x,temp_y);
+
+    ///dessin
     for (auto it : m_arretes)
         {
-            it->affichageSVG(svgout,indice);
+            it->affichageSVG(svgout,indice,milieu);
         }
 
     for (auto it : m_sommets)
     {
-        it->affichageSVG(svgout,indice);
+        it->affichageSVG(svgout,indice,milieu);
     }
 
 }

@@ -24,3 +24,4 @@ int Coord::getY()const
     return m_y;
 }
 
+

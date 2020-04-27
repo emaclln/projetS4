@@ -25,8 +25,18 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu)const
 {
-    svgout.addDisk(m_coord.getX()*indice,m_coord.getY()*indice,5,"red");
-    svgout.addText(m_coord.getX()*indice-5,m_coord.getY()*indice-10,m_nom,"red");
+    if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
+    {
+        svgout.addDisk(500,400,5,"red");
+        svgout.addText(500-5,400-10,m_nom,"red");
+    }
+    else
+    {
+        int ecart_x=(milieu.getX()-m_coord.getX())*indice;
+        int ecart_y=(milieu.getY()-m_coord.getY())*indice;
+        svgout.addDisk(500-ecart_x,400-ecart_y,5,"red");
+        svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"red");
+    }
 }

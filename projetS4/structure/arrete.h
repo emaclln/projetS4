@@ -21,7 +21,7 @@ private :
     std::vector<Sommet*> m_extremite; //0 départ, 1 arrivé
 public :
     Arrete(int indice, Sommet* un, Sommet* deux);
-    void affichageSVG(Svgfile& svgout,int& indice)const;
+    void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu)const;
 };
 
 #endif // ARRETE_H_INCLUDED
