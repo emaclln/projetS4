@@ -25,6 +25,7 @@ class Graphe
     public :
 		Graphe(std::string nomFichier);//constructeur de graphe
 		void affichageSvg () const;
+		void remplirPoids(std::string nomFichier);
 
 };
 

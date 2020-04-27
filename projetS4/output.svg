@@ -2,104 +2,128 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
 <line x1="0" y1="0" x2="1000" y2="0" stroke="lightgrey" />
-<text x="5" y="-5" font-size="11px" stroke-width="6" text-anchor="middle" >0</text>
-<text x="5" y="-5" fill="lightgrey" font-size="11px" text-anchor="middle" >0</text>
+<text x="5" y="-5" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0</text>
+<text x="5" y="-5" fill="lightgrey" font-size="18px" text-anchor="middle" >0</text>
 <line x1="0" y1="100" x2="1000" y2="100" stroke="lightgrey" />
-<text x="5" y="95" font-size="11px" stroke-width="6" text-anchor="middle" >100</text>
-<text x="5" y="95" fill="lightgrey" font-size="11px" text-anchor="middle" >100</text>
+<text x="5" y="95" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >100</text>
+<text x="5" y="95" fill="lightgrey" font-size="18px" text-anchor="middle" >100</text>
 <line x1="0" y1="200" x2="1000" y2="200" stroke="lightgrey" />
-<text x="5" y="195" font-size="11px" stroke-width="6" text-anchor="middle" >200</text>
-<text x="5" y="195" fill="lightgrey" font-size="11px" text-anchor="middle" >200</text>
+<text x="5" y="195" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >200</text>
+<text x="5" y="195" fill="lightgrey" font-size="18px" text-anchor="middle" >200</text>
 <line x1="0" y1="300" x2="1000" y2="300" stroke="lightgrey" />
-<text x="5" y="295" font-size="11px" stroke-width="6" text-anchor="middle" >300</text>
-<text x="5" y="295" fill="lightgrey" font-size="11px" text-anchor="middle" >300</text>
+<text x="5" y="295" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >300</text>
+<text x="5" y="295" fill="lightgrey" font-size="18px" text-anchor="middle" >300</text>
 <line x1="0" y1="400" x2="1000" y2="400" stroke="lightgrey" />
-<text x="5" y="395" font-size="11px" stroke-width="6" text-anchor="middle" >400</text>
-<text x="5" y="395" fill="lightgrey" font-size="11px" text-anchor="middle" >400</text>
+<text x="5" y="395" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >400</text>
+<text x="5" y="395" fill="lightgrey" font-size="18px" text-anchor="middle" >400</text>
 <line x1="0" y1="500" x2="1000" y2="500" stroke="lightgrey" />
-<text x="5" y="495" font-size="11px" stroke-width="6" text-anchor="middle" >500</text>
-<text x="5" y="495" fill="lightgrey" font-size="11px" text-anchor="middle" >500</text>
+<text x="5" y="495" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >500</text>
+<text x="5" y="495" fill="lightgrey" font-size="18px" text-anchor="middle" >500</text>
 <line x1="0" y1="600" x2="1000" y2="600" stroke="lightgrey" />
-<text x="5" y="595" font-size="11px" stroke-width="6" text-anchor="middle" >600</text>
-<text x="5" y="595" fill="lightgrey" font-size="11px" text-anchor="middle" >600</text>
+<text x="5" y="595" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >600</text>
+<text x="5" y="595" fill="lightgrey" font-size="18px" text-anchor="middle" >600</text>
 <line x1="0" y1="700" x2="1000" y2="700" stroke="lightgrey" />
-<text x="5" y="695" font-size="11px" stroke-width="6" text-anchor="middle" >700</text>
-<text x="5" y="695" fill="lightgrey" font-size="11px" text-anchor="middle" >700</text>
+<text x="5" y="695" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >700</text>
+<text x="5" y="695" fill="lightgrey" font-size="18px" text-anchor="middle" >700</text>
 <line x1="0" y1="800" x2="1000" y2="800" stroke="lightgrey" />
-<text x="5" y="795" font-size="11px" stroke-width="6" text-anchor="middle" >800</text>
-<text x="5" y="795" fill="lightgrey" font-size="11px" text-anchor="middle" >800</text>
+<text x="5" y="795" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >800</text>
+<text x="5" y="795" fill="lightgrey" font-size="18px" text-anchor="middle" >800</text>
 <line x1="0" y1="0" x2="0" y2="800" stroke="lightgrey" />
-<text x="5" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >0</text>
-<text x="5" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >0</text>
+<text x="5" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0</text>
+<text x="5" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >0</text>
 <line x1="100" y1="0" x2="100" y2="800" stroke="lightgrey" />
-<text x="105" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >100</text>
-<text x="105" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >100</text>
+<text x="105" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >100</text>
+<text x="105" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >100</text>
 <line x1="200" y1="0" x2="200" y2="800" stroke="lightgrey" />
-<text x="205" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >200</text>
-<text x="205" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >200</text>
+<text x="205" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >200</text>
+<text x="205" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >200</text>
 <line x1="300" y1="0" x2="300" y2="800" stroke="lightgrey" />
-<text x="305" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >300</text>
-<text x="305" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >300</text>
+<text x="305" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >300</text>
+<text x="305" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >300</text>
 <line x1="400" y1="0" x2="400" y2="800" stroke="lightgrey" />
-<text x="405" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >400</text>
-<text x="405" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >400</text>
+<text x="405" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >400</text>
+<text x="405" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >400</text>
 <line x1="500" y1="0" x2="500" y2="800" stroke="lightgrey" />
-<text x="505" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >500</text>
-<text x="505" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >500</text>
+<text x="505" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >500</text>
+<text x="505" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >500</text>
 <line x1="600" y1="0" x2="600" y2="800" stroke="lightgrey" />
-<text x="605" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >600</text>
-<text x="605" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >600</text>
+<text x="605" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >600</text>
+<text x="605" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >600</text>
 <line x1="700" y1="0" x2="700" y2="800" stroke="lightgrey" />
-<text x="705" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >700</text>
-<text x="705" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >700</text>
+<text x="705" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >700</text>
+<text x="705" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >700</text>
 <line x1="800" y1="0" x2="800" y2="800" stroke="lightgrey" />
-<text x="805" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >800</text>
-<text x="805" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >800</text>
+<text x="805" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >800</text>
+<text x="805" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >800</text>
 <line x1="900" y1="0" x2="900" y2="800" stroke="lightgrey" />
-<text x="905" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >900</text>
-<text x="905" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >900</text>
+<text x="905" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >900</text>
+<text x="905" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >900</text>
 <line x1="1000" y1="0" x2="1000" y2="800" stroke="lightgrey" />
-<text x="1005" y="15" font-size="11px" stroke-width="6" text-anchor="middle" >1000</text>
-<text x="1005" y="15" fill="lightgrey" font-size="11px" text-anchor="middle" >1000</text>
+<text x="1005" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1000</text>
+<text x="1005" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >1000</text>
 <line x1="500" y1="200" x2="400" y2="300" stroke="black" />
+<text x="450" y="250" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1</text>
+<text x="450" y="250" fill="blue" font-size="18px" text-anchor="middle" >1</text>
 <line x1="500" y1="200" x2="600" y2="300" stroke="black" />
+<text x="550" y="250" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >2</text>
+<text x="550" y="250" fill="blue" font-size="18px" text-anchor="middle" >2</text>
 <line x1="500" y1="400" x2="400" y2="300" stroke="black" />
+<text x="450" y="355" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >3</text>
+<text x="450" y="355" fill="blue" font-size="18px" text-anchor="middle" >3</text>
 <line x1="500" y1="400" x2="600" y2="300" stroke="black" />
+<text x="550" y="355" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >4</text>
+<text x="550" y="355" fill="blue" font-size="18px" text-anchor="middle" >4</text>
 <line x1="500" y1="400" x2="400" y2="500" stroke="black" />
+<text x="450" y="455" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >5</text>
+<text x="450" y="455" fill="blue" font-size="18px" text-anchor="middle" >5</text>
 <line x1="500" y1="400" x2="600" y2="500" stroke="black" />
+<text x="550" y="455" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >6</text>
+<text x="550" y="455" fill="blue" font-size="18px" text-anchor="middle" >6</text>
 <line x1="400" y1="300" x2="300" y2="600" stroke="black" />
+<text x="350" y="450" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >7</text>
+<text x="350" y="450" fill="blue" font-size="18px" text-anchor="middle" >7</text>
 <line x1="600" y1="300" x2="700" y2="600" stroke="black" />
+<text x="650" y="450" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >8</text>
+<text x="650" y="450" fill="blue" font-size="18px" text-anchor="middle" >8</text>
 <line x1="400" y1="500" x2="500" y2="500" stroke="black" />
+<text x="450" y="500" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >9</text>
+<text x="450" y="500" fill="blue" font-size="18px" text-anchor="middle" >9</text>
 <line x1="500" y1="500" x2="600" y2="500" stroke="black" />
+<text x="550" y="500" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1</text>
+<text x="550" y="500" fill="blue" font-size="18px" text-anchor="middle" >1</text>
 <line x1="600" y1="500" x2="700" y2="600" stroke="black" />
+<text x="650" y="550" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >2</text>
+<text x="650" y="550" fill="blue" font-size="18px" text-anchor="middle" >2</text>
 <line x1="400" y1="500" x2="300" y2="600" stroke="black" />
+<text x="350" y="550" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >3</text>
+<text x="350" y="550" fill="blue" font-size="18px" text-anchor="middle" >3</text>
 <circle cx="500" cy="200" r="5" fill="red" />
-<text x="495" y="190" font-size="11px" stroke-width="6" text-anchor="middle" >A</text>
-<text x="495" y="190" fill="red" font-size="11px" text-anchor="middle" >A</text>
+<text x="495" y="190" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >A</text>
+<text x="495" y="190" fill="red" font-size="18px" text-anchor="middle" >A</text>
 <circle cx="400" cy="300" r="5" fill="red" />
-<text x="395" y="290" font-size="11px" stroke-width="6" text-anchor="middle" >B</text>
-<text x="395" y="290" fill="red" font-size="11px" text-anchor="middle" >B</text>
+<text x="395" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >B</text>
+<text x="395" y="290" fill="red" font-size="18px" text-anchor="middle" >B</text>
 <circle cx="600" cy="300" r="5" fill="red" />
-<text x="595" y="290" font-size="11px" stroke-width="6" text-anchor="middle" >C</text>
-<text x="595" y="290" fill="red" font-size="11px" text-anchor="middle" >C</text>
+<text x="595" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >C</text>
+<text x="595" y="290" fill="red" font-size="18px" text-anchor="middle" >C</text>
 <circle cx="500" cy="400" r="5" fill="red" />
-<text x="495" y="390" font-size="11px" stroke-width="6" text-anchor="middle" >D</text>
-<text x="495" y="390" fill="red" font-size="11px" text-anchor="middle" >D</text>
+<text x="495" y="390" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >D</text>
+<text x="495" y="390" fill="red" font-size="18px" text-anchor="middle" >D</text>
 <circle cx="400" cy="500" r="5" fill="red" />
-<text x="395" y="490" font-size="11px" stroke-width="6" text-anchor="middle" >E</text>
-<text x="395" y="490" fill="red" font-size="11px" text-anchor="middle" >E</text>
+<text x="395" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >E</text>
+<text x="395" y="490" fill="red" font-size="18px" text-anchor="middle" >E</text>
 <circle cx="500" cy="500" r="5" fill="red" />
-<text x="495" y="490" font-size="11px" stroke-width="6" text-anchor="middle" >F</text>
-<text x="495" y="490" fill="red" font-size="11px" text-anchor="middle" >F</text>
+<text x="495" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >F</text>
+<text x="495" y="490" fill="red" font-size="18px" text-anchor="middle" >F</text>
 <circle cx="600" cy="500" r="5" fill="red" />
-<text x="595" y="490" font-size="11px" stroke-width="6" text-anchor="middle" >G</text>
-<text x="595" y="490" fill="red" font-size="11px" text-anchor="middle" >G</text>
+<text x="595" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >G</text>
+<text x="595" y="490" fill="red" font-size="18px" text-anchor="middle" >G</text>
 <circle cx="300" cy="600" r="5" fill="red" />
-<text x="295" y="590" font-size="11px" stroke-width="6" text-anchor="middle" >H</text>
-<text x="295" y="590" fill="red" font-size="11px" text-anchor="middle" >H</text>
+<text x="295" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >H</text>
+<text x="295" y="590" fill="red" font-size="18px" text-anchor="middle" >H</text>
 <circle cx="700" cy="600" r="5" fill="red" />
-<text x="695" y="590" font-size="11px" stroke-width="6" text-anchor="middle" >I</text>
-<text x="695" y="590" fill="red" font-size="11px" text-anchor="middle" >I</text>
+<text x="695" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >I</text>
+<text x="695" y="590" fill="red" font-size="18px" text-anchor="middle" >I</text>
 
 
 </svg>

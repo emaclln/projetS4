@@ -52,6 +52,32 @@ Graphe::Graphe(std::string nomFichier )
         }
 };
 
+void Graphe::remplirPoids(std::string nomFichier)
+{
+    std::ifstream ifs{nomFichier};//lecture du fichier
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+
+    int taille;
+    ifs>>taille;
+    if (ifs.fail())
+        throw std::runtime_error("Probleme lecture taille du graphe");
+    if (taille!=m_taille)
+        throw std::runtime_error("Probleme taille du graphe incompatible");
+    else
+    {
+        int indice,poids;
+        for (int i=0; i<taille;++i)
+        {
+            ifs>>indice>>poids;
+            m_arretes[indice]->remplirPoids(poids);
+        }
+    }
+
+
+
+}
+
 
 void Graphe::affichageSvg () const
 {
