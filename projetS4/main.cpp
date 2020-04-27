@@ -1,13 +1,15 @@
 
 #include <iostream>
-#include "structure/graphe.h"
+#include "structure/interface.h"
 
 int main()
 {
-	Graphe graphe{"graphe-test2.txt"};//instance de graphe
-	graphe.affichageSvg();
-	graphe.remplirPoids("ponde-test2.txt");
-	graphe.affichageSvg();
+    int indice=0;
+    Interface ensemble{indice,"graphe-test2.txt"};
+    ensemble.affichageSvg();
+    ensemble.remplirPoids("ponde-test2.txt");
+	ensemble.affichageSvg();
+
     return 0;
 }
 

@@ -34,7 +34,9 @@
 		</Compiler>
 		<Unit filename="graphisme/svgfile.cpp" />
 		<Unit filename="graphisme/svgfile.h" />
+		<Unit filename="interface.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="structure/Interface.h" />
 		<Unit filename="structure/arrete.cpp" />
 		<Unit filename="structure/arrete.h" />
 		<Unit filename="structure/coords.cpp" />

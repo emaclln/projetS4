@@ -78,6 +78,16 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
+/*void Graphe::suppArrete()
+{
+
+}
+
+void Graphe::ajoutArrete()
+{
+
+}*/
+
 
 void Graphe::affichageSvg () const
 {
@@ -137,7 +147,7 @@ void Graphe::affichageSvg () const
     ///dessin
     for (auto it : m_arretes)
         {
-            it->affichageSVG(svgout,indice,milieu);
+            it->affichageSVG(svgout,indice,milieu,m_orientation);
         }
 
     for (auto it : m_sommets)
