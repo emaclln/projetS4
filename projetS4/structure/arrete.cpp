@@ -103,9 +103,22 @@ void Arrete::remplirPoids(int& poids)
 {
     m_poids=poids;
     m_ponderation=true;
+    m_extremite[0]->set_poids(m_extremite[1], poids);
+    m_extremite[1]->set_poids(m_extremite[0], poids);
 }
 
 int Arrete::getPoids()
 {
         return m_poids;
+}
+
+int Arrete::getIndice()
+{
+    return m_indice;
+}
+
+void Arrete::suppAdjacent()
+{
+    m_extremite[0]->suppAdjacent(m_extremite[1]);
+    m_extremite[1]->suppAdjacent(m_extremite[0]);
 }

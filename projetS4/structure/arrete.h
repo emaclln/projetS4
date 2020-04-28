@@ -25,7 +25,9 @@ public :
     Arrete(int indice, Sommet* un, Sommet* deux);
     void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation)const;
     void remplirPoids(int& poids);
+    void suppAdjacent();
     int getPoids();
+    int getIndice();
 };
 
 #endif // ARRETE_H_INCLUDED

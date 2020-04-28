@@ -16,11 +16,6 @@ Sommet::Sommet(int indice, std::string nom, Coord mesCoord)
     m_marque = -1;
 }
 
-void Sommet::set_arrete(Arrete* nouvelle_adjacente)
-{
-    m_Arrete.push_back( nouvelle_adjacente);
-}
-
 void Sommet::setMarque(int selec)//donne une valeur au paramètre
 {
     m_marque = selec;
@@ -31,19 +26,29 @@ int Sommet::getMarque()
     return m_marque;
 }
 
-std::vector<Arrete*> Sommet::getArrete()
+void Sommet::set_poids(Sommet* extremite, double poids)
 {
-    return m_Arrete;
+    int compt = 0;
+    for(auto it : m_adjacent)
+    {
+        if(it.first == extremite)
+            m_adjacent.erase(m_adjacent.begin() + compt);
+            
+        compt +=1;
+    }
+    
+    m_adjacent.push_back(std::pair<Sommet*, double> (extremite, poids));
+        
 }
 
-std::vector<Sommet*> Sommet::getAdjacent()
+std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()
 {
     return m_adjacent;
 }
 
 void Sommet::set_adjacent(Sommet* nouveau)
 {
-    m_adjacent.push_back( nouveau);
+    m_adjacent.push_back(std::pair<Sommet*, double> (nouveau, 0));
 }
 
 Coord Sommet::getCoords()const
@@ -77,13 +82,13 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu)const
     }
 }
 
-void Sommet::suppAdjacent(Arrete* supprimer)
+void Sommet::suppAdjacent(Sommet* supprimer)
 {
     int compt = 0;
-    for(auto it : m_Arrete)
+    for(auto it : m_adjacent)
     {
-        if(it == supprimer)
-            m_Arrete.erase(m_Arrete.begin() + compt);
+        if(it.first == supprimer)
+            m_adjacent.erase(m_adjacent.begin() + compt);
             
         compt +=1;
     }
@@ -91,8 +96,8 @@ void Sommet::suppAdjacent(Arrete* supprimer)
 
 void Sommet::calculCd(int degre)
 {
-    m_Cd = m_Arrete.size() / (degre-1);
-    m_N_Cd = m_Arrete.size();
+    m_N_Cd = m_adjacent.size();
+    m_Cd = m_N_Cd / (degre-1);
 }
 
 void Sommet::set_Cvp(double cvp)
@@ -110,7 +115,7 @@ double Sommet::get_SommeIndice()
     double somme = 0;
     
     for(auto it : m_adjacent)
-        somme+= it->get_Cvp();
+        somme+= it.first->get_Cvp();
         
     return somme;
 }
@@ -119,11 +124,15 @@ void Sommet::set_Cp(double cp, int degre)
 {
     m_Cp = cp * (degre-1);
     m_N_Cp = cp;
-    
-    std::cout<< cp <<std::endl;
 }
 
 void Sommet::caculCi()
 {
     
+}
+
+void Sommet::afficherCentralité()
+{
+    std::cout<<m_nom<<" : "<<"Cd "<<m_Cd<<"/ Cvp "<<m_Cvp<<"/ Cp "<<m_Cp<<std::endl;
+    std::cout<<m_nom<<" : "<<"CdN "<<m_N_Cd<<"/ CpN "<<m_N_Cp<<std::endl;
 }

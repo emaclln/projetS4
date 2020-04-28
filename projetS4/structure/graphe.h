@@ -28,10 +28,11 @@ class Graphe
         void remplirPoids(std::string nomFichier);
         void suppArrete(int indice_Arrete);
         void ajoutArrete(int indice, int  extremite_un, int extremite_deux);
+        void afficherCentralité();
     
         std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
 
-        
+        void CalculCentralité();
         void calculCd();
         void calculCvp();
         void calculCp();
