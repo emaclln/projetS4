@@ -49,6 +49,10 @@ Graphe::Graphe(std::string nomFichier )
             ifs >> indice >> num1 >> num2;
 
             m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
+            m_sommets[num1]->set_adjacent(m_sommets[num2]);
+            m_sommets[num2]->set_adjacent(m_sommets[num1]);
+            m_sommets[num1]->set_arrete(m_arretes[m_sommets.size()-1]);
+            m_sommets[num2]->set_arrete(m_arretes[m_sommets.size()-1]);
         }
 };
 
@@ -62,6 +66,7 @@ void Graphe::remplirPoids(std::string nomFichier)
     ifs>>taille;
     if (ifs.fail())
         throw std::runtime_error("Probleme lecture taille du graphe");
+    
     if (taille!=m_taille)
         throw std::runtime_error("Probleme taille du graphe incompatible");
     else
@@ -78,15 +83,22 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
-/*void Graphe::suppArrete()
+void Graphe::suppArrete(int indice_Arrete)
 {
-
+    for(auto it : m_sommets)
+    {
+        it->suppAdjacent(m_arretes[indice_Arrete]);
+    }
+    
+    m_arretes.erase(m_arretes.begin() + indice_Arrete);
 }
 
-void Graphe::ajoutArrete()
+void Graphe::ajoutArrete(int indice, int  extremite_un, int extremite_deux)
 {
-
-}*/
+    m_arretes.push_back(new Arrete(indice, m_sommets[extremite_un], m_sommets[extremite_deux]));
+    m_sommets[extremite_un]->set_arrete(m_arretes[m_sommets.size()-1]);
+    m_sommets[extremite_deux]->set_arrete(m_arretes[m_sommets.size()-1]);
+}
 
 
 void Graphe::affichageSvg () const
@@ -157,3 +169,92 @@ void Graphe::affichageSvg () const
 
 }
 
+void Graphe::calculCd()
+{
+    for(auto it : m_sommets)
+        it->calculCd(m_ordre);
+}
+
+void Graphe::calculCvp()
+{
+    for(auto it : m_sommets)
+        it->set_Cvp(1);
+    
+    double ancien_lambda;
+    double lambda = 0;
+    
+    do
+    {
+        double Sindice, SsIndice = 0;
+        
+        ancien_lambda = lambda;
+        
+        for(auto it : m_sommets)
+        {
+            Sindice = it->get_SommeIndice();
+            SsIndice += Sindice*Sindice;
+        }
+        lambda = sqrt(SsIndice);
+        
+        for(auto it : m_sommets)
+            it->set_Cvp(it->get_SommeIndice() / lambda);
+    }
+    while(lambda - ancien_lambda > 1);
+}
+
+void Graphe::calculCp()
+{
+    for(auto it : m_sommets)
+    {
+        double Slongueur = 0;
+        
+        for(auto s : m_sommets)
+        {
+            std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total = disjtra(it->getId(), s->getId());
+            Slongueur += pred_I_total[m_sommets[s->getId()]].second;
+        }
+        
+        it->set_Cp((1 / Slongueur), m_ordre);
+    }
+}
+void Graphe::caculCi()
+{
+    
+}
+
+std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
+       {
+           std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+           std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
+
+           for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
+               s->setMarque(0);
+
+           maFile.push(std::make_pair(m_sommets[premier], 0) );
+           m_sommets[premier]->setMarque(1);
+
+           while(maFile.top().first->getId() == dernier)
+           {
+               int compt = 0;
+               std::pair<Sommet*,int> buffer;
+
+               buffer = maFile.top();
+               maFile.pop();
+
+               for(auto s : buffer.first->getArrete())
+               {
+                   int total = buffer.second + s->getPoids();
+
+                   if (buffer.first->getAdjacent()[compt]->getMarque() == 0 || pred_I_total[buffer.first->getAdjacent()[compt]].second > total)
+                   {
+                       buffer.first->getAdjacent()[compt]->setMarque(1);
+                       maFile.push(std::make_pair(buffer.first->getAdjacent()[compt], total));
+                       pred_I_total[buffer.first->getAdjacent()[compt]] = std::make_pair(buffer.first, total);
+                   }
+
+                   ++compt;
+               }
+           }
+           
+           return pred_I_total;
+       }

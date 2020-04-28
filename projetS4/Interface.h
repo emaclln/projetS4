@@ -1,7 +1,7 @@
 #ifndef INTERFACE_H_INCLUDED
 #define INTERFACE_H_INCLUDED
 
-#include "graphe.h"
+#include "structure/graphe.h"
 
 class Interface
 {

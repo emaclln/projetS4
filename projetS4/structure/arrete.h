@@ -20,10 +20,12 @@ private :
     float m_poids;
     bool m_ponderation; //vrai s'il y a une pondération
     std::vector<Sommet*> m_extremite; //0 départ, 1 arrivé
+    
 public :
     Arrete(int indice, Sommet* un, Sommet* deux);
     void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation)const;
     void remplirPoids(int& poids);
+    int getPoids();
 };
 
 #endif // ARRETE_H_INCLUDED

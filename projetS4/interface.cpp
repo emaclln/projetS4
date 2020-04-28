@@ -1,20 +1,19 @@
-#include "structure/Interface.h"
+#include "Interface.h"
 
-Interface::Interface(int indice, std::string nomFichier)
+Interface::Interface(int indice)
 {
     m_indice=indice;
+}
+
+void Interface::creationGraphe(std::string nomFichier)
+{
+    m_indice +=1;
     m_graphes.push_back(new Graphe {nomFichier});
 }
 
 void Interface::affichageSvg ()const
 {
     m_graphes[m_indice]->affichageSvg();
-}
-
-void Interface::ajoutGraphe(Graphe* nv)
-{
-    m_indice=m_indice+1; //on travail tj sur le dernier graphe
-    m_graphes.push_back(nv);
 }
 
 void Interface::remplirPoids(std::string nomFichier)

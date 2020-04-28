@@ -9,29 +9,55 @@
 #ifndef SOMMET_H_INCLUDED
 #define SOMMET_H_INCLUDED
 
-#include "coords.h"
-#include "../graphisme/svgfile.h"
+#include "coord.hpp"
+#include "graphisme/svgfile.h"
 
 class Arrete;
 
 class Sommet
 {
 private :
+    
     int m_indice;
+    int m_marque;
     std::string m_nom;
     Coord m_coord;
-    int m_Cvp;
-    int m_Cd;
-    int m_Cp;
-    int m_Ci;
-    std::vector<Arrete*> m_adjacent;
+    
+    std::vector<Arrete*> m_Arrete;
+    std::vector<Sommet*> m_adjacent;
+    
+    double m_Cvp;
+    float m_Cd;
+    double m_Cp;
+    float m_Ci;
+    float m_N_Cvp;
+    float m_N_Cd;
+    double m_N_Cp;
+    float m_N_Ci;
 
 public :
     Sommet(int indice, std::string nom, Coord mesCoord);
+    
+    void set_arrete(Arrete* nouvelle_adjacente);
+    void set_adjacent(Sommet* nouveau);
+    void set_Cvp(double cvp);
+    void set_Cp(double cp, int degre);
+    void setMarque(int selec);
+    
+    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu)const;
+    void suppAdjacent(Arrete* supprimer);
+    void calculCd(int degre);
+    void caculCi();
+    
     Coord getCoords()const;
     std::string getNom()const;
-    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu)const;
-
+    std::vector<Arrete*> getArrete();
+    std::vector<Sommet*> getAdjacent();
+    int getMarque();
+    int getId()const;
+    double get_SommeIndice();
+    double get_Cvp();
+    
 };
 
 #endif // SOMMET_H_INCLUDED

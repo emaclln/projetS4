@@ -17,7 +17,7 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
-void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orienttation)const
+void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const
 {
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
     {
@@ -25,11 +25,10 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
         int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
         svgout.addLine(500,400,500-ecart_x1,400-ecart_y1,"black");
 
-        if (orienttation) //s'il est orienté
+        if (orientation) //s'il est orienté
         {
             //extremité 0 vers 1
-
-
+            
         }
 
         if (m_ponderation)//affichage poids
@@ -49,10 +48,9 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
             int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
             svgout.addLine(500,400,500-ecart_x0,400-ecart_y0,"black");
 
-            if (orienttation) //s'il est orienté
+            if (orientation) //s'il est orienté
             {
                 //extremité 0 vers 1
-
 
             }
 
@@ -90,7 +88,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
                 svgout.addText(milieu_arrete_x,milieu_arrete_y,m_poids,"blue");
             }
 
-            if (orienttation) //s'il est orienté
+            if (orientation) //s'il est orienté
             {
                 //extremité 0 vers 1
 
@@ -105,4 +103,9 @@ void Arrete::remplirPoids(int& poids)
 {
     m_poids=poids;
     m_ponderation=true;
+}
+
+int Arrete::getPoids()
+{
+        return m_poids;
 }
