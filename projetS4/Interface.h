@@ -10,9 +10,12 @@ private :
     std::vector <Graphe*> m_graphes;
 public :
     Interface(int indice, std::string nomFichier);
+	Interface();
+	void initialisation ();
     void affichageSvg ()const;
     void ajoutGraphe(Graphe* nv);
     void remplirPoids(std::string nomFichier);
+	void remplirFichier(std::string nomFichier);
 };
 
 
