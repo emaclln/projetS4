@@ -134,6 +134,8 @@ int gererCommande(std::string& commande,Interface& monInterface)
                             nom_extremite2+=commande[i];
                         }
                         ///creation par copie
+                        monInterface.ajoutGraphe();
+                        monInterface.affichageSvg();
                         ///suppression de l'arrete
                     }
                     else
@@ -162,18 +164,22 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
                 changerCouleurConsole(4); //blanc
             }
+            actionTrouvee=true;
 
         }
         if (commande.find("test connexite")!=std::string::npos)
         {
+            actionTrouvee=true;
 
         }
         if (commande.find("comparaison")!=std::string::npos)
         {
+            actionTrouvee=true;
 
         }
         if (commande.find("retour")!=std::string::npos)
         {
+            actionTrouvee=true;
 
         }
         if (commande.find("ajout graphe")!=std::string::npos)
@@ -199,6 +205,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
                 changerCouleurConsole(4); //blanc
             }
+            actionTrouvee=true;
 
         }
         if (commande.find("help")!=std::string::npos)  // afficher les commandes

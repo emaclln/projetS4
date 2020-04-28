@@ -1,16 +1,6 @@
 #include "Interface.h"
 
-Interface::Interface(int indice)
-{
-    m_indice=indice;
-}
 
-void Interface::creationGraphe(std::string nomFichier)
-{
-    m_indice +=1;
-    m_graphes.push_back(new Graphe {nomFichier});
-	
-}
 
 Interface::Interface()
 {
@@ -21,6 +11,15 @@ void Interface::initialisation ()
 {
     m_indice=0;
 }
+
+void Interface::ajoutGraphe()
+{
+    Graphe* nv= new Graphe{m_graphes[m_indice]};
+    m_graphes.push_back(nv);
+    m_indice +=1;
+}
+
+
 
 void Interface::remplirFichier(std::string nomFichier)
 {

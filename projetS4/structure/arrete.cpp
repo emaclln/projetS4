@@ -17,6 +17,20 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
+Arrete::Arrete (Arrete* mere)
+{
+    m_indice=mere->getIndice();
+    m_poids=mere->getPoids();
+    m_ponderation=mere->getPonde();
+    std::map<Sommet*,Sommet*> transpose_s;
+    for (size_t i= 0;i<mere->m_extremite.size();++i)
+    {
+        Sommet* nv =new Sommet{mere->m_extremite[i]};
+        m_extremite.push_back(nv);
+        transpose_s[mere->m_extremite[i]]=nv;
+    }
+}
+
 void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const
 {
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
@@ -28,7 +42,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
         if (orientation) //s'il est orienté
         {
             //extremité 0 vers 1
-            
+
         }
 
         if (m_ponderation)//affichage poids
@@ -107,12 +121,12 @@ void Arrete::remplirPoids(int& poids)
     m_extremite[1]->set_poids(m_extremite[0], poids);
 }
 
-int Arrete::getPoids()
+int Arrete::getPoids()const
 {
         return m_poids;
 }
 
-int Arrete::getIndice()
+int Arrete::getIndice()const
 {
     return m_indice;
 }
@@ -121,4 +135,14 @@ void Arrete::suppAdjacent()
 {
     m_extremite[0]->suppAdjacent(m_extremite[1]);
     m_extremite[1]->suppAdjacent(m_extremite[0]);
+}
+
+bool Arrete::getPonde() const
+{
+    return m_ponderation;
+}
+
+std::vector<Sommet*> Arrete::getExtremite()const
+{
+    return m_extremite;
 }

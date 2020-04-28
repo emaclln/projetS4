@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "structure/interface.h"
+#include "Interface.h"
 #include "gestion console/menu.h"
 
 int main()

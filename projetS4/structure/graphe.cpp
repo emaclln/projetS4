@@ -54,6 +54,46 @@ Graphe::Graphe(std::string nomFichier )
         }
 };
 
+Graphe::Graphe(Graphe* mere)
+{
+    m_orientation=mere->getOrientation();
+    m_ordre=mere->getOrdre();
+    m_taille=mere->getTaille();
+
+    std::map<Sommet*,Sommet*> transpose_s;
+    for (size_t i= 0;i<mere->m_sommets.size();++i)
+    {
+        Sommet* nv =new Sommet{mere->m_sommets[i]};
+        m_sommets.push_back(nv);
+        transpose_s[mere->m_sommets[i]]=nv;
+    }
+    std::map<Arrete*,Arrete*> transpose_a;
+    for (size_t i= 0;i<mere->m_arretes.size();++i)
+    {
+        Arrete* nv =new Arrete{mere->m_arretes[i]};
+        m_arretes.push_back(nv);
+        transpose_a[mere->m_arretes[i]]=nv;
+    }
+
+}
+
+
+
+bool Graphe::getOrientation()const
+{
+    return m_orientation;
+}
+
+int Graphe::getOrdre()const
+{
+    return m_ordre;
+}
+
+int Graphe::getTaille()const
+{
+    return m_taille;
+}
+
 void Graphe::remplirPoids(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
@@ -64,7 +104,7 @@ void Graphe::remplirPoids(std::string nomFichier)
     ifs>>taille;
     if (ifs.fail())
         throw std::runtime_error("Probleme lecture taille du graphe");
-    
+
     if (taille!=m_taille)
         throw std::runtime_error("Probleme taille du graphe incompatible");
     else
@@ -179,23 +219,23 @@ void Graphe::calculCvp()
 {
     for(auto it : m_sommets)
         it->set_Cvp(1);
-    
+
     double ancien_lambda;
     double lambda = 0;
-    
+
     do
     {
         double Sindice, SsIndice = 0;
-        
+
         ancien_lambda = lambda;
-        
+
         for(auto it : m_sommets)
         {
             Sindice = it->get_SommeIndice();
             SsIndice += Sindice*Sindice;
         }
         lambda = sqrt(SsIndice);
-        
+
         for(auto it : m_sommets)
             it->set_Cvp(it->get_SommeIndice() / lambda);
     }
@@ -207,19 +247,19 @@ void Graphe::calculCp()
     for(auto it : m_sommets)
     {
         double Slongueur = 0;
-        
+
         for(auto s : m_sommets)
         {
             std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total = disjtra(it->getId(), s->getId());
             Slongueur += pred_I_total[m_sommets[s->getId()]].second;
         }
-        
+
         it->set_Cp(1/Slongueur, m_ordre);
     }
 }
 void Graphe::caculCi()
 {
-    
+
 }
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
@@ -255,17 +295,17 @@ std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int der
                ++compt;
            }
        }
-       
+
        return pred_I_total;
 }
 
-void Graphe::afficherCentralité()
+void Graphe::afficherCentralite()
 {
     for(auto it : m_sommets)
-        it->afficherCentralité();
+        it->afficherCentralite();
 }
 
-void Graphe::CalculCentralité()
+void Graphe::CalculCentralite()
 {
     calculCd();
     calculCvp();

@@ -16,6 +16,23 @@ Sommet::Sommet(int indice, std::string nom, Coord mesCoord)
     m_marque = -1;
 }
 
+Sommet::Sommet (Sommet* mere)
+{
+    m_indice=mere->getId();
+    m_nom=mere->getNom();
+    m_coord=mere->getCoords();
+    m_marque=mere->getMarque();
+    std::map<std::pair<Sommet*, double >,std::pair<Sommet*, double >> transpose;
+    for (size_t i= 0;i<mere->m_adjacent.size();++i)
+    {
+        Sommet* nv_s =new Sommet{mere->m_adjacent[i].first};
+        double nv=m_adjacent[i].second;
+        m_adjacent[i].first=nv_s;
+        transpose[mere->m_adjacent[i]]=std::make_pair(nv_s,nv);
+    }
+
+}
+
 void Sommet::setMarque(int selec)//donne une valeur au paramètre
 {
     m_marque = selec;
@@ -33,12 +50,12 @@ void Sommet::set_poids(Sommet* extremite, double poids)
     {
         if(it.first == extremite)
             m_adjacent.erase(m_adjacent.begin() + compt);
-            
+
         compt +=1;
     }
-    
+
     m_adjacent.push_back(std::pair<Sommet*, double> (extremite, poids));
-        
+
 }
 
 std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()
@@ -89,7 +106,7 @@ void Sommet::suppAdjacent(Sommet* supprimer)
     {
         if(it.first == supprimer)
             m_adjacent.erase(m_adjacent.begin() + compt);
-            
+
         compt +=1;
     }
 }
@@ -113,10 +130,10 @@ double Sommet::get_Cvp()
 double Sommet::get_SommeIndice()
 {
     double somme = 0;
-    
+
     for(auto it : m_adjacent)
         somme+= it.first->get_Cvp();
-        
+
     return somme;
 }
 
@@ -128,10 +145,10 @@ void Sommet::set_Cp(double cp, int degre)
 
 void Sommet::caculCi()
 {
-    
+
 }
 
-void Sommet::afficherCentralité()
+void Sommet::afficherCentralite()
 {
     std::cout<<m_nom<<" : "<<"Cd "<<m_Cd<<"/ Cvp "<<m_Cvp<<"/ Cp "<<m_Cp<<std::endl;
     std::cout<<m_nom<<" : "<<"CdN "<<m_N_Cd<<"/ CpN "<<m_N_Cp<<std::endl;
