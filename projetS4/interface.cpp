@@ -1,4 +1,4 @@
-#include "structure/Interface.h"
+#include "Interface.h"
 
 Interface::Interface(int indice, std::string nomFichier)
 {
@@ -6,9 +6,28 @@ Interface::Interface(int indice, std::string nomFichier)
     m_graphes.push_back(new Graphe {nomFichier});
 }
 
+Interface::Interface()
+{
+    initialisation();
+}
+
+void Interface::initialisation ()
+{
+    m_indice=0;
+    for (auto it : m_graphes)
+        it=nullptr;
+
+}
+
+void Interface::remplirFichier(std::string nomFichier)
+{
+    m_graphes.push_back(new Graphe {nomFichier});
+}
+
 void Interface::affichageSvg ()const
 {
-    m_graphes[m_indice]->affichageSvg();
+    if (!m_graphes.empty())
+        m_graphes[m_indice]->affichageSvg();
 }
 
 void Interface::ajoutGraphe(Graphe* nv)
@@ -19,5 +38,7 @@ void Interface::ajoutGraphe(Graphe* nv)
 
 void Interface::remplirPoids(std::string nomFichier)
 {
-    m_graphes[m_indice]->remplirPoids(nomFichier);
+    if (!m_graphes.empty())
+        m_graphes[m_indice]->remplirPoids(nomFichier);
 }
+

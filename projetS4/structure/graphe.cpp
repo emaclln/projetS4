@@ -78,15 +78,16 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
-/*void Graphe::suppArrete()
-{
-
-}
-
-void Graphe::ajoutArrete()
-{
-
-}*/
+//void Graphe::suppArrete()
+//{
+//
+//
+//}
+//
+//void Graphe::ajoutArrete()
+//{
+//
+//}
 
 
 void Graphe::affichageSvg () const

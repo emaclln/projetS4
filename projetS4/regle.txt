@@ -1,0 +1,9 @@
+BIENVENUE ! Voici vos commandes :
+< > load "nom du fichier"
+< > load ponderation "nom du fichier"
+< > calcul indices
+< > supp (A-B) -> supprime l'arrete A-B
+< > comparaison -> compare les indices
+< > retour 
+< > ajout graphe "nom fichier"
+<
