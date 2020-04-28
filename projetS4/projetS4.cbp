@@ -43,6 +43,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="structure/arrete.cpp" />
 		<Unit filename="structure/arrete.h" />
+		<Unit filename="structure/compare.h" />
 		<Unit filename="structure/coords.cpp" />
 		<Unit filename="structure/coords.h" />
 		<Unit filename="structure/graphe.cpp" />

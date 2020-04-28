@@ -14,9 +14,6 @@ Interface::Interface()
 void Interface::initialisation ()
 {
     m_indice=0;
-    for (auto it : m_graphes)
-        it=nullptr;
-
 }
 
 void Interface::remplirFichier(std::string nomFichier)
