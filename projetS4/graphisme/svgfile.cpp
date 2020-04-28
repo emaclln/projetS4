@@ -1,3 +1,7 @@
+
+/// CODE RECUPERE DES TPS S3, écrit par M.FERCOQ ///
+
+
 #include "svgfile.h"
 #include <iostream>
 #include <sstream>
@@ -135,10 +139,10 @@ void Svgfile::addText(double x, double y, std::string text, std::string color)
     m_ostrm << "<text "
             << attrib("x", x)
             << attrib("y", y)
-            << attrib("stroke", "#FCF800")
-            << attrib("stroke-opacity", "0.7")
-            << attrib("font-size", "11px")
-            << attrib("stroke-width", "6")
+            << attrib("stroke", "#ffffff")
+            << attrib("stroke-opacity", "1")
+            << attrib("font-size", "18px")
+            << attrib("stroke-width", "8")
             << attrib("text-anchor", "middle")
             << ">" << text << "</text>\n";
 
@@ -146,7 +150,7 @@ void Svgfile::addText(double x, double y, std::string text, std::string color)
             << attrib("x", x)
             << attrib("y", y)
             << attrib("fill", color)
-            << attrib("font-size", "11px")
+            << attrib("font-size", "18px")
             << attrib("text-anchor", "middle")
             << ">" << text << "</text>\n";
 }

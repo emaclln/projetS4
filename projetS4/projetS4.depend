@@ -1,26 +1,26 @@
 # depslib dependency file v1.0
-1587975568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
+1588002049 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.cpp
 	"svgfile.h"
 	<iostream>
 	<sstream>
 
-1587975568 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
+1587984855 c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\svgfile.h
 	<string>
 	<fstream>
 	<set>
 
-1587975568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
+1588013208 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
 	<iostream>
-	"graphisme/svgfile.h"
+	"structure/interface.h"
 
 1587937133 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\couleur.cpp
 	<iostream>
 	<string>
 
-1587976568 source:c:\users\emmac\documents\github\versionning\projets4\projets4\coords.cpp
+1587978997 source:c:\users\emmac\documents\github\versionning\projets4\projets4\coords.cpp
 	"coords.h"
 
-1587976104 c:\users\emmac\documents\github\versionning\projets4\projets4\coords.h
+1587979003 c:\users\emmac\documents\github\versionning\projets4\projets4\coords.h
 	<iostream>
 	<iomanip>
 	<fstream>
@@ -31,4 +31,67 @@
 	<cmath>
 	<stack>
 	<map>
+
+1587978297 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\affichagesvg.cpp
+
+1587978489 c:\users\emmac\documents\github\versionning\projets4\projets4\graphe.h
+	"arrete.h"
+
+1587983099 c:\users\emmac\documents\github\versionning\projets4\projets4\arrete.h
+	"sommet.h"
+
+1587983099 c:\users\emmac\documents\github\versionning\projets4\projets4\sommet.h
+	"coords.h"
+	"graphisme/svgfile.h"
+
+1587983109 source:c:\users\emmac\documents\github\versionning\projets4\projets4\sommet.cpp
+	"sommet.h"
+
+1587983099 source:c:\users\emmac\documents\github\versionning\projets4\projets4\arrete.cpp
+	"arrete.h"
+	"graphisme/svgfile.h"
+
+1587983099 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphe.cpp
+	"graphe.h"
+	"graphisme/svgfile.h"
+
+1587992986 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.cpp
+	"coords.h"
+
+1587991103 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\coords.h
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string>
+	<vector>
+	<queue>
+	<algorithm>
+	<cmath>
+	<stack>
+	<map>
+
+1587992986 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.cpp
+	"sommet.h"
+
+1587992986 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.h
+	"coords.h"
+	"../graphisme/svgfile.h"
+
+1588011324 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.cpp
+	"arrete.h"
+
+1588009935 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.h
+	"sommet.h"
+
+1588002049 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.h
+	"arrete.h"
+
+1588009880 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.cpp
+	"graphe.h"
+
+1588013164 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\interface.h
+	"graphe.h"
+
+1588013170 source:c:\users\emmac\documents\github\versionning\projets4\projets4\interface.cpp
+	"structure/Interface.h"
 

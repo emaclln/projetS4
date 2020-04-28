@@ -1,16 +1,18 @@
 
 #include <iostream>
-#include "graphisme/svgfile.h"
-#include "graphe.h"
+#include "structure/interface.h"
 
 int main()
 {
-    Svgfile plan;
-    plan.addLine(20,70,80,90,"blue");
-	Graphe graphe{"graphe.txt"};//instance de graphe
-    std::cout << "Hello world!" << std::endl;
+    int indice=0;
+    Interface ensemble{indice,"graphe-test2.txt"};
+    ensemble.affichageSvg();
+    ensemble.remplirPoids("ponde-test2.txt");
+	ensemble.affichageSvg();
+
     return 0;
 }
+
 
 
 

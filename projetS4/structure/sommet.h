@@ -9,26 +9,52 @@
 #ifndef SOMMET_H_INCLUDED
 #define SOMMET_H_INCLUDED
 
-#include "coords.h"
+#include "coord.hpp"
+#include "graphisme/svgfile.h"
 
-
-class Arrete;
 
 class Sommet
 {
 private :
+    
     int m_indice;
+    int m_marque;
     std::string m_nom;
     Coord m_coord;
-    int m_Cvp;
-    int m_Cd;
-    int m_Cp;
-    int m_Ci;
-    std::vector<Arrete*> m_adjacent;
+    
+    std::vector< std::pair<Sommet*, double >> m_adjacent;
+    
+    double m_Cvp;
+    double m_Cd;
+    double m_Cp;
+    double m_Ci;
+    double m_N_Cd;
+    double m_N_Cp;
+    double m_N_Ci;
 
 public :
     Sommet(int indice, std::string nom, Coord mesCoord);
-
+    
+    void set_adjacent(Sommet* nouveau);
+    void set_poids(Sommet* extremite, double poids);
+    void set_Cvp(double cvp);
+    void set_Cp(double cp, int degre);
+    void setMarque(int selec);
+    
+    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu)const;
+    void suppAdjacent(Sommet* supprimer);
+    void calculCd(int degre);
+    void caculCi();
+    void afficherCentralité();
+    
+    Coord getCoords()const;
+    std::string getNom()const;
+    std::vector< std::pair<Sommet*, double >> getAdjacent();
+    int getMarque();
+    int getId()const;
+    double get_SommeIndice();
+    double get_Cvp();
+    
 };
 
 #endif // SOMMET_H_INCLUDED
