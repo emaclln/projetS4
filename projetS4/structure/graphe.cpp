@@ -94,7 +94,7 @@ int Graphe::getTaille()const
     return m_taille;
 }
 
-void Graphe::remplirPoids(std::string nomFichier)
+void Graphe::remplirPoids(std::string& nomFichier)
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
     if (!ifs)
@@ -121,17 +121,26 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
-void Graphe::suppArrete(int indice_Arrete)
+void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
+    int indice_arrete;
+    bool trouvee=false;
     for(auto it : m_arretes)
     {
-        if(it->getIndice() == indice_Arrete)
+        if(it->trouveeArrete(s1,s2))
         {
+            indice_arrete=it->getIndice();
             it->suppAdjacent();
-            m_arretes.erase(m_arretes.begin() + indice_Arrete);
+            m_arretes.erase(m_arretes.begin() + indice_arrete);
+            trouvee=true;
         }
     }
+    if (!trouvee)
+    {
+        std::cout<<std::endl<<"Arrete introuvable";
+    }
 }
+
 
 void Graphe::ajoutArrete(int indice, int  extremite_un, int extremite_deux)
 {

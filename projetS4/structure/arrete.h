@@ -31,6 +31,7 @@ public :
     int getIndice()const;
     bool getPonde()const;
     std::vector<Sommet*> getExtremite()const;
+    bool trouveeArrete(std::string& s1, std::string& s2);
 };
 
 #endif // ARRETE_H_INCLUDED

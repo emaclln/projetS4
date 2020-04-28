@@ -5,7 +5,7 @@
 
 int main()
 {
-    affichageCommande();
+    //affichageCommande();
 
     int autoCin=1;
     do

@@ -27,13 +27,15 @@ class Graphe
         Graphe(std::string nomFichier);//constructeur de graphe
         Graphe(Graphe* mere);
         void affichageSvg () const;
-        void remplirPoids(std::string nomFichier);
-        void suppArrete(int indice_Arrete);
+        void remplirPoids(std::string& nomFichier);
+        void suppArrete(std::string& s1, std::string& s2);
         void ajoutArrete(int indice, int  extremite_un, int extremite_deux);
         void afficherCentralite();
         int getOrdre()const;
         bool getOrientation()const;
         int getTaille()const;
+
+
 
         std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
 

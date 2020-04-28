@@ -13,7 +13,7 @@ public :
 	Interface();
 	void initialisation ();
     void affichageSvg ()const;
-    void ajoutGraphe();
+    void ajoutGraphe(std::string& s1,std::string& s2);
     void remplirPoids(std::string nomFichier);
 	void remplirFichier(std::string nomFichier);
 

@@ -12,11 +12,12 @@ void Interface::initialisation ()
     m_indice=0;
 }
 
-void Interface::ajoutGraphe()
+void Interface::ajoutGraphe(std::string& s1,std::string& s2)
 {
     Graphe* nv= new Graphe{m_graphes[m_indice]};
     m_graphes.push_back(nv);
     m_indice +=1;
+    m_graphes[m_indice]->suppArrete(s1,s2);
 }
 
 

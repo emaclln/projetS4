@@ -22,13 +22,18 @@ Sommet::Sommet (Sommet* mere)
     m_nom=mere->getNom();
     m_coord=mere->getCoords();
     m_marque=mere->getMarque();
-    std::map<std::pair<Sommet*, double >,std::pair<Sommet*, double >> transpose;
+    std::map<Sommet*,Sommet*> transpose;
     for (size_t i= 0;i<mere->m_adjacent.size();++i)
     {
-        Sommet* nv_s =new Sommet{mere->m_adjacent[i].first};
-        double nv=m_adjacent[i].second;
-        m_adjacent[i].first=nv_s;
-        transpose[mere->m_adjacent[i]]=std::make_pair(nv_s,nv);
+        Sommet* nv =new Sommet{mere->m_adjacent[i].first};
+        m_adjacent[i].first=nv;
+        transpose[mere->m_adjacent[i].first]=nv;
+        std::cout<<std::endl<<"1";
+    }
+    for (size_t i= 0;i<mere->m_adjacent.size();++i)
+    {
+        double nv=mere->m_adjacent[i].second;
+         m_adjacent[i].second=nv;
     }
 
 }
@@ -101,14 +106,15 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu)const
 
 void Sommet::suppAdjacent(Sommet* supprimer)
 {
-    int compt = 0;
-    for(auto it : m_adjacent)
-    {
-        if(it.first == supprimer)
-            m_adjacent.erase(m_adjacent.begin() + compt);
-
-        compt +=1;
-    }
+//    int compt = 0;
+//    for(auto it : m_adjacent)
+//    {
+//        if(it.first == supprimer)
+//            m_adjacent.erase(m_adjacent.begin() + compt);
+//
+//        compt +=1;
+//    }
+//    std::cout<<std::endl<<"2";
 }
 
 void Sommet::calculCd(int degre)
