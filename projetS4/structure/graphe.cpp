@@ -12,46 +12,46 @@ Graphe::Graphe(std::string nomFichier )
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
-           if (!ifs)
-               throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
 
     ifs >> m_orientation;
     if ( ifs.fail() )
-    throw std::runtime_error("Probleme lecture orientation du graphe");
+        throw std::runtime_error("Probleme lecture orientation du graphe");
 
     ifs >> m_ordre;
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
 
     for (int i=0; i<m_ordre; ++i)
-        {
-            int indice;
-            std::string nom;
-            Coord mesCoord;
-            int x;
-            int y;
+    {
+        int indice;
+        std::string nom;
+        Coord mesCoord;
+        int x;
+        int y;
 
-            ifs >> indice >> nom >> x >> y;
+        ifs >> indice >> nom >> x >> y;
 
-            mesCoord.set_coord(x,y);
+        mesCoord.set_coord(x,y);
 
         m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
-        }
+    }
 
     ifs >> m_taille;
 
     for (int i=0; i<m_taille; ++i)
-        {
-            int indice;
-            int num1;
-            int num2;
+    {
+        int indice;
+        int num1;
+        int num2;
 
-            ifs >> indice >> num1 >> num2;
+        ifs >> indice >> num1 >> num2;
 
-            m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
-            m_sommets[num1]->set_adjacent(m_sommets[num2]);
-            m_sommets[num2]->set_adjacent(m_sommets[num1]);
-        }
+        m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
+        m_sommets[num1]->set_adjacent(m_sommets[num2]);
+        m_sommets[num2]->set_adjacent(m_sommets[num1]);
+    }
 };
 
 Graphe::Graphe(Graphe* mere)
@@ -61,19 +61,35 @@ Graphe::Graphe(Graphe* mere)
     m_taille=mere->getTaille();
 
     std::map<Sommet*,Sommet*> transpose_s;
-    for (size_t i= 0;i<mere->m_sommets.size();++i)
+    for (size_t i= 0; i<mere->m_sommets.size(); ++i)
     {
         Sommet* nv =new Sommet{mere->m_sommets[i]};
         m_sommets.push_back(nv);
         transpose_s[mere->m_sommets[i]]=nv;
     }
     std::map<Arrete*,Arrete*> transpose_a;
-    for (size_t i= 0;i<mere->m_arretes.size();++i)
+    for (size_t i= 0; i<mere->m_arretes.size(); ++i)
     {
         Arrete* nv =new Arrete{mere->m_arretes[i]};
         m_arretes.push_back(nv);
         transpose_a[mere->m_arretes[i]]=nv;
     }
+
+    //remplir les adjances sommets
+    std::vector<Sommet*> temp;
+    int num1,num2,poids;
+    for (auto it : m_arretes)
+    {
+        temp=it->getExtremite();
+        num1=temp[0]->getId();
+        num2=temp[1]->getId();
+        poids=it->getPoids();
+        m_sommets[num1]->set_adjacent(m_sommets[num2]);
+        m_sommets[num1]->set_poids(m_sommets[num2],poids);
+        m_sommets[num2]->set_adjacent(m_sommets[num1]);
+        m_sommets[num2]->set_poids(m_sommets[num1],poids);
+    }
+
 
 }
 
@@ -110,7 +126,7 @@ void Graphe::remplirPoids(std::string& nomFichier)
     else
     {
         int indice,poids;
-        for (int i=0; i<taille;++i)
+        for (int i=0; i<taille; ++i)
         {
             ifs>>indice>>poids;
             m_arretes[indice]->remplirPoids(poids);
@@ -125,12 +141,13 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
     int indice_arrete;
     bool trouvee=false;
-    for(auto it : m_arretes)
+    for(size_t i=0;i<m_arretes.size();++i)
     {
-        if(it->trouveeArrete(s1,s2))
+        if(m_arretes[i]->trouveeArrete(s1,s2))
         {
-            indice_arrete=it->getIndice();
-            it->suppAdjacent();
+            indice_arrete=m_arretes[i]->getIndice();
+            m_arretes[i]->suppAdjacent();
+            delete m_arretes[i];
             m_arretes.erase(m_arretes.begin() + indice_arrete);
             trouvee=true;
         }
@@ -207,9 +224,9 @@ void Graphe::affichageSvg () const
 
     ///dessin
     for (auto it : m_arretes)
-        {
-            it->affichageSVG(svgout,indice,milieu,m_orientation);
-        }
+    {
+        it->affichageSVG(svgout,indice,milieu,m_orientation);
+    }
 
     for (auto it : m_sommets)
     {
@@ -273,39 +290,39 @@ void Graphe::caculCi()
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
 {
-       std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
-       std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
+    std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+    std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
 
-       for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
-           s->setMarque(0);
+    for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
+        s->setMarque(0);
 
-       maFile.push(std::make_pair(m_sommets[premier], 0) );
-       m_sommets[premier]->setMarque(1);
+    maFile.push(std::make_pair(m_sommets[premier], 0) );
+    m_sommets[premier]->setMarque(1);
 
-       while(!maFile.empty())
-       {
-           int compt = 0;
-           std::pair<Sommet*,int> buffer;
+    while(!maFile.empty())
+    {
+        int compt = 0;
+        std::pair<Sommet*,int> buffer;
 
-           buffer = maFile.top();
-           maFile.pop();
+        buffer = maFile.top();
+        maFile.pop();
 
-           for(auto s : buffer.first->getAdjacent())
-           {
-               int total = buffer.second + s.second;
+        for(auto s : buffer.first->getAdjacent())
+        {
+            int total = buffer.second + s.second;
 
-               if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
-               {
-                   s.first->setMarque(1);
-                   maFile.push(std::make_pair(s.first, total));
-                   pred_I_total[s.first] = std::make_pair(buffer.first, total);
-               }
+            if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
+            {
+                s.first->setMarque(1);
+                maFile.push(std::make_pair(s.first, total));
+                pred_I_total[s.first] = std::make_pair(buffer.first, total);
+            }
 
-               ++compt;
-           }
-       }
+            ++compt;
+        }
+    }
 
-       return pred_I_total;
+    return pred_I_total;
 }
 
 void Graphe::afficherCentralite()
@@ -319,4 +336,35 @@ void Graphe::CalculCentralite()
     calculCd();
     calculCvp();
     calculCp();
+}
+
+void Graphe::afficherListeAdjacence()const
+{
+    std::cout<<std::endl
+             <<"Liste d'adjacence :";
+    for (auto it : m_sommets)
+        it->afficherListeAdjacence();
+}
+void Graphe::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<"Graphe (format fichier):"
+             <<std::endl<<m_orientation
+             <<std::endl<<m_ordre;
+    for (auto it : m_sommets)
+        it->afficherConsole();
+    std::cout<<std::endl<<m_taille;
+    for (auto it : m_arretes)
+        it->afficherConsole();
+
+
+
+}
+
+Graphe::~Graphe()
+{
+    for (auto it : m_sommets)
+        delete it;
+    for (auto it : m_arretes)
+        delete it;
 }

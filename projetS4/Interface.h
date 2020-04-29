@@ -11,11 +11,15 @@ private :
 public :
     Interface(int indice, std::string nomFichier);
 	Interface();
+	~Interface();
 	void initialisation ();
     void affichageSvg ()const;
-    void ajoutGraphe(std::string& s1,std::string& s2);
+    void ajoutGraphe();
     void remplirPoids(std::string nomFichier);
 	void remplirFichier(std::string nomFichier);
+	void afficherListeAdjacence()const;
+	void afficherConsole()const;
+	void suppArrete(std::string& s1,std::string& s2);
 
 };
 

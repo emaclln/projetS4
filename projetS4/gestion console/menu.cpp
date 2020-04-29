@@ -134,7 +134,8 @@ int gererCommande(std::string& commande,Interface& monInterface)
                             nom_extremite2+=commande[i];
                         }
                         ///creation par copie
-                        monInterface.ajoutGraphe(nom_extremite1,nom_extremite2);
+                        monInterface.ajoutGraphe();
+                        monInterface.suppArrete(nom_extremite1,nom_extremite2);
                         ///suppression de l'arrete
                     }
                     else

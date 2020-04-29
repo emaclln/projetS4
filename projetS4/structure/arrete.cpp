@@ -23,12 +23,13 @@ Arrete::Arrete (Arrete* mere)
     m_poids=mere->getPoids();
     m_ponderation=mere->getPonde();
     std::map<Sommet*,Sommet*> transpose_s;
-    for (size_t i= 0;i<mere->m_extremite.size();++i)
+    for (size_t i= 0; i<mere->m_extremite.size(); ++i)
     {
         Sommet* nv =new Sommet{mere->m_extremite[i]};
         m_extremite.push_back(nv);
         transpose_s[mere->m_extremite[i]]=nv;
     }
+
 }
 
 void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const
@@ -123,7 +124,7 @@ void Arrete::remplirPoids(int& poids)
 
 int Arrete::getPoids()const
 {
-        return m_poids;
+    return m_poids;
 }
 
 int Arrete::getIndice()const
@@ -161,3 +162,13 @@ bool Arrete::trouveeArrete(std::string& s1, std::string& s2)
         temp=true;
     return temp;
 }
+
+void Arrete::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<m_indice<<" ";
+    for (auto it : m_extremite)
+        std::cout<<it->getId()<<" ";
+
+}
+

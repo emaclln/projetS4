@@ -22,19 +22,20 @@ Sommet::Sommet (Sommet* mere)
     m_nom=mere->getNom();
     m_coord=mere->getCoords();
     m_marque=mere->getMarque();
-    std::map<Sommet*,Sommet*> transpose;
-    for (size_t i= 0;i<mere->m_adjacent.size();++i)
-    {
-        Sommet* nv =new Sommet{mere->m_adjacent[i].first};
-        m_adjacent[i].first=nv;
-        transpose[mere->m_adjacent[i].first]=nv;
-        std::cout<<std::endl<<"1";
-    }
-    for (size_t i= 0;i<mere->m_adjacent.size();++i)
-    {
-        double nv=mere->m_adjacent[i].second;
-         m_adjacent[i].second=nv;
-    }
+
+//    std::map<Sommet*,Sommet*> transpose;
+//    for (size_t i= 0;i<mere->m_adjacent.size();++i)
+//    {
+//        Sommet* nv =new Sommet{mere->m_adjacent[i].first};
+//        m_adjacent[i].first=nv;
+//        transpose[mere->m_adjacent[i].first]=nv;
+//        std::cout<<std::endl<<"1";
+//    }
+//    for (size_t i= 0;i<mere->m_adjacent.size();++i)
+//    {
+//        double nv=mere->m_adjacent[i].second;
+//         m_adjacent[i].second=nv;
+//    }
 
 }
 
@@ -106,15 +107,19 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu)const
 
 void Sommet::suppAdjacent(Sommet* supprimer)
 {
-//    int compt = 0;
-//    for(auto it : m_adjacent)
-//    {
-//        if(it.first == supprimer)
-//            m_adjacent.erase(m_adjacent.begin() + compt);
-//
-//        compt +=1;
-//    }
-//    std::cout<<std::endl<<"2";
+    int compt = 0;
+    for(size_t i=0;i<m_adjacent.size();++i)
+    {
+        if(m_adjacent[i].first == supprimer)
+        {
+            //delete m_adjacent[i].first;
+            m_adjacent.erase(m_adjacent.begin() + compt);
+        }
+
+
+        compt +=1;
+    }
+
 }
 
 void Sommet::calculCd(int degre)
@@ -159,3 +164,24 @@ void Sommet::afficherCentralite()
     std::cout<<m_nom<<" : "<<"Cd "<<m_Cd<<"/ Cvp "<<m_Cvp<<"/ Cp "<<m_Cp<<std::endl;
     std::cout<<m_nom<<" : "<<"CdN "<<m_N_Cd<<"/ CpN "<<m_N_Cp<<std::endl;
 }
+
+void Sommet::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<m_indice<<" "<<m_nom<<" ";
+    m_coord.afficherConsole();
+
+}
+
+void Sommet::afficherListeAdjacence()const
+{
+    std::cout<<std::endl
+             <<m_nom<<" : ";
+    std::cout<<m_adjacent.size();
+    for (auto it : m_adjacent)
+    {
+        std::cout<<it.first->getNom()<<"-("<<it.second<<")  ";
+    }
+
+}
+
