@@ -54,42 +54,47 @@ Graphe::Graphe(std::string nomFichier )
     }
 };
 
-Graphe::Graphe(Graphe* mere)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,int orient)
 {
-    m_orientation=mere->getOrientation();
-    m_ordre=mere->getOrdre();
-    m_taille=mere->getTaille();
-
-    std::map<Sommet*,Sommet*> transpose_s;
-    for (size_t i= 0; i<mere->m_sommets.size(); ++i)
+    m_orientation=orient;
+    m_ordre=buffer_s.size();
+    m_taille=buffer_a.size();
+    for (size_t i=0; i<buffer_s.size(); i++)
     {
-        Sommet* nv =new Sommet{mere->m_sommets[i]};
-        m_sommets.push_back(nv);
-        transpose_s[mere->m_sommets[i]]=nv;
+        m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
     }
-    std::map<Arrete*,Arrete*> transpose_a;
-    for (size_t i= 0; i<mere->m_arretes.size(); ++i)
+    for (size_t i=0; i<buffer_a.size(); i++)
     {
-        Arrete* nv =new Arrete{mere->m_arretes[i]};
-        m_arretes.push_back(nv);
-        transpose_a[mere->m_arretes[i]]=nv;
-    }
-
-    //remplir les adjances sommets
-    std::vector<Sommet*> temp;
-    int num1,num2,poids;
-    for (auto it : m_arretes)
-    {
-        temp=it->getExtremite();
-        num1=temp[0]->getId();
-        num2=temp[1]->getId();
-        poids=it->getPoids();
-        m_sommets[num1]->set_adjacent(m_sommets[num2]);
-        m_sommets[num1]->set_poids(m_sommets[num2],poids);
-        m_sommets[num2]->set_adjacent(m_sommets[num1]);
-        m_sommets[num2]->set_poids(m_sommets[num1],poids);
+        std::vector< Sommet*> buffer_e=buffer_a[i]->getExtremite();
+        int id_e1, id_e2;
+        for (auto it : m_sommets)
+        {
+            if (it->getId() == buffer_e[0]->getId())
+                id_e1=it->getId();
+            if (it->getId() == buffer_e[1]->getId())
+                id_e2=it->getId();
+        }
+        m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],
+                                       buffer_a[i]->getPonde(),buffer_a[i]->getPoids()});
     }
 
+
+    //remplir les adjacents de m_sommets
+//    for (size_t i=0; i<buffer_s.size(); i++)
+//    {
+//        for (size_t j=0; j<m_arretes.size(); j++)
+//        {
+//            std::vector< Sommet*> buffer_e=m_arretes[j]->getExtremite();
+//            if (buffer_e[0]->getId()==buffer_s[i]->getId())
+//                buffer_s[i]->set_poids(m_sommets[buffer_e[1]->getId()],m_arretes[j]->getPoids());
+//            if (!m_orientation)
+//            {
+//                if (buffer_e[1]->getId()==buffer_s[i]->getId())
+//                    buffer_s[i]->set_poids(m_sommets[buffer_e[0]->getId()],m_arretes[j]->getPoids());
+//            }
+//        }
+//
+//    }
 
 }
 
@@ -141,13 +146,13 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
     int indice_arrete;
     bool trouvee=false;
-    for(size_t i=0;i<m_arretes.size();++i)
+    for(size_t i=0; i<m_arretes.size(); ++i)
     {
         if(m_arretes[i]->trouveeArrete(s1,s2))
         {
             indice_arrete=m_arretes[i]->getIndice();
             m_arretes[i]->suppAdjacent();
-            delete m_arretes[i];
+            //delete m_arretes[i];
             m_arretes.erase(m_arretes.begin() + indice_arrete);
             trouvee=true;
         }
@@ -368,3 +373,16 @@ Graphe::~Graphe()
     for (auto it : m_arretes)
         delete it;
 }
+
+
+std::vector<Sommet*> Graphe::getSommets()const
+{
+    return m_sommets;
+}
+
+std::vector <Arrete*> Graphe::getArretes () const
+{
+    return m_arretes;
+}
+
+

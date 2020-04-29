@@ -25,7 +25,7 @@ class Graphe
 
     public :
         Graphe(std::string nomFichier);//constructeur de graphe
-        Graphe(Graphe* mere);
+        Graphe(std::vector<Sommet*> buffer1,std::vector<Arrete*> buffer2,int orient);
         ~Graphe();
         void affichageSvg () const;
         void remplirPoids(std::string& nomFichier);
@@ -37,6 +37,8 @@ class Graphe
         int getTaille()const;
         void afficherListeAdjacence()const;
         void afficherConsole()const;
+        std::vector <Arrete*> getArretes () const;
+        std::vector <Sommet*> getSommets() const;
 
 
 

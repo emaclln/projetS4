@@ -16,29 +16,6 @@ Sommet::Sommet(int indice, std::string nom, Coord mesCoord)
     m_marque = -1;
 }
 
-Sommet::Sommet (Sommet* mere)
-{
-    m_indice=mere->getId();
-    m_nom=mere->getNom();
-    m_coord=mere->getCoords();
-    m_marque=mere->getMarque();
-
-//    std::map<Sommet*,Sommet*> transpose;
-//    for (size_t i= 0;i<mere->m_adjacent.size();++i)
-//    {
-//        Sommet* nv =new Sommet{mere->m_adjacent[i].first};
-//        m_adjacent[i].first=nv;
-//        transpose[mere->m_adjacent[i].first]=nv;
-//        std::cout<<std::endl<<"1";
-//    }
-//    for (size_t i= 0;i<mere->m_adjacent.size();++i)
-//    {
-//        double nv=mere->m_adjacent[i].second;
-//         m_adjacent[i].second=nv;
-//    }
-
-}
-
 void Sommet::setMarque(int selec)//donne une valeur au paramètre
 {
     m_marque = selec;
@@ -177,7 +154,6 @@ void Sommet::afficherListeAdjacence()const
 {
     std::cout<<std::endl
              <<m_nom<<" : ";
-    std::cout<<m_adjacent.size();
     for (auto it : m_adjacent)
     {
         std::cout<<it.first->getNom()<<"-("<<it.second<<")  ";

@@ -17,19 +17,19 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
-Arrete::Arrete (Arrete* mere)
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux, bool ponderation, int poids)
 {
-    m_indice=mere->getIndice();
-    m_poids=mere->getPoids();
-    m_ponderation=mere->getPonde();
-    std::map<Sommet*,Sommet*> transpose_s;
-    for (size_t i= 0; i<mere->m_extremite.size(); ++i)
-    {
-        Sommet* nv =new Sommet{mere->m_extremite[i]};
-        m_extremite.push_back(nv);
-        transpose_s[mere->m_extremite[i]]=nv;
-    }
+    m_indice = indice;
+    m_poids = 0;
+    m_ponderation=ponderation;
+    m_poids=poids;
+    m_extremite.push_back( un );
+    m_extremite.push_back( deux );
 
+    m_extremite[0]->set_adjacent(m_extremite[1]);
+    m_extremite[1]->set_adjacent(m_extremite[0]);
+    m_extremite[0]->set_poids(m_extremite[1],m_poids);
+    m_extremite[1]->set_poids(m_extremite[0],m_poids);
 }
 
 void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const

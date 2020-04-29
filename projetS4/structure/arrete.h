@@ -23,7 +23,7 @@ private :
 
 public :
     Arrete(int indice, Sommet* un, Sommet* deux);
-    Arrete (Arrete* mere);
+    Arrete(int indice, Sommet* un, Sommet* deux, bool ponderation, int poids);
     void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation)const;
     void remplirPoids(int& poids);
     void suppAdjacent();

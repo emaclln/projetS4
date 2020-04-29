@@ -122,6 +122,9 @@ int gererCommande(std::string& commande,Interface& monInterface)
                     std::string nom_extremite1;
                     std::string nom_extremite2;
 
+                    nom_extremite1.erase();
+                    nom_extremite2.erase();
+
                     for (size_t i=debut; i<commande.find('-'); ++i)
                     {
                         nom_extremite1+=commande[i];

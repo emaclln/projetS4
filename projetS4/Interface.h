@@ -13,13 +13,13 @@ public :
 	Interface();
 	~Interface();
 	void initialisation ();
-    void affichageSvg ()const;
+    void affichageSvg (int i=-1)const;
     void ajoutGraphe();
     void remplirPoids(std::string nomFichier);
 	void remplirFichier(std::string nomFichier);
-	void afficherListeAdjacence()const;
-	void afficherConsole()const;
-	void suppArrete(std::string& s1,std::string& s2);
+	void afficherListeAdjacence(int i=-1)const;
+	void afficherConsole(int i=-1)const;
+	void suppArrete(std::string& s1,std::string& s2,int i=-1);
 
 };
 
