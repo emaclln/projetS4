@@ -24,9 +24,11 @@ int main()
 
     Graphe ensemble{"graphe-test2.txt"};
     ensemble.remplirPoids("ponde-test2.txt");
-    ensemble.calculCentralité();
+    ensemble.calculCentralite();
+    ensemble.afficherCentralite_Normalise(4);
+    ensemble.afficherCentralite_NON_Normalise(4);
     ensemble.affichageSvg(2);
-    
+
     return 0;
 }
 

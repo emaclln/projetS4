@@ -30,14 +30,14 @@ class Graphe
         void remplirPoids(std::string nomFichier);
         void suppArrete(int indice_Arrete);
         void ajoutArrete(int indice, int  extremite_un, int extremite_deux);
-        void afficherCentralité_Normalisé(int selec);
-        void afficherCentralité_NON_Normalisé(int selec);
-        void sauvegardeCentralité(std::string nomFichier);
+        void afficherCentralite_Normalise(int selec);
+        void afficherCentralite_NON_Normalise(int selec);
+        void sauvegardeCentralite(std::string nomFichier);
 
-    
+
         std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
 
-        void calculCentralité();
+        void calculCentralite();
         void calculCd();
         void calculCvp();
         void calculCp();
