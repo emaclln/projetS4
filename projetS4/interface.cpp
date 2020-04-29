@@ -40,7 +40,7 @@ void Interface::remplirFichier(std::string nomFichier)
 }
 
 
-void Interface::affichageSvg ()const
+void Interface::affichageSvg (int i)const
 {
     if (!m_graphes.empty())
     {
