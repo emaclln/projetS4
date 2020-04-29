@@ -77,7 +77,7 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         coeff = m_Cvp;
     else if(selec == 2)
         coeff = m_Cp;
-    else
+    else if(selec ==3)
         coeff = m_Ci;
     
     if(coeff < (max * 1/3) && max != 0)
