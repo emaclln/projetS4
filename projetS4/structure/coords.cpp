@@ -24,4 +24,8 @@ int Coord::getY()const
     return m_y;
 }
 
+void Coord::afficherConsole()const
+{
+    std::cout<<"("<<m_x<<";"<<m_y<<")";
+}
 

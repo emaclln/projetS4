@@ -17,6 +17,21 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux, bool ponderation, int poids)
+{
+    m_indice = indice;
+    m_poids = 0;
+    m_ponderation=ponderation;
+    m_poids=poids;
+    m_extremite.push_back( un );
+    m_extremite.push_back( deux );
+
+    m_extremite[0]->set_adjacent(m_extremite[1]);
+    m_extremite[1]->set_adjacent(m_extremite[0]);
+    m_extremite[0]->set_poids(m_extremite[1],m_poids);
+    m_extremite[1]->set_poids(m_extremite[0],m_poids);
+}
+
 void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const
 {
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
@@ -28,7 +43,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
         if (orientation) //s'il est orienté
         {
             //extremité 0 vers 1
-            
+
         }
 
         if (m_ponderation)//affichage poids
@@ -107,12 +122,12 @@ void Arrete::remplirPoids(int& poids)
     m_extremite[1]->set_poids(m_extremite[0], poids);
 }
 
-int Arrete::getPoids()
+int Arrete::getPoids()const
 {
-        return m_poids;
+    return m_poids;
 }
 
-int Arrete::getIndice()
+int Arrete::getIndice()const
 {
     return m_indice;
 }
@@ -122,3 +137,37 @@ void Arrete::suppAdjacent()
     m_extremite[0]->suppAdjacent(m_extremite[1]);
     m_extremite[1]->suppAdjacent(m_extremite[0]);
 }
+
+bool Arrete::getPonde() const
+{
+    return m_ponderation;
+}
+
+std::vector<Sommet*> Arrete::getExtremite()const
+{
+    return m_extremite;
+}
+
+bool Arrete::trouveeArrete(std::string& s1, std::string& s2)
+{
+    bool temp=false;
+    int compteur=0;
+
+    for (auto it : m_extremite)
+        if(it->getNom()==s1 || it->getNom()==s2)
+            compteur+=1;
+    
+    if (compteur==2) //si le nom des 2 sommets correspondent aux extremitées de l'arrete
+        temp=true;
+    return temp;
+}
+
+void Arrete::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<m_indice<<" ";
+    for (auto it : m_extremite)
+        std::cout<<it->getId()<<" ";
+
+}
+

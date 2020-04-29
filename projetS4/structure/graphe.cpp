@@ -12,51 +12,95 @@ Graphe::Graphe(std::string nomFichier )
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
-           if (!ifs)
-               throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
 
     ifs >> m_orientation;
     if ( ifs.fail() )
-    throw std::runtime_error("Probleme lecture orientation du graphe");
+        throw std::runtime_error("Probleme lecture orientation du graphe");
 
     ifs >> m_ordre;
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
 
     for (int i=0; i<m_ordre; ++i)
-        {
-            int indice;
-            std::string nom;
-            Coord mesCoord;
-            int x;
-            int y;
+    {
+        int indice;
+        std::string nom;
+        Coord mesCoord;
+        int x;
+        int y;
 
-            ifs >> indice >> nom >> x >> y;
+        ifs >> indice >> nom >> x >> y;
 
-            mesCoord.set_coord(x,y);
+        mesCoord.set_coord(x,y);
 
         m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
-        }
+    }
 
     ifs >> m_taille;
 
     for (int i=0; i<m_taille; ++i)
-        {
-            int indice;
-            int num1;
-            int num2;
+    {
+        int indice;
+        int num1;
+        int num2;
 
-            ifs >> indice >> num1 >> num2;
+        ifs >> indice >> num1 >> num2;
 
             m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
             m_sommets[num1]->set_adjacent(m_sommets[num2]);
             m_sommets[num2]->set_adjacent(m_sommets[num1]);
         }
-    
+
     m_ponderation = false;
+
 };
 
-void Graphe::remplirPoids(std::string nomFichier)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,int orient)
+{
+    m_orientation=orient;
+    m_ordre=buffer_s.size();
+    m_taille=buffer_a.size();
+    for (size_t i=0; i<buffer_s.size(); i++)
+    {
+        m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
+    }
+    for (size_t i=0; i<buffer_a.size(); i++)
+    {
+        std::vector< Sommet*> buffer_e=buffer_a[i]->getExtremite();
+        int id_e1, id_e2;
+        for (auto it : m_sommets)
+        {
+            if (it->getId() == buffer_e[0]->getId())
+                id_e1=it->getId();
+            if (it->getId() == buffer_e[1]->getId())
+                id_e2=it->getId();
+        }
+        m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],
+                                       buffer_a[i]->getPonde(),buffer_a[i]->getPoids()});
+    }
+
+}
+
+
+
+bool Graphe::getOrientation()const
+{
+    return m_orientation;
+}
+
+int Graphe::getOrdre()const
+{
+    return m_ordre;
+}
+
+int Graphe::getTaille()const
+{
+    return m_taille;
+}
+
+void Graphe::remplirPoids(std::string& nomFichier)
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
     if (!ifs)
@@ -66,13 +110,13 @@ void Graphe::remplirPoids(std::string nomFichier)
     ifs>>taille;
     if (ifs.fail())
         throw std::runtime_error("Probleme lecture taille du graphe");
-    
+
     if (taille!=m_taille)
         throw std::runtime_error("Probleme taille du graphe incompatible");
     else
     {
         int indice,poids;
-        for (int i=0; i<taille;++i)
+        for (int i=0; i<taille; ++i)
         {
             ifs>>indice>>poids;
             m_arretes[indice]->remplirPoids(poids);
@@ -83,17 +127,27 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
-void Graphe::suppArrete(int indice_Arrete)
+void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
-    for(auto it : m_arretes)
+    int indice_arrete;
+    bool trouvee=false;
+    for(size_t i=0; i<m_arretes.size(); ++i)
     {
-        if(it->getIndice() == indice_Arrete)
+        if(m_arretes[i]->trouveeArrete(s1,s2))
         {
-            it->suppAdjacent();
-            m_arretes.erase(m_arretes.begin() + indice_Arrete);
+            indice_arrete=m_arretes[i]->getIndice();
+            m_arretes[i]->suppAdjacent();
+            //delete m_arretes[i];
+            m_arretes.erase(m_arretes.begin() + indice_arrete);
+            trouvee=true;
         }
     }
+    if (!trouvee)
+    {
+        std::cout<<std::endl<<"Arrete introuvable";
+    }
 }
+
 
 void Graphe::ajoutArrete(int indice, int  extremite_un, int extremite_deux)
 {
@@ -163,9 +217,9 @@ void Graphe::affichageSvg (int selec) const
     {
         it->affichageSVG(svgout,indice,milieu,m_orientation);
     }
-    
+
     double max = 0;
-    
+
     for (auto it : m_sommets)
     {
         if(max < it->get_Cd(true) && selec == 0)
@@ -194,27 +248,27 @@ void Graphe::calculCvp()
 {
     for(auto it : m_sommets)
         it->set_Cvp(1,1);
-    
+
     double ancien_lambda;
     double lambda = 0;
-    
+
     do
     {
         std::vector<double> sommeSucc;
 
         ancien_lambda = lambda;
-        
+
         for(auto it : m_sommets)
             sommeSucc.push_back(it->get_SommeIndice());
-        
-        for(auto i=0;i<sommeSucc.size();++i)
+
+        for(size_t i=0;i<sommeSucc.size();++i)
             lambda += (sommeSucc[i] * sommeSucc[i]);
-        
+
         lambda = sqrt(lambda);
 
-        for(auto i=0;i<sommeSucc.size();++i)
+        for(size_t i=0;i<sommeSucc.size();++i)
             m_sommets[i]->set_Cvp(sommeSucc[i],lambda);
-        
+
     }
     while(lambda - ancien_lambda == 0);
 }
@@ -224,16 +278,17 @@ void Graphe::calculCp()
     for(auto it : m_sommets)
     {
         double Slongueur = 0;
-        
+
         for(auto s : m_sommets)
         {
             std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total = disjtra(it->getId(), s->getId());
             Slongueur += pred_I_total[m_sommets[s->getId()]].second;
         }
-        
+
         it->set_Cp(1/Slongueur, m_ordre);
     }
 }
+
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
 {
@@ -268,86 +323,86 @@ std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int der
                ++compt;
            }
        }
-       
+
        return pred_I_total;
 }
 
 void Graphe::caculCi()
 {
-    
+
 }
 
-void Graphe::afficherCentralité_Normalisé(int selec)
+void Graphe::afficherCentralite_Normalise(int selec)
 {
     if(m_ponderation)
     {
         if(selec == 1 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralité de vecteur propre des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralité de proximité des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralité de degré des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cd(true)<<std::endl;
     }
-    
+
     if(selec == 3 || selec == 4)
     {
     }
 }
 
-void Graphe::afficherCentralité_NON_Normalisé(int selec)
+void Graphe::afficherCentralite_NON_Normalise(int selec)
 {
     if(m_ponderation)
     {
         if(selec == 1 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralité de vecteur propre des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cvp(false)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralité de proximité des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralité de degré des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cd(false)<<std::endl;
     }
-    
+
     if(selec == 3 || selec == 4)
     {
     }
 }
 
-void Graphe::calculCentralité()
+void Graphe::calculCentralite()
 {
     if(m_ponderation)
     {
         calculCvp();
         calculCp();
     }
-    
+
     calculCd();
 
 }
 
-void Graphe::sauvegardeCentralité(std::string nomFichier)
+void Graphe::sauvegardeCentralite(std::string nomFichier)
 {
     std::ofstream monFlux(nomFichier.c_str());
 
@@ -360,6 +415,50 @@ void Graphe::sauvegardeCentralité(std::string nomFichier)
     }
     else
     {
-        std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la sauvegarde des indices de centralité." << std::endl;
+        std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la sauvegarde des indices de centralite." << std::endl;
     }
 }
+
+void Graphe::afficherListeAdjacence()const
+{
+    std::cout<<std::endl
+             <<"Liste d'adjacence :";
+    for (auto it : m_sommets)
+        it->afficherListeAdjacence();
+}
+void Graphe::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<"Graphe (format fichier):"
+             <<std::endl<<m_orientation
+             <<std::endl<<m_ordre;
+    for (auto it : m_sommets)
+        it->afficherConsole();
+    std::cout<<std::endl<<m_taille;
+    for (auto it : m_arretes)
+        it->afficherConsole();
+
+
+
+}
+
+Graphe::~Graphe()
+{
+    for (auto it : m_sommets)
+        delete it;
+    for (auto it : m_arretes)
+        delete it;
+}
+
+
+std::vector<Sommet*> Graphe::getSommets()const
+{
+    return m_sommets;
+}
+
+std::vector <Arrete*> Graphe::getArretes () const
+{
+    return m_arretes;
+}
+
+
