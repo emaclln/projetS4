@@ -7,13 +7,14 @@ class Interface
 {
 private :
     int m_indice; //coorespond à la "case" du vecteur pour indiquer sur quel grpahe on travail
+    int m_selecSVG;
     std::vector <Graphe*> m_graphes;
 public :
 
 	Interface();
 	~Interface();
 	void initialisation ();
-    void affichageSvg (int i=-1)const;
+    void affichageSvg ()const;
     void ajoutGraphe();
     void remplirPoids(std::string nomFichier);
 	void remplirFichier(std::string nomFichier);

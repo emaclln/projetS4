@@ -152,10 +152,12 @@ bool Arrete::trouveeArrete(std::string& s1, std::string& s2)
 {
     bool temp=false;
 
-    if ( (m_extremite[0]->getNom()== s1 && m_extremite[1]->getNom()== s2) ||
-         (m_extremite[1]->getNom()== s1 && m_extremite[0]->getNom()== s2) )
-         temp=true;
-
+    for (auto it : m_extremite)
+        if(it->getNom()==s1 || it->getNom()==s2)
+            compteur+=1;
+    
+    if (compteur==2) //si le nom des 2 sommets correspondent aux extremitées de l'arrete
+        temp=true;
     return temp;
 }
 

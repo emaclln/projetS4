@@ -10,6 +10,7 @@ Interface::Interface()
 void Interface::initialisation ()
 {
     m_indice=0;
+    m_selecSVG=4;
 }
 
 void Interface::ajoutGraphe()
@@ -39,7 +40,7 @@ void Interface::remplirFichier(std::string nomFichier)
 }
 
 
-void Interface::affichageSvg (int i)const
+void Interface::affichageSvg ()const
 {
     if (!m_graphes.empty())
     {
@@ -47,8 +48,9 @@ void Interface::affichageSvg (int i)const
             m_graphes[m_indice]->affichageSvg(1);
         else
             m_graphes[i]->affichageSvg(1);
-    }
-    std::cout<<std::endl<<m_indice<<"-"<<i;
+        m_graphes[m_indice]->affichageSvg(m_selecSVG);
+	}
+
 }
 
 void Interface::remplirPoids(std::string nomFichier)
