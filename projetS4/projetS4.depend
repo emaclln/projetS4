@@ -9,9 +9,10 @@
 	<fstream>
 	<set>
 
-1588013208 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\main.cpp
 	<iostream>
 	"structure/interface.h"
+	"gestion console/menu.h"
 
 1587937133 source:c:\users\emmac\documents\github\versionning\projets4\projets4\graphisme\couleur.cpp
 	<iostream>
@@ -70,28 +71,68 @@
 	<stack>
 	<map>
 
-1587992986 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.cpp
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.cpp
 	"sommet.h"
 
-1587992986 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.h
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\sommet.h
 	"coords.h"
 	"../graphisme/svgfile.h"
 
-1588011324 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.cpp
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.cpp
 	"arrete.h"
 
-1588009935 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.h
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\arrete.h
 	"sommet.h"
 
-1588002049 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.h
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.h
 	"arrete.h"
 
-1588009880 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.cpp
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\structure\graphe.cpp
 	"graphe.h"
 
-1588013164 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\interface.h
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\structure\interface.h
 	"graphe.h"
 
-1588013170 source:c:\users\emmac\documents\github\versionning\projets4\projets4\interface.cpp
-	"structure/Interface.h"
+1588081631 source:c:\users\emmac\documents\github\versionning\projets4\projets4\interface.cpp
+	"Interface.h"
+
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\gestion console\util.cpp
+	"util.h"
+	<random>
+	<ctime>
+	<iostream>
+	<cstdio>
+	<streambuf>
+	<vector>
+	<cstdlib>
+	<cstdio>
+	<algorithm>
+	<cstring>
+	<iostream>
+	<thread>
+	"util.h"
+	<windows.h>
+
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\gestion console\util.h
+	<string>
+
+1588081397 source:c:\users\emmac\documents\github\versionning\projets4\projets4\gestion console\menu.cpp
+	"menu.h"
+	"../Interface.h"
+	"util.h"
+
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\gestion console\menu.h
+	<stdio.h>
+	<iostream>
+	<string.h>
+	<fstream>
+	<vector>
+	<map>
+	<string>
+	<sstream>
+	<windows.h>
+	"../Interface.h"
+
+1588081397 c:\users\emmac\documents\github\versionning\projets4\projets4\interface.h
+	"structure/graphe.h"
 

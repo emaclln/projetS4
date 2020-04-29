@@ -32,13 +32,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Interface.h" />
+		<Unit filename="gestion console/menu.cpp" />
+		<Unit filename="gestion console/menu.h" />
+		<Unit filename="gestion console/util.cpp" />
+		<Unit filename="gestion console/util.h" />
 		<Unit filename="graphisme/svgfile.cpp" />
 		<Unit filename="graphisme/svgfile.h" />
 		<Unit filename="interface.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="structure/Interface.h" />
 		<Unit filename="structure/arrete.cpp" />
 		<Unit filename="structure/arrete.h" />
+		<Unit filename="structure/compare.h" />
 		<Unit filename="structure/coords.cpp" />
 		<Unit filename="structure/coords.h" />
 		<Unit filename="structure/graphe.cpp" />

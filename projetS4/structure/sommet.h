@@ -9,8 +9,8 @@
 #ifndef SOMMET_H_INCLUDED
 #define SOMMET_H_INCLUDED
 
-#include "coord.hpp"
-#include "graphisme/svgfile.h"
+#include "coords.h"
+#include "../graphisme/svgfile.h"
 
 
 class Sommet
@@ -28,6 +28,7 @@ private :
     double m_Cd;
     double m_Cp;
     double m_Ci;
+    double m_N_Cvp;
     double m_N_Cd;
     double m_N_Cp;
     double m_N_Ci;
@@ -37,15 +38,14 @@ public :
     
     void set_adjacent(Sommet* nouveau);
     void set_poids(Sommet* extremite, double poids);
-    void set_Cvp(double cvp);
+    void set_Cvp(double CvpN, double lambda);
     void set_Cp(double cp, int degre);
     void setMarque(int selec);
     
-    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu)const;
+    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu, double max, int selec)const;
     void suppAdjacent(Sommet* supprimer);
     void calculCd(int degre);
     void caculCi();
-    void afficherCentralité();
     
     Coord getCoords()const;
     std::string getNom()const;
@@ -53,7 +53,9 @@ public :
     int getMarque();
     int getId()const;
     double get_SommeIndice();
-    double get_Cvp();
+    double get_Cvp(bool selec);
+    double get_Cd(bool selec);
+    double get_Cp(bool selec);
     
 };
 
