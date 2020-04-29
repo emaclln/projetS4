@@ -52,6 +52,8 @@ Graphe::Graphe(std::string nomFichier )
             m_sommets[num1]->set_adjacent(m_sommets[num2]);
             m_sommets[num2]->set_adjacent(m_sommets[num1]);
         }
+    
+    m_ponderation = false;
 };
 
 void Graphe::remplirPoids(std::string nomFichier)
@@ -77,7 +79,7 @@ void Graphe::remplirPoids(std::string nomFichier)
         }
     }
 
-
+    m_ponderation = true;
 
 }
 
@@ -101,7 +103,7 @@ void Graphe::ajoutArrete(int indice, int  extremite_un, int extremite_deux)
 }
 
 
-void Graphe::affichageSvg () const
+void Graphe::affichageSvg (int selec) const
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -158,13 +160,26 @@ void Graphe::affichageSvg () const
 
     ///dessin
     for (auto it : m_arretes)
-        {
-            it->affichageSVG(svgout,indice,milieu,m_orientation);
-        }
+    {
+        it->affichageSVG(svgout,indice,milieu,m_orientation);
+    }
+    
+    double max = 0;
+    
+    for (auto it : m_sommets)
+    {
+        if(max < it->get_Cd(true) && selec == 0)
+            max =it->get_Cd(true);
+        if(max < it->get_Cvp(true) && m_ponderation && selec == 1)
+            max =it->get_Cvp(true);
+        if(max < it->get_Cp(true) && m_ponderation && selec == 2)
+            max =it->get_Cp(true);
+    }
+
 
     for (auto it : m_sommets)
     {
-        it->affichageSVG(svgout,indice,milieu);
+        it->affichageSVG(svgout,indice,milieu,max,selec);
     }
 
 }
@@ -178,28 +193,30 @@ void Graphe::calculCd()
 void Graphe::calculCvp()
 {
     for(auto it : m_sommets)
-        it->set_Cvp(1);
+        it->set_Cvp(1,1);
     
     double ancien_lambda;
     double lambda = 0;
     
     do
     {
-        double Sindice, SsIndice = 0;
-        
+        std::vector<double> sommeSucc;
+
         ancien_lambda = lambda;
         
         for(auto it : m_sommets)
-        {
-            Sindice = it->get_SommeIndice();
-            SsIndice += Sindice*Sindice;
-        }
-        lambda = sqrt(SsIndice);
+            sommeSucc.push_back(it->get_SommeIndice());
         
-        for(auto it : m_sommets)
-            it->set_Cvp(it->get_SommeIndice() / lambda);
+        for(auto i=0;i<sommeSucc.size();++i)
+            lambda += (sommeSucc[i] * sommeSucc[i]);
+        
+        lambda = sqrt(lambda);
+
+        for(auto i=0;i<sommeSucc.size();++i)
+            m_sommets[i]->set_Cvp(sommeSucc[i],lambda);
+        
     }
-    while(lambda - ancien_lambda > 1);
+    while(lambda - ancien_lambda == 0);
 }
 
 void Graphe::calculCp()
@@ -216,10 +233,6 @@ void Graphe::calculCp()
         
         it->set_Cp(1/Slongueur, m_ordre);
     }
-}
-void Graphe::caculCi()
-{
-    
 }
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
@@ -259,15 +272,94 @@ std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int der
        return pred_I_total;
 }
 
-void Graphe::afficherCentralité()
+void Graphe::caculCi()
 {
-    for(auto it : m_sommets)
-        it->afficherCentralité();
+    
 }
 
-void Graphe::CalculCentralité()
+void Graphe::afficherCentralité_Normalisé(int selec)
 {
+    if(m_ponderation)
+    {
+        if(selec == 1 || selec == 4)
+        {
+            std::cout<<std::endl<<"Affichage de la centralité de vecteur propre des sommets : "<<std::endl;
+            for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
+        }
+        if(selec == 2 || selec == 4)
+        {
+            std::cout<<std::endl<<"Affichage de la centralité de proximité des sommets : "<<std::endl;
+            for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
+        }
+    }
+    if(selec == 0 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralité de degré des sommets : "<<std::endl;
+        for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cd(true)<<std::endl;
+    }
+    
+    if(selec == 3 || selec == 4)
+    {
+    }
+}
+
+void Graphe::afficherCentralité_NON_Normalisé(int selec)
+{
+    if(m_ponderation)
+    {
+        if(selec == 1 || selec == 4)
+        {
+            std::cout<<std::endl<<"Affichage de la centralité de vecteur propre des sommets : "<<std::endl;
+            for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cvp(false)<<std::endl;
+        }
+        if(selec == 2 || selec == 4)
+        {
+            std::cout<<std::endl<<"Affichage de la centralité de proximité des sommets : "<<std::endl;
+            for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
+        }
+    }
+    if(selec == 0 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralité de degré des sommets : "<<std::endl;
+        for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Cd(false)<<std::endl;
+    }
+    
+    if(selec == 3 || selec == 4)
+    {
+    }
+}
+
+void Graphe::calculCentralité()
+{
+    if(m_ponderation)
+    {
+        calculCvp();
+        calculCp();
+    }
+    
     calculCd();
-    calculCvp();
-    calculCp();
+
+}
+
+void Graphe::sauvegardeCentralité(std::string nomFichier)
+{
+    std::ofstream monFlux(nomFichier.c_str());
+
+    if(monFlux)
+    {
+        for(auto it : m_sommets)
+        {
+            monFlux << it->getId() <<" "<< it->get_Cd(false) <<" "<< it->get_Cd(true) <<" " << it->get_Cvp(false) <<" "<< it->get_Cvp(true) <<" "<< it->get_Cp(false) <<" "<< it->get_Cp(true) << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la sauvegarde des indices de centralité." << std::endl;
+    }
 }

@@ -66,19 +66,57 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max, int selec)const
 {
+    int r,g,b;
+    double coeff;
+    
+    if(selec == 0)
+        coeff = m_Cd;
+    else if(selec == 1)
+        coeff = m_Cvp;
+    else if(selec == 2)
+        coeff = m_Cp;
+    else
+        coeff = m_Ci;
+    
+    if(coeff < (max * 1/3) && max != 0)
+    {
+        r = 40;
+        g = 250;
+        b = (coeff / max) * 255 + 170;
+    }
+    else if(coeff > (max * 2/3) && max != 0)
+    {
+        r = 50;
+        g = (coeff / max) * 255 + 85;
+        b = 50;
+    }
+    else if( max != 0)
+    {
+        r = (coeff / max) * 255 + 100;
+        g = 100;
+        b = 100;
+    }
+    else
+    {
+        r = 170;
+        g = 100;
+        b = 100;
+    }
+    
+    
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {
-        svgout.addDisk(500,400,5,"red");
-        svgout.addText(500-5,400-10,m_nom,"red");
+        svgout.addDisk(500,400,5,svgout.makeRGB(r, g, b));
+        svgout.addText(500-5,400-10,m_nom,"black");
     }
     else
     {
         int ecart_x=(milieu.getX()-m_coord.getX())*indice;
         int ecart_y=(milieu.getY()-m_coord.getY())*indice;
-        svgout.addDisk(500-ecart_x,400-ecart_y,5,"red");
-        svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"red");
+        svgout.addDisk(500-ecart_x,400-ecart_y,5,svgout.makeRGB(r, g, b));
+        svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"balck");
     }
 }
 
@@ -100,14 +138,18 @@ void Sommet::calculCd(int degre)
     m_Cd = m_N_Cd / (degre-1);
 }
 
-void Sommet::set_Cvp(double cvp)
+void Sommet::set_Cvp(double cvpN, double lambda)
 {
-    m_Cvp = cvp;
+    m_Cvp = cvpN/lambda;
+    m_N_Cvp = cvpN;
 }
 
-double Sommet::get_Cvp()
+double Sommet::get_Cvp(bool selec)
 {
-    return m_Cvp;
+    if(selec)
+        return m_Cvp;
+    else
+        return m_N_Cvp;
 }
 
 double Sommet::get_SommeIndice()
@@ -115,7 +157,7 @@ double Sommet::get_SommeIndice()
     double somme = 0;
     
     for(auto it : m_adjacent)
-        somme+= it.first->get_Cvp();
+        somme+= it.first->get_Cvp(true);
         
     return somme;
 }
@@ -131,8 +173,18 @@ void Sommet::caculCi()
     
 }
 
-void Sommet::afficherCentralité()
+double Sommet::get_Cp(bool selec)
 {
-    std::cout<<m_nom<<" : "<<"Cd "<<m_Cd<<"/ Cvp "<<m_Cvp<<"/ Cp "<<m_Cp<<std::endl;
-    std::cout<<m_nom<<" : "<<"CdN "<<m_N_Cd<<"/ CpN "<<m_N_Cp<<std::endl;
+    if(selec)
+        return m_Cp;
+    else
+        return m_N_Cp;
+}
+
+double Sommet::get_Cd(bool selec)
+{
+    if(selec)
+        return m_Cd;
+    else
+        return m_N_Cd;
 }

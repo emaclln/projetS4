@@ -1,32 +1,32 @@
 
 #include <iostream>
-#include "structure/interface.h"
+#include "Interface.h"
 #include "gestion console/menu.h"
 
 int main()
 {
-    affichageCommande();
+//    affichageCommande();
+//
+//    int autoCin=1;
+//    do
+//    {
+//
+//        if(autoCin==2)
+//            autoCin=gererDeffilement(true);
+//        else
+//            autoCin=gererDeffilement(false);
+//
+//    }while (autoCin!=1);
+//
+//    changerCouleurConsole(5);//rouge
+//    std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
+//    changerCouleurConsole(4);//blanc
 
-    int autoCin=1;
-    do
-    {
-
-        if(autoCin==2)
-            autoCin=gererDeffilement(true);
-        else
-            autoCin=gererDeffilement(false);
-
-    }while (autoCin!=1);
-
-    changerCouleurConsole(5);//rouge
-    std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
-    changerCouleurConsole(4);//blanc
-
-//    Interface ensemble{indice,"graphe-test2.txt"};
-//    ensemble.affichageSvg();
-//    ensemble.remplirPoids("ponde-test2.txt");
-//	ensemble.affichageSvg();
-
+    Graphe ensemble{"graphe-test2.txt"};
+    ensemble.remplirPoids("ponde-test2.txt");
+    ensemble.calculCentralité();
+    ensemble.affichageSvg(2);
+    
     return 0;
 }
 
