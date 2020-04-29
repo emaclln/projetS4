@@ -33,12 +33,12 @@ void Sommet::set_poids(Sommet* extremite, double poids)
     {
         if(it.first == extremite)
             m_adjacent.erase(m_adjacent.begin() + compt);
-            
+
         compt +=1;
     }
-    
+
     m_adjacent.push_back(std::pair<Sommet*, double> (extremite, poids));
-        
+
 }
 
 std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()
@@ -123,13 +123,18 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
 void Sommet::suppAdjacent(Sommet* supprimer)
 {
     int compt = 0;
-    for(auto it : m_adjacent)
+    for(size_t i=0;i<m_adjacent.size();++i)
     {
-        if(it.first == supprimer)
+        if(m_adjacent[i].first == supprimer)
+        {
+            //delete m_adjacent[i].first;
             m_adjacent.erase(m_adjacent.begin() + compt);
-            
+        }
+
+
         compt +=1;
     }
+
 }
 
 void Sommet::calculCd(int degre)
@@ -155,11 +160,10 @@ double Sommet::get_Cvp(bool selec)
 double Sommet::get_SommeIndice()
 {
     double somme = 0;
-    
+
     for(auto it : m_adjacent)
         somme+= it.first->get_Cvp(true);
         
-    return somme;
 }
 
 void Sommet::set_Cp(double cp, int degre)
@@ -170,8 +174,9 @@ void Sommet::set_Cp(double cp, int degre)
 
 void Sommet::caculCi()
 {
-    
+
 }
+
 
 double Sommet::get_Cp(bool selec)
 {
@@ -188,3 +193,23 @@ double Sommet::get_Cd(bool selec)
     else
         return m_N_Cd;
 }
+
+void Sommet::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<m_indice<<" "<<m_nom<<" ";
+    m_coord.afficherConsole();
+
+}
+
+void Sommet::afficherListeAdjacence()const
+{
+    std::cout<<std::endl
+             <<m_nom<<" : ";
+    for (auto it : m_adjacent)
+    {
+        std::cout<<it.first->getNom()<<"-("<<it.second<<")  ";
+    }
+
+}
+

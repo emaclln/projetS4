@@ -12,41 +12,41 @@ Graphe::Graphe(std::string nomFichier )
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
-           if (!ifs)
-               throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
+    if (!ifs)
+        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
 
     ifs >> m_orientation;
     if ( ifs.fail() )
-    throw std::runtime_error("Probleme lecture orientation du graphe");
+        throw std::runtime_error("Probleme lecture orientation du graphe");
 
     ifs >> m_ordre;
     if ( ifs.fail() )
         throw std::runtime_error("Probleme lecture ordre du graphe");
 
     for (int i=0; i<m_ordre; ++i)
-        {
-            int indice;
-            std::string nom;
-            Coord mesCoord;
-            int x;
-            int y;
+    {
+        int indice;
+        std::string nom;
+        Coord mesCoord;
+        int x;
+        int y;
 
-            ifs >> indice >> nom >> x >> y;
+        ifs >> indice >> nom >> x >> y;
 
-            mesCoord.set_coord(x,y);
+        mesCoord.set_coord(x,y);
 
         m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
-        }
+    }
 
     ifs >> m_taille;
 
     for (int i=0; i<m_taille; ++i)
-        {
-            int indice;
-            int num1;
-            int num2;
+    {
+        int indice;
+        int num1;
+        int num2;
 
-            ifs >> indice >> num1 >> num2;
+        ifs >> indice >> num1 >> num2;
 
             m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
             m_sommets[num1]->set_adjacent(m_sommets[num2]);
@@ -54,9 +54,53 @@ Graphe::Graphe(std::string nomFichier )
         }
 
     m_ponderation = false;
+
 };
 
-void Graphe::remplirPoids(std::string nomFichier)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,int orient)
+{
+    m_orientation=orient;
+    m_ordre=buffer_s.size();
+    m_taille=buffer_a.size();
+    for (size_t i=0; i<buffer_s.size(); i++)
+    {
+        m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
+    }
+    for (size_t i=0; i<buffer_a.size(); i++)
+    {
+        std::vector< Sommet*> buffer_e=buffer_a[i]->getExtremite();
+        int id_e1, id_e2;
+        for (auto it : m_sommets)
+        {
+            if (it->getId() == buffer_e[0]->getId())
+                id_e1=it->getId();
+            if (it->getId() == buffer_e[1]->getId())
+                id_e2=it->getId();
+        }
+        m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],
+                                       buffer_a[i]->getPonde(),buffer_a[i]->getPoids()});
+    }
+
+}
+
+
+
+bool Graphe::getOrientation()const
+{
+    return m_orientation;
+}
+
+int Graphe::getOrdre()const
+{
+    return m_ordre;
+}
+
+int Graphe::getTaille()const
+{
+    return m_taille;
+}
+
+void Graphe::remplirPoids(std::string& nomFichier)
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
     if (!ifs)
@@ -72,7 +116,7 @@ void Graphe::remplirPoids(std::string nomFichier)
     else
     {
         int indice,poids;
-        for (int i=0; i<taille;++i)
+        for (int i=0; i<taille; ++i)
         {
             ifs>>indice>>poids;
             m_arretes[indice]->remplirPoids(poids);
@@ -83,17 +127,27 @@ void Graphe::remplirPoids(std::string nomFichier)
 
 }
 
-void Graphe::suppArrete(int indice_Arrete)
+void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
-    for(auto it : m_arretes)
+    int indice_arrete;
+    bool trouvee=false;
+    for(size_t i=0; i<m_arretes.size(); ++i)
     {
-        if(it->getIndice() == indice_Arrete)
+        if(m_arretes[i]->trouveeArrete(s1,s2))
         {
-            it->suppAdjacent();
-            m_arretes.erase(m_arretes.begin() + indice_Arrete);
+            indice_arrete=m_arretes[i]->getIndice();
+            m_arretes[i]->suppAdjacent();
+            //delete m_arretes[i];
+            m_arretes.erase(m_arretes.begin() + indice_arrete);
+            trouvee=true;
         }
     }
+    if (!trouvee)
+    {
+        std::cout<<std::endl<<"Arrete introuvable";
+    }
 }
+
 
 void Graphe::ajoutArrete(int indice, int  extremite_un, int extremite_deux)
 {
@@ -235,6 +289,7 @@ void Graphe::calculCp()
     }
 }
 
+
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
 {
        std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
@@ -363,3 +418,47 @@ void Graphe::sauvegardeCentralite(std::string nomFichier)
         std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la sauvegarde des indices de centralite." << std::endl;
     }
 }
+
+void Graphe::afficherListeAdjacence()const
+{
+    std::cout<<std::endl
+             <<"Liste d'adjacence :";
+    for (auto it : m_sommets)
+        it->afficherListeAdjacence();
+}
+void Graphe::afficherConsole()const
+{
+    std::cout<<std::endl
+             <<"Graphe (format fichier):"
+             <<std::endl<<m_orientation
+             <<std::endl<<m_ordre;
+    for (auto it : m_sommets)
+        it->afficherConsole();
+    std::cout<<std::endl<<m_taille;
+    for (auto it : m_arretes)
+        it->afficherConsole();
+
+
+
+}
+
+Graphe::~Graphe()
+{
+    for (auto it : m_sommets)
+        delete it;
+    for (auto it : m_arretes)
+        delete it;
+}
+
+
+std::vector<Sommet*> Graphe::getSommets()const
+{
+    return m_sommets;
+}
+
+std::vector <Arrete*> Graphe::getArretes () const
+{
+    return m_arretes;
+}
+
+
