@@ -5,8 +5,8 @@
 
 int main()
 {
-//    affichageCommande();
-//
+    //affichageCommande();
+
 //    int autoCin=1;
 //    do
 //    {
@@ -28,23 +28,25 @@ int main()
     ensemble.afficherCentralite_Normalise(4);
     ensemble.afficherCentralite_NON_Normalise(4);
     ensemble.affichageSvg(2);*/
-	
+
     Interface ensemble;
-    ensemble.remplirFichier("graphe-test1.txt");
-    ensemble.remplirPoids("ponde-test1.txt");
+    ensemble.remplirFichier("graphe-test2.txt");
+    ensemble.remplirPoids("ponde-test2.txt");
     ensemble.afficherConsole(0);
     ensemble.afficherListeAdjacence(0);
 
 //    ensemble.affichageSvg();
     std::string s1="A";
-    std::string s2="C";
+    std::string s2="B";
     ensemble.ajoutGraphe();
-    ensemble.suppArrete(s1,s2);
-    s1="B";
-    s2="C";
     ensemble.suppArrete(s1,s2);
     ensemble.afficherConsole();
     ensemble.afficherListeAdjacence();
+    s1="H";
+    s2="B";
+    ensemble.ajoutGraphe();
+    ensemble.suppArrete(s1,s2);
+
     ensemble.afficherConsole();
     ensemble.afficherListeAdjacence();
 

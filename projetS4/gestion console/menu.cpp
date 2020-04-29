@@ -236,7 +236,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
         changerCouleurConsole(4);
     }
 
-    //monInterface.affichageSvg();
+    monInterface.affichageSvg();
 
     return stop;
 

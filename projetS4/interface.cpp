@@ -27,6 +27,8 @@ void Interface::suppArrete(std::string& s1,std::string& s2,int i)
         m_graphes[m_indice]->suppArrete(s1,s2);
     else
         m_graphes[i]->suppArrete(s1,s2);
+
+    std::cout<<std::endl<<"-"<<s1<<"-"<<s2<<"-";
 }
 
 
@@ -42,11 +44,11 @@ void Interface::affichageSvg (int i)const
     if (!m_graphes.empty())
     {
         if (i<0)
-            m_graphes[m_indice]->affichageSvg();
+            m_graphes[m_indice]->affichageSvg(1);
         else
-            m_graphes[i]->affichageSvg();
+            m_graphes[i]->affichageSvg(1);
     }
-
+    std::cout<<std::endl<<m_indice<<"-"<<i;
 }
 
 void Interface::remplirPoids(std::string nomFichier)
