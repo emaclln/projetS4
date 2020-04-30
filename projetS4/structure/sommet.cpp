@@ -66,44 +66,44 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max, int selec)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec)const
 {
     int r,g,b;
     double coeff;
     
     if(selec == 0)
-        coeff = m_Cd;
+        coeff = m_Cd-min;
     else if(selec == 1)
-        coeff = m_Cvp;
+        coeff = m_Cvp-min;
     else if(selec == 2)
-        coeff = m_Cp;
+        coeff = m_Cp-min;
     else if(selec == 3)
-        coeff = m_Ci;
+        coeff = m_Ci-min;
     else
         coeff = 0;
     
-    if(coeff < (max * 1/3) && max != 0)
+    if(coeff < ((max-min) * 1/3) && max != 0)
     {
-        r = 40;
-        g = 250;
-        b = (coeff / max) * 255 + 170;
+        r = 0;
+        g = 0;
+        b = (coeff / (max-min)) * 255;
     }
-    else if(coeff > (max * 2/3) && max != 0)
+    else if(coeff > ((max-min) * 2/3) && max != 0)
     {
-        r = 50;
-        g = (coeff / max) * 255 + 85;
-        b = 50;
+        r = 0;
+        g = (coeff / (max-min)) * 255;
+        b = 0;
     }
     else if( max != 0)
     {
-        r = (coeff / max) * 255 + 100;
-        g = 100;
-        b = 100;
+        r = (coeff / (max-min)) * 255;
+        g = 0;
+        b = 0;
     }
     else
     {
         r = 170;
-        g = 100;
+        g = 0;
         b = 100;
     }
     
