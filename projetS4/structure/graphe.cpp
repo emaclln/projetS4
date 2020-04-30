@@ -246,6 +246,7 @@ void Graphe::affichageSvg (int selec) const
     }
 
     double max = 0;
+    double min = 100;
 
     for (auto it : m_sommets)
     {
@@ -255,10 +256,17 @@ void Graphe::affichageSvg (int selec) const
             max =it->get_Cvp(true);
         if(max < it->get_Cp(true) && m_ponderation && selec == 2)
             max =it->get_Cp(true);
+        
+        if(min > it->get_Cd(true) && selec == 0)
+            min =it->get_Cd(true);
+        if(min > it->get_Cvp(true) && m_ponderation && selec == 1)
+            min =it->get_Cvp(true);
+        if(min > it->get_Cp(true) && m_ponderation && selec == 2)
+            min =it->get_Cp(true);
     }
 
     for (auto it : m_sommets)
-        it->affichageSVG(svgout,indice,milieu,max,selec);
+        it->affichageSVG(svgout,indice,milieu,max,min,selec);
 }
 
 void Graphe::calculCd()
