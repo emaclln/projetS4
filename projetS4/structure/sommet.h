@@ -48,11 +48,11 @@ public :
     void caculCi();
     void afficherConsole()const;
     void afficherListeAdjacence()const;
-	
+    
     Coord getCoords()const;
     std::string getNom()const;
     std::vector< std::pair<Sommet*, double >> getAdjacent();
-    int getMarque();
+    int getMarque()const;
     int getId()const;
     double get_SommeIndice();
     double get_Cvp(bool selec);

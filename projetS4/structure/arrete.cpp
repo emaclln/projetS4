@@ -12,16 +12,13 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
 {
     m_indice = indice;
     m_poids = 0;
-    m_ponderation=false;
     m_extremite.push_back( un );
     m_extremite.push_back( deux );
 }
 
-Arrete::Arrete(int indice, Sommet* un, Sommet* deux, bool ponderation, int poids)
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux, int poids)
 {
     m_indice = indice;
-    m_poids = 0;
-    m_ponderation=ponderation;
     m_poids=poids;
     m_extremite.push_back( un );
     m_extremite.push_back( deux );
@@ -32,7 +29,7 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux, bool ponderation, int poids
     m_extremite[1]->set_poids(m_extremite[0],m_poids);
 }
 
-void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation)const
+void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation, bool ponderation)const
 {
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
     {
@@ -46,7 +43,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 
         }
 
-        if (m_ponderation)//affichage poids
+        if (ponderation)//affichage poids
         {
             int milieu_arrete_x,milieu_arrete_y;
             milieu_arrete_x=ecart_x1/2;
@@ -69,7 +66,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 
             }
 
-            if (m_ponderation)//affichage poids
+            if (ponderation)//affichage poids
             {
                 int milieu_arrete_x=ecart_x0/2;
                 int milieu_arrete_y=ecart_y0/2;
@@ -85,7 +82,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 
             svgout.addLine(500-ecart_x0,400-ecart_y0,500-ecart_x1,400-ecart_y1,"black");
 
-            if (m_ponderation)//affichage poids
+            if (ponderation)//affichage poids
             {
                 int milieu_arrete_x, milieu_arrete_y;
                 milieu_arrete_y=(400-ecart_y0+400-ecart_y1)/2;
@@ -117,7 +114,6 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 void Arrete::remplirPoids(int& poids)
 {
     m_poids=poids;
-    m_ponderation=true;
     m_extremite[0]->set_poids(m_extremite[1], poids);
     m_extremite[1]->set_poids(m_extremite[0], poids);
 }
@@ -138,19 +134,13 @@ void Arrete::suppAdjacent()
     m_extremite[1]->suppAdjacent(m_extremite[0]);
 }
 
-bool Arrete::getPonde() const
-{
-    return m_ponderation;
-}
-
 std::vector<Sommet*> Arrete::getExtremite()const
 {
     return m_extremite;
 }
 
-bool Arrete::trouveeArrete(std::string& s1, std::string& s2)
+bool Arrete::trouverArrete(std::string& s1, std::string& s2)
 {
-    bool temp=false;
     int compteur=0;
 
     for (auto it : m_extremite)
@@ -158,8 +148,9 @@ bool Arrete::trouveeArrete(std::string& s1, std::string& s2)
             compteur+=1;
     
     if (compteur==2) //si le nom des 2 sommets correspondent aux extremitées de l'arrete
-        temp=true;
-    return temp;
+        return true;
+    else
+        return false;
 }
 
 void Arrete::afficherConsole()const
@@ -168,6 +159,4 @@ void Arrete::afficherConsole()const
              <<m_indice<<" ";
     for (auto it : m_extremite)
         std::cout<<it->getId()<<" ";
-
 }
-

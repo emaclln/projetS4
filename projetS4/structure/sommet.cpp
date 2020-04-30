@@ -21,7 +21,7 @@ void Sommet::setMarque(int selec)//donne une valeur au paramètre
     m_marque = selec;
 }
 
-int Sommet::getMarque()
+int Sommet::getMarque()const
 {
     return m_marque;
 }
@@ -77,8 +77,10 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         coeff = m_Cvp;
     else if(selec == 2)
         coeff = m_Cp;
-    else if(selec ==3)
+    else if(selec == 3)
         coeff = m_Ci;
+    else
+        coeff = 0;
     
     if(coeff < (max * 1/3) && max != 0)
     {
@@ -126,15 +128,10 @@ void Sommet::suppAdjacent(Sommet* supprimer)
     for(size_t i=0;i<m_adjacent.size();++i)
     {
         if(m_adjacent[i].first == supprimer)
-        {
-            //delete m_adjacent[i].first;
             m_adjacent.erase(m_adjacent.begin() + compt);
-        }
-
 
         compt +=1;
     }
-
 }
 
 void Sommet::calculCd(int degre)
@@ -164,6 +161,7 @@ double Sommet::get_SommeIndice()
     for(auto it : m_adjacent)
         somme+= it.first->get_Cvp(true);
         
+    return somme;
 }
 
 void Sommet::set_Cp(double cp, int degre)
@@ -207,9 +205,5 @@ void Sommet::afficherListeAdjacence()const
     std::cout<<std::endl
              <<m_nom<<" : ";
     for (auto it : m_adjacent)
-    {
         std::cout<<it.first->getNom()<<"-("<<it.second<<")  ";
-    }
-
 }
-
