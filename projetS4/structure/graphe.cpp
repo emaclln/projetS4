@@ -62,15 +62,15 @@ Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool 
     m_orientation=orient;
     m_ordre = (int) buffer_s.size();
     m_taille = (int) buffer_a.size();
-    
+
     for (size_t i=0; i<buffer_s.size(); i++)
         m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
-    
+
     for (size_t i=0; i<buffer_a.size(); i++)
     {
         std::vector< Sommet*> buffer_e = buffer_a[i]->getExtremite();
         int id_e1 = 0, id_e2 = 0;
-        
+
         for (auto it : m_sommets)
         {
             if (it->getId() == buffer_e[0]->getId())
@@ -78,7 +78,7 @@ Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool 
             if (it->getId() == buffer_e[1]->getId())
                 id_e2=it->getId();
         }
-        
+
         m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],buffer_a[i]->getPoids()});
     }
 }
@@ -134,7 +134,7 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
 {
     int compt = 0;
     bool trouver = false;
-    
+
     for(auto it : m_arretes)
     {
         if(it->trouverArrete(s1,s2))
@@ -143,10 +143,10 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
             m_arretes.erase(m_arretes.begin() + compt);
             trouver=true;
         }
-        
+
         ++compt;
     }
-    
+
     if (!trouver)
         std::cout<<std::endl<<"Arrete introuvable";
 }
@@ -157,11 +157,11 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
     int indice2 = -1;
     int compt = 0;
     bool exist = false;
-    
+
     for(auto it : m_arretes)
-        if(it->trouverArrete(extremite_un,extremite_deux)
+        if(it->trouverArrete(extremite_un,extremite_deux))
            exist = true;
-           
+
     if(!exist)
     {
         for(auto it : m_sommets)
@@ -173,10 +173,10 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
                 else
                     indice1 = compt;
             }
-            
+
             ++compt;
         }
-    
+
         m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2]));
         m_sommets[indice1]->set_adjacent(m_sommets[indice2]);
         m_sommets[indice2]->set_adjacent(m_sommets[indice1]);
@@ -455,12 +455,12 @@ void Graphe::afficherConsole()const
              <<"Graphe (format fichier):"
              <<std::endl<<m_orientation
              <<std::endl<<m_ordre;
-    
+
     for (auto it : m_sommets)
         it->afficherConsole();
-    
+
     std::cout<<std::endl<<m_taille;
-    
+
     for (auto it : m_arretes)
         it->afficherConsole();
 }

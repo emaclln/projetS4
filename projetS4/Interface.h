@@ -13,7 +13,7 @@ public :
 
     Interface();
     ~Interface();
-    
+
     void initialisation ();
     void affichageSvg ()const;
     void copieGraphe();
@@ -29,6 +29,8 @@ public :
     void sauvegarderCentralite(std::string nomFichier);
     void retourEnArriere();
     void setSelecSVG(int selec);
+    void setIndice(int indice);
+
 };
 
 

@@ -44,7 +44,7 @@ void Interface::remplirFichier(std::string nomFichier)
 }
 
 
-void Interface::affichageSvg (int i)const
+void Interface::affichageSvg ()const
 {
     if (!m_graphes.empty())
         m_graphes[m_indice]->affichageSvg(m_selecSVG);
@@ -104,4 +104,12 @@ void Interface::retourEnArriere()
 void Interface::setSelecSVG(int selec)
 {
     m_selecSVG = selec;
+}
+
+void Interface::setIndice(int indice)
+{
+    if (indice>0)
+        m_indice=indice;
+    else
+        std::cout<<std::endl<<"Indice invalide";
 }

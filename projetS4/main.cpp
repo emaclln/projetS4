@@ -35,19 +35,19 @@ int main()
     Interface ensemble;
     ensemble.remplirFichier("graphe-test2.txt");
     ensemble.remplirPoids("ponde-test2.txt");
-    ensemble.afficherConsole(0);
-    ensemble.afficherListeAdjacence(0);
+    ensemble.afficherConsole();
+    ensemble.afficherListeAdjacence();
 
 //    ensemble.affichageSvg();
     std::string s1="A";
     std::string s2="B";
-    ensemble.ajoutGraphe();
+    ensemble.copieGraphe();
     ensemble.suppArrete(s1,s2);
     ensemble.afficherConsole();
     ensemble.afficherListeAdjacence();
     s1="H";
     s2="B";
-    ensemble.ajoutGraphe();
+    ensemble.copieGraphe();
     ensemble.suppArrete(s1,s2);
 
     ensemble.afficherConsole();
