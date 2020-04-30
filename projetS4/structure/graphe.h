@@ -25,32 +25,33 @@ class Graphe
     std::vector<Arrete*> m_arretes;
 
     public :
-        Graphe(std::string nomFichier);//constructeur de graphe        
-		Graphe(std::vector<Sommet*> buffer1,std::vector<Arrete*> buffer2,int orient);
+    
+        Graphe(std::string nomFichier);//constructeur de graphe
+        Graphe(std::vector<Sommet*> buffer1,std::vector<Arrete*> buffer2,bool orient);
         ~Graphe();
-		void affichageSvg (int selec) const;
-		void remplirPoids(std::string& nomFichier);
-		void suppArrete(std::string& s1, std::string& s2);
-		void ajoutArrete(int indice, int  extremite_un, int extremite_deux);
-        int getOrdre()const;
-        bool getOrientation()const;
-        int getTaille()const;
-        std::vector <Arrete*> getArretes () const;
-        std::vector <Sommet*> getSommets() const;
-		
+    
+        void affichageSvg (int selec) const;
+        void remplirPoids(std::string& nomFichier);
+        void suppArrete(std::string& s1, std::string& s2);
+        void ajoutArrete(std::string&  extremite_un, std::string& extremite_deux);
         void afficherListeAdjacence()const;
         void afficherConsole()const;
         void afficherCentralite_Normalise(int selec);
         void afficherCentralite_NON_Normalise(int selec);
         void sauvegardeCentralite(std::string nomFichier);
-
-        std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
-
         void calculCentralite();
         void calculCd();
         void calculCvp();
         void calculCp();
         void caculCi();
+    
+        int getOrdre()const;
+        bool getOrientation()const;
+        int getTaille()const;
+        std::vector <Arrete*> getArretes () const;
+        std::vector <Sommet*> getSommets() const;
+    
+        std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
 };
 
 #endif // GRAPHE_H_INCLUDED
