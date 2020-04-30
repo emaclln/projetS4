@@ -156,23 +156,31 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
     int indice1 = -1;
     int indice2 = -1;
     int compt = 0;
+    bool exist = false;
     
-    for(auto it : m_sommets)
+    for(auto it : m_arretes)
+        if(it->trouverArrete(extremite_un,extremite_deux)
+           exist = true;
+           
+    if(!exist)
     {
-        if(it->getNom() == extremite_un || it->getNom() == extremite_deux)
+        for(auto it : m_sommets)
         {
-            if(indice1 != indice2)
-                indice2 = compt;
-            else
-                indice1 = compt;
+            if(it->getNom() == extremite_un || it->getNom() == extremite_deux)
+            {
+                if(indice1 != indice2)
+                    indice2 = compt;
+                else
+                    indice1 = compt;
+            }
+            
+            ++compt;
         }
-        
-        ++compt;
-    }
     
-    m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2]));
-    m_sommets[indice1]->set_adjacent(m_sommets[indice2]);
-    m_sommets[indice2]->set_adjacent(m_sommets[indice1]);
+        m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2]));
+        m_sommets[indice1]->set_adjacent(m_sommets[indice2]);
+        m_sommets[indice2]->set_adjacent(m_sommets[indice1]);
+    }
 }
 
 
