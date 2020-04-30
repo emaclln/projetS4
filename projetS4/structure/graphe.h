@@ -27,10 +27,10 @@ class Graphe
     public :
 
         Graphe(std::string nomFichier);//constructeur de graphe
-        Graphe(std::vector<Sommet*> buffer1,std::vector<Arrete*> buffer2,bool orient);
+        Graphe(std::vector<Sommet*> buffer1,std::vector<Arrete*> buffer2,bool orient,bool ponderation);
         ~Graphe();
 
-        void affichageSvg (int selec) const;
+        void affichageSvg (int selec,bool normalise) const;
         void remplirPoids(std::string& nomFichier);
         bool suppArrete(std::string& s1, std::string& s2);
         void ajoutArrete(std::string&  extremite_un, std::string& extremite_deux);
@@ -48,6 +48,7 @@ class Graphe
         int getOrdre()const;
         bool getOrientation()const;
         int getTaille()const;
+        bool getPonde()const;
         std::vector <Arrete*> getArretes () const;
         std::vector <Sommet*> getSommets() const;
 

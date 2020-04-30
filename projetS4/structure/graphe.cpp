@@ -57,11 +57,12 @@ Graphe::Graphe(std::string nomFichier )
 
 };
 
-Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)
 {
     m_orientation=orient;
     m_ordre = (int) buffer_s.size();
     m_taille = (int) buffer_a.size();
+    m_ponderation = ponderation;
 
     for (size_t i=0; i<buffer_s.size(); i++)
         m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
@@ -185,7 +186,7 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
 }
 
 
-void Graphe::affichageSvg (int selec) const
+void Graphe::affichageSvg (int selec,bool normalise) const
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -267,7 +268,7 @@ void Graphe::affichageSvg (int selec) const
     }
 
     for (auto it : m_sommets)
-        it->affichageSVG(svgout,indice,milieu,max,min,selec);
+        it->affichageSVG(svgout,indice,milieu,max,min,selec,normalise);
 }
 
 void Graphe::calculCd()
@@ -369,20 +370,20 @@ void Graphe::afficherCentralite_Normalise(int selec)
     {
         if(selec == 1 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite de proximite des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cd(true)<<std::endl;
     }
@@ -482,4 +483,9 @@ std::vector<Sommet*> Graphe::getSommets()const
 std::vector <Arrete*> Graphe::getArretes () const
 {
     return m_arretes;
+}
+
+bool Graphe::getPonde()const
+{
+    return m_ponderation;
 }
