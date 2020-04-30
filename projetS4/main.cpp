@@ -44,6 +44,7 @@ int main()
         -> 4 : rien
 
 < > supprimer (A-B) -> supprime l'arrete A-B
+< > ajouter (A-B) -> ajoute l'arrete A-B
 
 < > ajout graphe "nom fichier"
 < > test de connexite

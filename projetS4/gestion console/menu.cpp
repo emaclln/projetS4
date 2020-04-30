@@ -147,6 +147,59 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 changerCouleurConsole(4); //blanc
             }
         }
+        else if (commande.find("ajouter") != std::string::npos) //cacher les noms des blocs
+        {
+            if (commande.find('(') != std::string::npos)
+            {
+                size_t debut=commande.find('(')+1;
+                
+                if (commande.find('-')!=std::string::npos)
+                {
+                    std::string nom_extremite1;
+                    std::string nom_extremite2;
+
+                    nom_extremite1.erase();
+                    nom_extremite2.erase();
+
+                    for (size_t i=debut; i<commande.find('-'); ++i)
+                    {
+                        nom_extremite1+=commande[i];
+                    }
+                    if (commande.find('-')!=std::string::npos)
+                    {
+                        debut=commande.find('-')+1;
+                        for (size_t i=debut; i<commande.find(')'); ++i)
+                        {
+                            nom_extremite2+=commande[i];
+                        }
+                        ///creation par copie
+                        monInterface.copieGraphe();
+                        monInterface.ajouterArrete(nom_extremite1,nom_extremite2);
+                        ///suppression de l'arrete
+                        
+                        monInterface.calculCentralite();
+                    }
+                    else
+                    {
+                        changerCouleurConsole(3); //rouge
+                        std::cout<<std::endl<<"Probleme syntaxe. "<<std::endl<<"Lecture impossible.";
+                        changerCouleurConsole(4); //blanc
+                    }
+                }
+                else
+                {
+                    changerCouleurConsole(3); //rouge
+                    std::cout<<std::endl<<"Vous avez oublie le tiret. "<<std::endl<<"Lecture impossible.";
+                    changerCouleurConsole(4); //blanc
+                }
+            }
+            else
+            {
+                changerCouleurConsole(3); //rouge
+                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
+                changerCouleurConsole(4); //blanc
+            }
+        }
         else if (commande.find("test de connexite")!=std::string::npos) //enregistrer en memoire (pas fichier) un copie de l'etat actuel
         {
             /// A REMPLIR
