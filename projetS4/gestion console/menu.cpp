@@ -41,6 +41,12 @@ int gererCommande(std::string& commande,Interface& monInterface)
                     changerCouleurConsole(4); //blanc
                 }
             }
+            else
+            {
+                changerCouleurConsole(3); //rouge
+                std::cout<<std::endl<<"L'action demandee n'est pas repertoriee.";
+                changerCouleurConsole(4); //blanc
+            }
         }
         else if (commande.find("load")!=std::string::npos) //charger un fichier .txt en donnant son nom
         {
@@ -99,7 +105,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             }
 
         }
-        else if (commande.find("save indices") != std::string::npos) //enregistrer dans un fichier la situation actuelle
+        else if (commande.find("save indice") != std::string::npos) //enregistrer dans un fichier la situation actuelle
         {
             commande.erase(0,12);
             if (commande.find(" ")!=std::string::npos)
@@ -385,8 +391,8 @@ void changerCouleurConsole(int couleur)
 int gererDeffilement(bool autoCin)
 {
     Interface monInterface;
-    monInterface.remplirFichier("graphe-test2.txt");
-    monInterface.remplirPoids("ponde-test2.txt");
+//    monInterface.remplirFichier("graphe-test2.txt");
+//    monInterface.remplirPoids("ponde-test2.txt");
     std::string commande; //recupere la saisi de l'utilisateur
     int stop;
 

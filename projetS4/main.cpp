@@ -27,9 +27,9 @@ int main()
     std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
     changerCouleurConsole(4);//blanc
 
-    Interface ensemble;
-    ensemble.remplirFichier("graphe-test2.txt");
-    ensemble.remplirPoids("ponde-test2.txt");
+//    Interface ensemble;
+//    ensemble.remplirFichier("graphe-test2.txt");
+//    ensemble.remplirPoids("ponde-test2.txt");
 //    ensemble.calculCentralite();
 //    ensemble.afficherCentralite_Normalise(0);
 //    std::string s1="B";

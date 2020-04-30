@@ -38,13 +38,13 @@ class Graphe
         void afficherConsole()const;
         void afficherCentralite_Normalise(int selec);
         void afficherCentralite_NON_Normalise(int selec);
-        void sauvegardeCentralite(std::string nomFichier);
+        void sauvegardeCentralite(std::string& nomFichier);
         void calculCentralite();
         void calculCd();
         void calculCvp();
         void calculCp();
         void caculCi();
-    
+
         bool connexite();
 
         int getOrdre()const;

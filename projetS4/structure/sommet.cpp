@@ -173,7 +173,6 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         b = 100;
     }
 
-    std::cout<<std::endl<<indice_affiche<<"-"<<temp;
 
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {

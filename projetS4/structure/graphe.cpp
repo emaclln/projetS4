@@ -429,12 +429,11 @@ void Graphe::calculCentralite()
         calculCvp();
         calculCp();
     }
-
     calculCd();
 
 }
 
-void Graphe::sauvegardeCentralite(std::string nomFichier)
+void Graphe::sauvegardeCentralite(std::string& nomFichier)
 {
     std::ofstream monFlux(nomFichier.c_str());
 
@@ -442,7 +441,9 @@ void Graphe::sauvegardeCentralite(std::string nomFichier)
     {
         for(auto it : m_sommets)
         {
-            monFlux << it->getId() <<" "<< it->get_Cd(false) <<" "<< it->get_Cd(true) <<" " << it->get_Cvp(false) <<" "<< it->get_Cvp(true) <<" "<< it->get_Cp(false) <<" "<< it->get_Cp(true) << std::endl;
+            monFlux << it->getId() <<" "<< it->get_Cd(false) <<" "<< it->get_Cd(true) <<" "
+                    << it->get_Cvp(false) <<" "<< it->get_Cvp(true) <<" "<< it->get_Cp(false)
+                    <<" "<< it->get_Cp(true) << std::endl;
         }
     }
     else
@@ -493,10 +494,10 @@ bool Graphe::connexite()
 
     for(auto i : m_sommets)//initialisation des sommets à blanc et des sommets de pred_I
         i->setMarque(0);
-    
+
     maFile.push(m_sommets[0]);//on note se sommet dans file
     m_sommets[0]->setMarque(1);//sommet gris
-    
+
     while(!maFile.empty())//tant que file pas null
     {
         int *nbre = new int;
@@ -504,8 +505,8 @@ bool Graphe::connexite()
         maFile.front()->setMarque(2);//il devient noir
         pred_I.push_back( maFile.front() );
         maFile.pop();//on libère la file
-        
-        
+
+
         for(auto s : m_sommets[*nbre]->getAdjacent())//pour chaque adjacent
         {
             if(s.first->getMarque() == 0)//si blanc
@@ -516,7 +517,7 @@ bool Graphe::connexite()
         }
         delete nbre;//libère mémoire
     }
-    
+
     if(m_sommets.size() == pred_I.size())
         return true;
     else
