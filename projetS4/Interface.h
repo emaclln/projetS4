@@ -29,6 +29,7 @@ public :
     void sauvegarderCentralite(std::string nomFichier);
     void retourEnArriere();
     void setSelecSVG(int selec);
+    void connexite();
 };
 
 

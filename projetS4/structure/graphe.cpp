@@ -482,3 +482,40 @@ std::vector <Arrete*> Graphe::getArretes () const
 {
     return m_arretes;
 }
+
+bool Graphe::connexite()
+{
+    std::vector< Sommet* > pred_I;//vecteur des predescesseurs
+    std::queue<Sommet*> maFile;//file créé
+
+    for(auto i : m_sommets)//initialisation des sommets à blanc et des sommets de pred_I
+        i->setMarque(0);
+    
+    maFile.push(m_sommets[0]);//on note se sommet dans file
+    m_sommets[0]->setMarque(1);//sommet gris
+    
+    while(!maFile.empty())//tant que file pas null
+    {
+        int *nbre = new int;
+        *nbre = maFile.front()->getId();//on retient ID du sommet
+        maFile.front()->setMarque(2);//il devient noir
+        pred_I.push_back( maFile.front() );
+        maFile.pop();//on libère la file
+        
+        
+        for(auto s : m_sommets[*nbre]->getAdjacent())//pour chaque adjacent
+        {
+            if(s.first->getMarque() == 0)//si blanc
+            {
+                maFile.push(s.first);//rajoute à file
+                s.first->setMarque(-1);//devient gris
+            }
+        }
+        delete nbre;//libère mémoire
+    }
+    
+    if(m_sommets.size() == pred_I.size())
+        return true;
+    else
+        return false;
+}

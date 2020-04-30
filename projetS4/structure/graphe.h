@@ -45,9 +45,10 @@ class Graphe
         void calculCp();
         void caculCi();
     
-        int getOrdre()const;
+        bool connexite();
         bool getOrientation()const;
         int getTaille()const;
+        int getOrdre()const;
         std::vector <Arrete*> getArretes () const;
         std::vector <Sommet*> getSommets() const;
     
