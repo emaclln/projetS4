@@ -102,3 +102,11 @@ void Interface::setSelecSVG(int selec)
 {
     m_selecSVG = selec;
 }
+
+void Interface::connexite()
+{
+    if(m_graphes[m_indice]->connexite())
+        std::cout<<"Le graphe selectionne est un graphe connexe"<<std::endl;
+    else
+        std::cout<<"Le graphe selectionne n'est pas un graphe connexe"<<std::endl;
+}

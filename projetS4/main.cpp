@@ -4,6 +4,8 @@
 #include "gestion console/menu.h"
 
 /*source code : TP de Charles Hamery (fait avec Eloi Bastit) et Emma Collin (fait avec Julie Trochon) */
+/*source code : Projet S3 de Charles Hamery et Emma Collin (fait avec Julie Trochon) */
+
 
 int main()
 {

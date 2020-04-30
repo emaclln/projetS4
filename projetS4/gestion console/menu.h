@@ -10,8 +10,8 @@
 #include <string>
 #include <sstream>
 
-#include <windows.h>
-#include "../Interface.h"
+//#include <windows.h>
+#include "Interface.h"
 
 int gererCommande(std::string& commande,Interface& monInterface);
 int gererDeffilement(bool autoCin);

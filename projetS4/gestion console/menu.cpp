@@ -17,11 +17,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
         std::cout<<std::endl<<"Vous n'avez pas demander d'action."<<std::endl;
     else
     {
-        if (commande.find("exit") != std::string::npos) //quitter l'application
-        {
-            stop=1;
-        }
-        else if (commande.find("ponderation") != std::string::npos) //recharger le dernier fichier ouvert
+        if (commande.find("ponderation") != std::string::npos) //recharger le dernier fichier ouvert
         {
             if (commande.find("load")!=std::string::npos)
             {
@@ -202,7 +198,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
         }
         else if (commande.find("test de connexite")!=std::string::npos) //enregistrer en memoire (pas fichier) un copie de l'etat actuel
         {
-            /// A REMPLIR
+            monInterface.connexite();
         }
         else if (commande.find("comparaison")!=std::string::npos)
         {
@@ -254,6 +250,11 @@ int gererCommande(std::string& commande,Interface& monInterface)
             size_t debut = commande.find(" ");
 
             monInterface.setSelecSVG(commande[debut+1] - 48);
+        }
+        else if (commande.find("exit") != std::string::npos) //quitter l'application
+        {
+            if(commande.size() == 4)
+                stop=1;
         }
         else
         {
