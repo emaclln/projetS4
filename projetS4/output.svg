@@ -61,9 +61,6 @@
 <line x1="1000" y1="0" x2="1000" y2="800" stroke="lightgrey" />
 <text x="1005" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1000</text>
 <text x="1005" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >1000</text>
-<line x1="500" y1="200" x2="400" y2="300" stroke="black" />
-<text x="450" y="250" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1</text>
-<text x="450" y="250" fill="blue" font-size="18px" text-anchor="middle" >1</text>
 <line x1="500" y1="200" x2="600" y2="300" stroke="black" />
 <text x="550" y="250" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >2</text>
 <text x="550" y="250" fill="blue" font-size="18px" text-anchor="middle" >2</text>
@@ -97,34 +94,51 @@
 <line x1="400" y1="500" x2="300" y2="600" stroke="black" />
 <text x="350" y="550" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >3</text>
 <text x="350" y="550" fill="blue" font-size="18px" text-anchor="middle" >3</text>
-<circle cx="500" cy="200" r="5" fill="rgb(50,293,50)" />
+<circle cx="500" cy="200" r="5" fill="rgb(0,0,-279)" />
 <text x="495" y="190" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >A</text>
 <text x="495" y="190" fill="balck" font-size="18px" text-anchor="middle" >A</text>
-<circle cx="400" cy="300" r="5" fill="rgb(50,305,50)" />
+<text x="500" y="222" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.012</text>
+<text x="500" y="222" fill="rgb(0,0,-279)" font-size="18px" text-anchor="middle" >0.012</text>
+<circle cx="400" cy="300" r="5" fill="rgb(0,0,-270)" />
 <text x="395" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >B</text>
 <text x="395" y="290" fill="balck" font-size="18px" text-anchor="middle" >B</text>
-<circle cx="600" cy="300" r="5" fill="rgb(50,286,50)" />
+<text x="400" y="322" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.015</text>
+<text x="400" y="322" fill="rgb(0,0,-270)" font-size="18px" text-anchor="middle" >0.015</text>
+<circle cx="600" cy="300" r="5" fill="rgb(0,0,-269)" />
 <text x="595" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >C</text>
 <text x="595" y="290" fill="balck" font-size="18px" text-anchor="middle" >C</text>
-<circle cx="500" cy="400" r="5" fill="rgb(50,340,50)" />
+<text x="600" y="322" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.015</text>
+<text x="600" y="322" fill="rgb(0,0,-269)" font-size="18px" text-anchor="middle" >0.015</text>
+<circle cx="500" cy="400" r="5" fill="rgb(0,0,-251)" />
 <text x="495" y="390" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >D</text>
 <text x="495" y="390" fill="black" font-size="18px" text-anchor="middle" >D</text>
-<circle cx="400" cy="500" r="5" fill="rgb(50,261,50)" />
+<text x="500" y="422" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.021</text>
+<text x="500" y="422" fill="rgb(0,0,-251)" font-size="18px" text-anchor="middle" >0.021</text>
+<circle cx="400" cy="500" r="5" fill="rgb(0,0,-273)" />
 <text x="395" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >E</text>
 <text x="395" y="490" fill="balck" font-size="18px" text-anchor="middle" >E</text>
-<circle cx="500" cy="500" r="5" fill="rgb(50,264,50)" />
+<text x="400" y="522" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.014</text>
+<text x="400" y="522" fill="rgb(0,0,-273)" font-size="18px" text-anchor="middle" >0.014</text>
+<circle cx="500" cy="500" r="5" fill="rgb(0,0,-272)" />
 <text x="495" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >F</text>
 <text x="495" y="490" fill="balck" font-size="18px" text-anchor="middle" >F</text>
-<circle cx="600" cy="500" r="5" fill="rgb(50,273,50)" />
+<text x="500" y="522" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.015</text>
+<text x="500" y="522" fill="rgb(0,0,-272)" font-size="18px" text-anchor="middle" >0.015</text>
+<circle cx="600" cy="500" r="5" fill="rgb(0,0,-269)" />
 <text x="595" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >G</text>
 <text x="595" y="490" fill="balck" font-size="18px" text-anchor="middle" >G</text>
-<circle cx="300" cy="600" r="5" fill="rgb(250,100,100)" />
+<text x="600" y="522" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.015</text>
+<text x="600" y="522" fill="rgb(0,0,-269)" font-size="18px" text-anchor="middle" >0.015</text>
+<circle cx="300" cy="600" r="5" fill="rgb(0,0,-283)" />
 <text x="295" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >H</text>
 <text x="295" y="590" fill="balck" font-size="18px" text-anchor="middle" >H</text>
-<circle cx="700" cy="600" r="5" fill="rgb(266,100,100)" />
+<text x="300" y="622" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.011</text>
+<text x="300" y="622" fill="rgb(0,0,-283)" font-size="18px" text-anchor="middle" >0.011</text>
+<circle cx="700" cy="600" r="5" fill="rgb(0,0,-274)" />
 <text x="695" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >I</text>
 <text x="695" y="590" fill="balck" font-size="18px" text-anchor="middle" >I</text>
-
+<text x="700" y="622" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >0.014</text>
+<text x="700" y="622" fill="rgb(0,0,-274)" font-size="18px" text-anchor="middle" >0.014</text>
 
 
 </svg>

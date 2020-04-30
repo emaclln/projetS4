@@ -57,20 +57,21 @@ Graphe::Graphe(std::string nomFichier )
 
 };
 
-Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)
 {
     m_orientation=orient;
     m_ordre = (int) buffer_s.size();
     m_taille = (int) buffer_a.size();
-    
+    m_ponderation = ponderation;
+
     for (size_t i=0; i<buffer_s.size(); i++)
         m_sommets.push_back(new Sommet{buffer_s[i]->getId(),buffer_s[i]->getNom(),buffer_s[i]->getCoords()});
-    
+
     for (size_t i=0; i<buffer_a.size(); i++)
     {
         std::vector< Sommet*> buffer_e = buffer_a[i]->getExtremite();
         int id_e1 = 0, id_e2 = 0;
-        
+
         for (auto it : m_sommets)
         {
             if (it->getId() == buffer_e[0]->getId())
@@ -78,7 +79,7 @@ Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool 
             if (it->getId() == buffer_e[1]->getId())
                 id_e2=it->getId();
         }
-        
+
         m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],buffer_a[i]->getPoids()});
     }
 }
@@ -130,11 +131,11 @@ void Graphe::remplirPoids(std::string& nomFichier)
     m_ponderation = true;
 }
 
-void Graphe::suppArrete(std::string& s1, std::string& s2)
+bool Graphe::suppArrete(std::string& s1, std::string& s2)
 {
     int compt = 0;
     bool trouver = false;
-    
+
     for(auto it : m_arretes)
     {
         if(it->trouverArrete(s1,s2))
@@ -143,12 +144,13 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
             m_arretes.erase(m_arretes.begin() + compt);
             trouver=true;
         }
-        
+
         ++compt;
     }
-    
+
     if (!trouver)
         std::cout<<std::endl<<"Arrete introuvable";
+    return trouver;
 }
 
 void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
@@ -157,11 +159,11 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
     int indice2 = -1;
     int compt = 0;
     bool exist = false;
-    
+
     for(auto it : m_arretes)
         if(it->trouverArrete(extremite_un,extremite_deux))
            exist = true;
-           
+
     if(!exist)
     {
         for(auto it : m_sommets)
@@ -173,10 +175,10 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
                 else
                     indice1 = compt;
             }
-            
+
             ++compt;
         }
-    
+
         m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2]));
         m_sommets[indice1]->set_adjacent(m_sommets[indice2]);
         m_sommets[indice2]->set_adjacent(m_sommets[indice1]);
@@ -184,7 +186,7 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
 }
 
 
-void Graphe::affichageSvg (int selec) const
+void Graphe::affichageSvg (int selec,bool normalise) const
 {
     Svgfile svgout;
     svgout.addGrid();
@@ -256,7 +258,7 @@ void Graphe::affichageSvg (int selec) const
             max =it->get_Cvp(true);
         if(max < it->get_Cp(true) && m_ponderation && selec == 2)
             max =it->get_Cp(true);
-        
+
         if(min > it->get_Cd(true) && selec == 0)
             min =it->get_Cd(true);
         if(min > it->get_Cvp(true) && m_ponderation && selec == 1)
@@ -266,7 +268,7 @@ void Graphe::affichageSvg (int selec) const
     }
 
     for (auto it : m_sommets)
-        it->affichageSVG(svgout,indice,milieu,max,min,selec);
+        it->affichageSVG(svgout,indice,milieu,max,min,selec,normalise);
 }
 
 void Graphe::calculCd()
@@ -368,20 +370,20 @@ void Graphe::afficherCentralite_Normalise(int selec)
     {
         if(selec == 1 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite de proximite des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cd(true)<<std::endl;
     }
@@ -463,12 +465,12 @@ void Graphe::afficherConsole()const
              <<"Graphe (format fichier):"
              <<std::endl<<m_orientation
              <<std::endl<<m_ordre;
-    
+
     for (auto it : m_sommets)
         it->afficherConsole();
-    
+
     std::cout<<std::endl<<m_taille;
-    
+
     for (auto it : m_arretes)
         it->afficherConsole();
 }
@@ -482,6 +484,7 @@ std::vector <Arrete*> Graphe::getArretes () const
 {
     return m_arretes;
 }
+
 
 bool Graphe::connexite()
 {
@@ -518,4 +521,10 @@ bool Graphe::connexite()
         return true;
     else
         return false;
+}
+
+bool Graphe::getPonde()const
+{
+    return m_ponderation;
+
 }

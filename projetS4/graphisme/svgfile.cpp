@@ -24,7 +24,7 @@ Svgfile::Svgfile(std::string _filename, int _width, int _height) :
 {
 
     if (s_verbose)
-        std::cout << "Opening SVG output file : "
+        std::cout << std::endl << "Opening SVG output file : "
                   << m_filename << std::endl;
 
     if ( s_openfiles.count(m_filename) )

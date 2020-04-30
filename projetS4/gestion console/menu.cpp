@@ -7,7 +7,7 @@
 #include "../Interface.h"
 #include "util.h"
 
-/// Appelle les fonstion associés à la commande ///
+/// Code des fonction associés à la commande ///
 
 int gererCommande(std::string& commande,Interface& monInterface)
 {
@@ -64,9 +64,40 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 changerCouleurConsole(4); //blanc
             }
         }
-        else if (commande.find("calculer indices") != std::string::npos) //revenir a l'etat precedent (la derniere copie)
+        else if (commande.find("calculer indice") != std::string::npos) //revenir a l'etat precedent (la derniere copie)
         {
             monInterface.calculCentralite();
+
+            //affichage
+            int selec=4;
+            if (commande.find("Cvp")!=std::string::npos)
+                selec=1;
+            else if (commande.find("Cp")!=std::string::npos)
+                selec=2;
+            else if (commande.find("Cd")!=std::string::npos)
+                selec=0;
+            else if (commande.find("Ci")!=std::string::npos)
+                selec=3;
+            monInterface.setSelecSVG(selec);
+
+            if (commande.find("non normalise")!=std::string::npos)
+            {
+                monInterface.afficherCentralite_NON_Normalise(selec);
+                monInterface.setNormaliseSVG(false);
+            }
+            else if (commande.find("normalise")!=std::string::npos)
+            {
+                monInterface.afficherCentralite_Normalise(selec);
+                monInterface.setNormaliseSVG(true);
+
+            }
+            else
+            {
+                monInterface.afficherCentralite_NON_Normalise(selec);
+                monInterface.afficherCentralite_Normalise(selec);
+                monInterface.setNormaliseSVG(false); //affichage non normalise par defaut
+            }
+
         }
         else if (commande.find("save indices") != std::string::npos) //enregistrer dans un fichier la situation actuelle
         {
@@ -95,7 +126,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             if (commande.find('(') != std::string::npos)
             {
                 size_t debut=commande.find('(')+1;
-                
+
                 if (commande.find('-')!=std::string::npos)
                 {
                     std::string nom_extremite1;
@@ -119,7 +150,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                         monInterface.copieGraphe();
                         monInterface.suppArrete(nom_extremite1,nom_extremite2);
                         ///suppression de l'arrete
-                        
+
                         monInterface.calculCentralite();
                     }
                     else
@@ -148,7 +179,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             if (commande.find('(') != std::string::npos)
             {
                 size_t debut=commande.find('(')+1;
-                
+
                 if (commande.find('-')!=std::string::npos)
                 {
                     std::string nom_extremite1;
@@ -172,7 +203,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                         monInterface.copieGraphe();
                         monInterface.ajouterArrete(nom_extremite1,nom_extremite2);
                         ///suppression de l'arrete
-                        
+
                         monInterface.calculCentralite();
                     }
                     else
@@ -202,7 +233,45 @@ int gererCommande(std::string& commande,Interface& monInterface)
         }
         else if (commande.find("comparaison")!=std::string::npos)
         {
-            /// A REMPLIR
+            int selec=4;
+            int indice_compare;
+            if (commande.find("Cvp")!=std::string::npos)
+                selec=1;
+            else if (commande.find("Cp")!=std::string::npos)
+                selec=2;
+            else if (commande.find("Cd")!=std::string::npos)
+                selec=0;
+            else if (commande.find("Ci")!=std::string::npos)
+                selec=3;
+            std::string reponse;
+            std::cout<<std::endl<<"Vous etes a l'etape "<<monInterface.getIndice()
+                     <<std::endl<<"Avec quel graphe souhaitez vous comparer ?"
+                     <<std::endl<<"(precedent/initial/autre) : ";
+            std::getline(std::cin,reponse);
+            if (reponse.find("precedent")!=std::string::npos)
+            {
+                indice_compare=-1;
+                monInterface.comparaison(indice_compare,selec);
+            }
+            else if (reponse.find("initial")!=std::string::npos)
+            {
+                indice_compare=0;
+                monInterface.comparaison(indice_compare,selec);
+            }
+            else if (reponse.find("autre")!=std::string::npos)
+            {
+                std::cout<<std::endl<<"Taper le numero de l'etape souhaitee : ";
+                std::cin>>indice_compare;
+                monInterface.comparaison(indice_compare,selec);
+            }
+            else
+            {
+                changerCouleurConsole(3);
+                std::cout<<std::endl<<"Reponse invalide."<<std::endl;
+                changerCouleurConsole(4);
+
+            }
+
         }
         else if (commande.find("retour")!=std::string::npos)
         {
@@ -263,7 +332,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             changerCouleurConsole(4);
         }
     }
-    
+
     monInterface.affichageSvg();
 
     return stop;
@@ -316,6 +385,8 @@ void changerCouleurConsole(int couleur)
 int gererDeffilement(bool autoCin)
 {
     Interface monInterface;
+    monInterface.remplirFichier("graphe-test2.txt");
+    monInterface.remplirPoids("ponde-test2.txt");
     std::string commande; //recupere la saisi de l'utilisateur
     int stop;
 

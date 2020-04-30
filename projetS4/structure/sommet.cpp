@@ -66,22 +66,88 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec, bool normalise)const
 {
     int r,g,b;
     double coeff;
-    
+    double indice_affiche;
+    int temp=0;
+
     if(selec == 0)
-        coeff = m_Cd-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cd-min;
+            //je recupere la valeur au centième près
+            temp=m_N_Cd*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Cd-min;
+            //je recupere la valeur au centième près
+            temp=m_Cd*100;
+            indice_affiche=(double)temp/100;
+        }
+
+    }
     else if(selec == 1)
-        coeff = m_Cvp-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cvp-min;
+            temp=m_N_Cvp*100;
+            indice_affiche=(double)temp/100;
+            std::cout<<"5";
+        }
+        else
+        {
+            coeff = m_Cvp-min;
+            temp=m_Cvp*100;
+            indice_affiche=(double)temp/100;
+
+        }
+
+    }
+
     else if(selec == 2)
-        coeff = m_Cp-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cp-min;
+            temp=m_N_Cp*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Cp-min;
+            temp=m_Cp*1000;
+            indice_affiche=(double)temp/1000;
+        }
+    }
+
     else if(selec == 3)
-        coeff = m_Ci-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Ci-min;
+            temp=m_N_Ci*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Ci-min;
+            temp=m_Ci*100;
+            indice_affiche=(double)temp/100;
+        }
+    }
     else
+    {
         coeff = 0;
-    
+        temp =0;
+    }
+
+
     if(coeff < ((max-min) * 1/3) && max != 0)
     {
         r = 0;
@@ -106,12 +172,15 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         g = 0;
         b = 100;
     }
-    
-    
+
+    std::cout<<std::endl<<indice_affiche<<"-"<<temp;
+
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {
         svgout.addDisk(500,400,5,svgout.makeRGB(r, g, b));
         svgout.addText(500-5,400-10,m_nom,"black");
+        if (temp!=0) // afficher indice
+            svgout.addText(500,400+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
     else
     {
@@ -119,13 +188,15 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         int ecart_y=(milieu.getY()-m_coord.getY())*indice;
         svgout.addDisk(500-ecart_x,400-ecart_y,5,svgout.makeRGB(r, g, b));
         svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"balck");
+        if (temp!=0) // afficher indice
+            svgout.addText(500-ecart_x,400-ecart_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
 }
 
 void Sommet::suppAdjacent(Sommet* supprimer)
 {
     int compt = 0;
-    for(size_t i=0;i<m_adjacent.size();++i)
+    for(size_t i=0; i<m_adjacent.size(); ++i)
     {
         if(m_adjacent[i].first == supprimer)
             m_adjacent.erase(m_adjacent.begin() + compt);
@@ -160,7 +231,7 @@ double Sommet::get_SommeIndice()
 
     for(auto it : m_adjacent)
         somme+= it.first->get_Cvp(true);
-        
+
     return somme;
 }
 

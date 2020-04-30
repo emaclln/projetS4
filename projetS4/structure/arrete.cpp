@@ -142,11 +142,10 @@ std::vector<Sommet*> Arrete::getExtremite()const
 bool Arrete::trouverArrete(std::string& s1, std::string& s2)
 {
     int compteur=0;
-
     for (auto it : m_extremite)
         if(it->getNom()==s1 || it->getNom()==s2)
             compteur+=1;
-    
+
     if (compteur==2) //si le nom des 2 sommets correspondent aux extremitées de l'arrete
         return true;
     else

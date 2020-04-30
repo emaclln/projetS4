@@ -8,12 +8,13 @@ class Interface
 private :
     int m_indice; //coorespond à la "case" du vecteur pour indiquer sur quel grpahe on travail
     int m_selecSVG; //permet d'afficher des couleurs pour les sommets en fonction des indices de centralitŽs
+    bool m_normaliseSVG; //permet dans l'affichage s'il faut choisir les indices normalisés ou non
     std::vector <Graphe*> m_graphes;
 public :
 
     Interface();
     ~Interface();
-    
+
     void initialisation ();
     void affichageSvg ()const;
     void copieGraphe();
@@ -29,7 +30,19 @@ public :
     void sauvegarderCentralite(std::string nomFichier);
     void retourEnArriere();
     void setSelecSVG(int selec);
+
     void connexite();
+
+    void setIndice(int indice);
+    void setNormaliseSVG(bool normalise);
+    int getIndice()const;
+
+    void comparaison(int indice_compare,int selec);
+    void comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+    void comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+    void comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+    void comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+
 };
 
 
