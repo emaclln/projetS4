@@ -348,39 +348,39 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
 void changerCouleurConsole(int couleur)
 {
-//    switch (couleur)
-//    {
-//    case 1 : //vert sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x02);
-//        break;
-//    }
-//    case 2 : //bleu-vert sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x0b);
-//        break;
-//    }
-//    case 3 : //rouge sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x0c);
-//        break;
-//    }
-//    case 4 : //blanc sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x07);
-//        break;
-//    }
-//    case 5 : //jaune sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x06);
-//        break;
-//    }
-//    }
+    switch (couleur)
+    {
+    case 1 : //vert sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x02);
+        break;
+    }
+    case 2 : //bleu-vert sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x0b);
+        break;
+    }
+    case 3 : //rouge sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x0c);
+        break;
+    }
+    case 4 : //blanc sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x07);
+        break;
+    }
+    case 5 : //jaune sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x06);
+        break;
+    }
+    }
 }
 
 
@@ -430,7 +430,7 @@ void affichageCommande()
     util::startAutoCin("regle.txt",8);
     for(int i=0; i<200; ++i)
     {
-        if(regle == "<")
+        if(regle=="<")
         {
             x=60;
             y+=1;
@@ -449,14 +449,14 @@ void affichageCommande()
 
 void gotoligcol(int A, int B)
 {
-//    HANDLE hout;
-//    COORD Position;
-//
-//    hout = GetStdHandle(STD_OUTPUT_HANDLE);
-//
-//    Position.X = A;
-//    Position.Y = B;
-//
-//    SetConsoleCursorPosition(hout,Position);
+    HANDLE hout;
+    COORD Position;
+
+    hout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    Position.X = A;
+    Position.Y = B;
+
+    SetConsoleCursorPosition(hout,Position);
 }
 
