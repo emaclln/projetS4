@@ -130,7 +130,7 @@ void Graphe::remplirPoids(std::string& nomFichier)
     m_ponderation = true;
 }
 
-void Graphe::suppArrete(std::string& s1, std::string& s2)
+bool Graphe::suppArrete(std::string& s1, std::string& s2)
 {
     int compt = 0;
     bool trouver = false;
@@ -149,6 +149,7 @@ void Graphe::suppArrete(std::string& s1, std::string& s2)
 
     if (!trouver)
         std::cout<<std::endl<<"Arrete introuvable";
+    return trouver;
 }
 
 void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
@@ -256,7 +257,7 @@ void Graphe::affichageSvg (int selec) const
             max =it->get_Cvp(true);
         if(max < it->get_Cp(true) && m_ponderation && selec == 2)
             max =it->get_Cp(true);
-        
+
         if(min > it->get_Cd(true) && selec == 0)
             min =it->get_Cd(true);
         if(min > it->get_Cvp(true) && m_ponderation && selec == 1)

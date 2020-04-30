@@ -31,8 +31,8 @@ void Interface::copieGraphe()
 void Interface::suppArrete(std::string& s1,std::string& s2)
 {
 
-    m_graphes[m_indice]->suppArrete(s1,s2);
-
+    if(!m_graphes[m_indice]->suppArrete(s1,s2)) //si l'arrete n'a pas été trouvé donc pas de supp
+        retourEnArriere(); //on supprime le graphe créé
 }
 
 
@@ -48,7 +48,6 @@ void Interface::affichageSvg ()const
 {
     if (!m_graphes.empty())
         m_graphes[m_indice]->affichageSvg(m_selecSVG);
-
 }
 
 void Interface::remplirPoids(std::string nomFichier)

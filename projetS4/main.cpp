@@ -39,19 +39,19 @@ int main()
     ensemble.afficherListeAdjacence();
 
 //    ensemble.affichageSvg();
-    std::string s1="A";
-    std::string s2="B";
+    std::string s1="D";
+    std::string s2="A";
     ensemble.copieGraphe();
     ensemble.suppArrete(s1,s2);
     ensemble.afficherConsole();
     ensemble.afficherListeAdjacence();
-    s1="H";
-    s2="B";
-    ensemble.copieGraphe();
-    ensemble.suppArrete(s1,s2);
-
-    ensemble.afficherConsole();
-    ensemble.afficherListeAdjacence();
+//    s1="F";
+//    s2="E";
+//    ensemble.copieGraphe();
+//    ensemble.suppArrete(s1,s2);
+//
+//    ensemble.afficherConsole();
+//    ensemble.afficherListeAdjacence();
 
     ensemble.affichageSvg();
 
