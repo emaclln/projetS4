@@ -56,6 +56,9 @@ class Graphe
         std::vector <Sommet*> getSommets() const;
 
         std::map<Sommet*, std::pair<Sommet*, int>> disjtra (int premier, int dernier);
+        std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> disjtraCi(Sommet* depart);
+        std::vector<std::vector<Sommet*>> recurCI(std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred, Sommet* selec, Sommet* depart);
+
 };
 
 #endif // GRAPHE_H_INCLUDED

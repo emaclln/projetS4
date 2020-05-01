@@ -240,9 +240,10 @@ void Sommet::set_Cp(double cp, int degre)
     m_N_Cp = cp;
 }
 
-void Sommet::caculCi()
+void Sommet::caculCi(double nbre, int degre)
 {
-
+    m_N_Ci = nbre;
+    m_Ci = (2*m_N_Ci)/(degre*degre - 3*degre +2);
 }
 
 
@@ -260,6 +261,14 @@ double Sommet::get_Cd(bool selec)
         return m_Cd;
     else
         return m_N_Cd;
+}
+
+double Sommet::get_Ci(bool selec)
+{
+    if(selec)
+        return m_Ci;
+    else
+        return m_N_Ci;
 }
 
 void Sommet::afficherConsole()const

@@ -359,9 +359,111 @@ std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int der
        return pred_I_total;
 }
 
+std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet* depart)
+{
+   std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+   std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total;
+
+    for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
+        s->setMarque(0);
+
+    maFile.push(std::make_pair(depart, 0) );
+    depart->setMarque(1);
+    
+   while(!maFile.empty())
+   {
+       std::pair<Sommet*,int> buffer;
+
+       buffer = maFile.top();
+       maFile.pop();
+
+       for(auto s : buffer.first->getAdjacent())
+       {
+           int total = buffer.second + 1;
+
+           if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
+           {
+               s.first->setMarque(1);
+               maFile.push(std::make_pair(s.first, total));
+               
+               std::vector<Sommet*> temp;
+                temp.push_back(buffer.first);
+                pred_I_total[s.first] = std::make_pair(temp, total);
+           }
+           else if(pred_I_total[s.first].second == total)
+           {
+               s.first->setMarque(1);
+               pred_I_total[s.first].first.push_back(buffer.first);
+           }
+       }
+   }
+
+    return pred_I_total;
+}
+
 void Graphe::caculCi()
 {
+    std::vector<double> ciS;
+    
+    for(size_t i = 0 ; i<m_sommets.size(); ++i)
+        ciS.push_back(0);
+    
+    for(size_t i = 0 ; i<m_sommets.size(); ++i)
+    {
+        for(int d=0; d< m_sommets.size();++d)
+           {
+               for(int a=d; a< m_sommets.size();++a)
+               {
+                   if(d != a && i!=a && i!=d)
+                   {
+                       std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
+                       std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
+                       double cheminTotal = chemin.size();
+                       
+                       double cheminVisite = 0;
+                       
+                       for(auto c : chemin)
+                           for(auto s : c)
+                               if(s == m_sommets[i])
+                                   cheminVisite +=1;
+                                              
+                       if(cheminVisite/cheminTotal > 0)
+                           ciS[i] += cheminVisite/cheminTotal;
+                   }
+               }
+           }
+    }
+    
+    for(size_t i = 0 ; i<m_sommets.size(); ++i)
+        m_sommets[i]->caculCi(ciS[i], m_ordre);
+}
 
+std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred, Sommet* selec, Sommet* depart)
+{
+    std::vector<std::vector<Sommet*>> chemin;
+
+    if(selec->getId() == depart->getId())
+    {
+        std::vector<Sommet*> temp;
+        temp.push_back(depart);
+        chemin.push_back(temp);
+    }
+    else
+    {
+        for(auto i : pred[selec].first)
+        {
+                std::vector<std::vector<Sommet*>> buffer;
+                buffer = recurCI(pred, i, depart);
+                
+                for(auto a : buffer)
+                {
+                    a.push_back(selec);
+                    chemin.push_back(a);
+                }
+        }
+    }
+    
+    return chemin;
 }
 
 void Graphe::afficherCentralite_Normalise(int selec)
@@ -390,6 +492,9 @@ void Graphe::afficherCentralite_Normalise(int selec)
 
     if(selec == 3 || selec == 4)
     {
+        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
+        for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Ci(true)<<std::endl;
     }
 }
 
@@ -419,6 +524,9 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
 
     if(selec == 3 || selec == 4)
     {
+        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
+        for(auto it : m_sommets)
+            std::cout<<it->getNom()<<": "<<it->get_Ci(false)<<std::endl;
     }
 }
 

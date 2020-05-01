@@ -44,7 +44,7 @@ public :
     void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu,double max,double min, int selec,bool normalise)const;
     void suppAdjacent(Sommet* supprimer);
     void calculCd(int degre);
-    void caculCi();
+    void caculCi(double nbre,int degre);
     void afficherConsole()const;
     void afficherListeAdjacence()const;
 
@@ -57,6 +57,7 @@ public :
     double get_Cvp(bool selec);
     double get_Cd(bool selec);
     double get_Cp(bool selec);
+    double get_Ci(bool selec);
 
 };
 
