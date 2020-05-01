@@ -98,7 +98,6 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
             coeff = m_N_Cvp-min;
             temp=m_N_Cvp*100;
             indice_affiche=(double)temp/100;
-            std::cout<<"5";
         }
         else
         {

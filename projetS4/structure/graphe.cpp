@@ -186,10 +186,8 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
 }
 
 
-void Graphe::affichageSvg (int selec,bool normalise) const
+void Graphe::affichageSvg (Svgfile& svgout,int selec,bool normalise) const
 {
-    Svgfile svgout;
-    svgout.addGrid();
     ///cherhons l'indice pour adapté le graphe à la taille de l'écran 1000*800
     int indice=100; // par défaut on le met à 100
     bool stop;

@@ -48,8 +48,12 @@ void Interface::remplirFichier(std::string nomFichier)
 
 void Interface::affichageSvg ()const
 {
+    Svgfile::s_verbose = false;
+    Svgfile svgout;
+    svgout.addGrid();
+
     if (!m_graphes.empty())
-        m_graphes[m_indice]->affichageSvg(m_selecSVG,m_normaliseSVG);
+        m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG);
 }
 
 void Interface::remplirPoids(std::string nomFichier)
