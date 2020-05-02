@@ -29,13 +29,24 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux, int poids)
     m_extremite[1]->set_poids(m_extremite[0],m_poids);
 }
 
-void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation, bool ponderation)const
+void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation, bool ponderation, int comparaison)const
 {
+    int milieu_ecran_x;
+    int milieu_ecran_y=400;
+    if (comparaison==0) //un seul grahe au centre
+        milieu_ecran_x=500;
+
+    if (comparaison==1) //graphe centre gauche = graphe lors d'une comparaison
+        milieu_ecran_x=250;
+
+    if (comparaison==2) //graphe centre droite = grpahe apres lors d'une comparaison
+        milieu_ecran_x=750;
+
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
     {
         int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
         int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
-        svgout.addLine(500,400,500-ecart_x1,400-ecart_y1,"black");
+        svgout.addLine(milieu_ecran_x,milieu_ecran_y,milieu_ecran_x-ecart_x1,milieu_ecran_y-ecart_y1,"black");
 
         if (orientation) //s'il est orienté
         {
@@ -49,7 +60,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
             milieu_arrete_x=ecart_x1/2;
             milieu_arrete_y=ecart_y1/2;
 
-            svgout.addText(500-milieu_arrete_x,400-milieu_arrete_y+5,m_poids,"blue");
+            svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
         }
     }
     else
@@ -58,7 +69,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
         {
             int ecart_x0=(milieu.getX()-m_extremite[0]->getCoords().getX())*indice;
             int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
-            svgout.addLine(500,400,500-ecart_x0,400-ecart_y0,"black");
+            svgout.addLine(milieu_ecran_x,milieu_ecran_y,milieu_ecran_x-ecart_x0,milieu_ecran_y-ecart_y0,"black");
 
             if (orientation) //s'il est orienté
             {
@@ -70,7 +81,7 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
             {
                 int milieu_arrete_x=ecart_x0/2;
                 int milieu_arrete_y=ecart_y0/2;
-                svgout.addText(500-milieu_arrete_x,400-milieu_arrete_y+5,m_poids,"blue");
+                svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
             }
         }
         else
@@ -80,21 +91,22 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
             int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
             int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
 
-            svgout.addLine(500-ecart_x0,400-ecart_y0,500-ecart_x1,400-ecart_y1,"black");
+            svgout.addLine(milieu_ecran_x-ecart_x0,milieu_ecran_y-ecart_y0,milieu_ecran_x-ecart_x1,
+                           milieu_ecran_y-ecart_y1,"black");
 
             if (ponderation)//affichage poids
             {
                 int milieu_arrete_x, milieu_arrete_y;
-                milieu_arrete_y=(400-ecart_y0+400-ecart_y1)/2;
-                if (500-ecart_x0>=500-ecart_x1)
-                    milieu_arrete_x=((500-ecart_x0-500+ecart_x1)/2)+500-ecart_x1;
+                milieu_arrete_y=(milieu_ecran_y-ecart_y0+milieu_ecran_y-ecart_y1)/2;
+                if (milieu_ecran_x-ecart_x0>=milieu_ecran_x-ecart_x1)
+                    milieu_arrete_x=((milieu_ecran_x-ecart_x0-milieu_ecran_x+ecart_x1)/2)+milieu_ecran_x-ecart_x1;
                 else
-                    milieu_arrete_x=((500-ecart_x1-500+ecart_x0)/2)+500-ecart_x0;
+                    milieu_arrete_x=((milieu_ecran_x-ecart_x1-milieu_ecran_x+ecart_x0)/2)+milieu_ecran_x-ecart_x0;
 
-                if (400-ecart_y0>=400-ecart_y1)
-                    milieu_arrete_y=((400-ecart_y0-400+ecart_y1)/2)+400-ecart_y1;
+                if (milieu_ecran_y-ecart_y0>=milieu_ecran_y-ecart_y1)
+                    milieu_arrete_y=((milieu_ecran_y-ecart_y0-milieu_ecran_y+ecart_y1)/2)+milieu_ecran_y-ecart_y1;
                 else
-                    milieu_arrete_y=((400-ecart_y1-400+ecart_y0)/2)+400-ecart_y0;
+                    milieu_arrete_y=((milieu_ecran_y-ecart_y1-milieu_ecran_y+ecart_y0)/2)+milieu_ecran_y-ecart_y0;
 
 
                 svgout.addText(milieu_arrete_x,milieu_arrete_y,m_poids,"blue");

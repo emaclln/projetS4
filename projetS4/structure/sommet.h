@@ -41,7 +41,7 @@ public :
     void set_Cp(double cp, int degre);
     void setMarque(int selec);
 
-    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu,double max,double min, int selec,bool normalise)const;
+    void affichageSVG (Svgfile& svgout,int& indice,Coord& milieu,double max,double min, int selec,bool normalise,int comparaison)const;
     void suppAdjacent(Sommet* supprimer);
     void calculCd(int degre);
     void caculCi(double nbre,int degre);

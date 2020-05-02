@@ -186,16 +186,25 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
 }
 
 
-void Graphe::affichageSvg (int selec,bool normalise) const
+void Graphe::affichageSvg (Svgfile& svgout,int selec,bool normalise,int comparaison) const
 {
-    Svgfile svgout;
-    svgout.addGrid();
     ///cherhons l'indice pour adapté le graphe à la taille de l'écran 1000*800
     int indice=100; // par défaut on le met à 100
     bool stop;
     //on verifie qu'avec cette indice on peut construire tout le grpahe sinon on le réduit
     int max_x=0,temp_x,max_y=0,temp_y;
     int min_x=0,min_y=0; //pour trouver le sommet centre par la suite
+
+    int max_ecran_x;
+    int max_ecran_y=800;
+
+    if (comparaison==0) //un seul grahe au centre
+        max_ecran_x=1000;
+
+    if (comparaison==1 || comparaison==2) // 2 graphe affihes
+        max_ecran_x=500;
+
+
     //recherche des points extreme du graphe
     do
     {
@@ -214,9 +223,9 @@ void Graphe::affichageSvg (int selec,bool normalise) const
             else if (temp_x<min_x)
                 min_x=temp_x;
         }
-        if (max_x*indice>1000 || max_y*indice>800) //depace
+        if (max_x*indice>max_ecran_x || max_y*indice>max_ecran_y) //depace
         {
-            indice=indice/2;
+            indice=indice-1;
             stop=false; //on revérifie qu'avec cet nouvel indice ce soit bon
         }
 
@@ -244,7 +253,7 @@ void Graphe::affichageSvg (int selec,bool normalise) const
     ///dessin
     for (auto it : m_arretes)
     {
-        it->affichageSVG(svgout,indice,milieu,m_orientation,m_ponderation);
+        it->affichageSVG(svgout,indice,milieu,m_orientation,m_ponderation,comparaison);
     }
 
     double max = 0;
@@ -268,7 +277,7 @@ void Graphe::affichageSvg (int selec,bool normalise) const
     }
 
     for (auto it : m_sommets)
-        it->affichageSVG(svgout,indice,milieu,max,min,selec,normalise);
+        it->affichageSVG(svgout,indice,milieu,max,min,selec,normalise,comparaison);
 }
 
 void Graphe::calculCd()

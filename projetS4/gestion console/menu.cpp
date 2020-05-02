@@ -249,6 +249,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 selec=0;
             else if (commande.find("Ci")!=std::string::npos)
                 selec=3;
+
             std::string reponse;
             std::cout<<std::endl<<"Vous etes a l'etape "<<monInterface.getIndice()
                      <<std::endl<<"Avec quel graphe souhaitez vous comparer ?"
@@ -341,6 +342,16 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
     monInterface.affichageSvg();
 
+    if (monInterface.getComparaisonSVG()) //il faut afficher 2 graphes
+    {
+        //on initialise l'affichage pour le prochain affichage
+        monInterface.setComparaisonSVG(0);
+        monInterface.setNormaliseSVG(false);
+        monInterface.setSelecSVG(4);
+    }
+
+
+
     return stop;
 }
 
@@ -348,39 +359,39 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
 void changerCouleurConsole(int couleur)
 {
-//    switch (couleur)
-//    {
-//    case 1 : //vert sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x02);
-//        break;
-//    }
-//    case 2 : //bleu-vert sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x0b);
-//        break;
-//    }
-//    case 3 : //rouge sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x0c);
-//        break;
-//    }
-//    case 4 : //blanc sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x07);
-//        break;
-//    }
-//    case 5 : //jaune sur fond noir
-//    {
-//        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//        SetConsoleTextAttribute(hConsole,0x06);
-//        break;
-//    }
-//    }
+    switch (couleur)
+    {
+    case 1 : //vert sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x02);
+        break;
+    }
+    case 2 : //bleu-vert sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x0b);
+        break;
+    }
+    case 3 : //rouge sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x0c);
+        break;
+    }
+    case 4 : //blanc sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x07);
+        break;
+    }
+    case 5 : //jaune sur fond noir
+    {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole,0x06);
+        break;
+    }
+    }
 }
 
 
@@ -430,7 +441,7 @@ void affichageCommande()
     util::startAutoCin("regle.txt",8);
     for(int i=0; i<200; ++i)
     {
-        if(regle == "<")
+        if(regle=="<")
         {
             x=60;
             y+=1;
@@ -449,14 +460,14 @@ void affichageCommande()
 
 void gotoligcol(int A, int B)
 {
-//    HANDLE hout;
-//    COORD Position;
-//
-//    hout = GetStdHandle(STD_OUTPUT_HANDLE);
-//
-//    Position.X = A;
-//    Position.Y = B;
-//
-//    SetConsoleCursorPosition(hout,Position);
+    HANDLE hout;
+    COORD Position;
+
+    hout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    Position.X = A;
+    Position.Y = B;
+
+    SetConsoleCursorPosition(hout,Position);
 }
 

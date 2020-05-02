@@ -1,23 +1,25 @@
-/*BIENVENUE ! 
-< > Regle : Chaque etape correspond a une action
-< > sur le graphe (ajout ou suppression d'arrete).
-< > Le telechargement correspond à l'etape 0. 
-< >
-< > Voici vos commandes :
-< > 
-< > load "nom du fichier"
-< > load ponderation "nom du fichier"
-< > calculer indice
-< > 	|-> Cvp, Cp, Cd, Ci
-< >     |-> normalisee, non normalise
-< > comparaison => compare les indices
-< > save indices 'nom du fichier'
-< > supprimer (A-B) => supprime l'arrete A-B
-< > ajouter (A-B) => ajoute l'arrete A-B
-< > ajout graphe "nom fichier"
-< > test de connexite
-< > retour => revient a l'etape precedente
-< > stopAutoCin
-< > startScript
-< > help
-< > exit
+BIENVENUE ! <
+> Regle : Chaque etape correspond a une action <
+> sur le graphe (ajout et suppression d'arrete <
+> ou ajout d'un graphe) <
+> Le telechargement correspond a l'etape 0 <
+> <
+> Voici vos commandes : <
+> <
+> load "nom du fichier" <
+> load ponderation "nom du fichier" <
+> calculer indice <
+> |->Cvp, Cp, Cd, Ci <
+> |->normalise, non normalise <
+> comparaison => compare les indices <
+> save indices 'nom du fichier' <
+> supprimer (A-B) => supprime l'arrete A-B <
+> ajouter (A-B) => ajoute l'arrete A-B <
+> ajout graphe "nom fichier" <
+> test de connexite <
+> retour => supprime l'etape actuelle <
+> stopAutoCin <
+> startScript <
+> help <
+> exit
+                                                     
