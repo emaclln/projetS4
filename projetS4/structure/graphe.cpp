@@ -162,7 +162,7 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
 
     for(auto it : m_arretes)
         if(it->trouverArrete(extremite_un,extremite_deux))
-           exist = true;
+            exist = true;
 
     if(!exist)
     {
@@ -303,12 +303,12 @@ void Graphe::calculCvp()
         for(auto it : m_sommets)
             sommeSucc.push_back(it->get_SommeIndice());
 
-        for(size_t i=0;i<sommeSucc.size();++i)
+        for(size_t i=0; i<sommeSucc.size(); ++i)
             lambda += (sommeSucc[i] * sommeSucc[i]);
 
         lambda = sqrt(lambda);
 
-        for(size_t i=0;i<sommeSucc.size();++i)
+        for(size_t i=0; i<sommeSucc.size(); ++i)
             m_sommets[i]->set_Cvp(sommeSucc[i],lambda);
 
     }
@@ -334,44 +334,44 @@ void Graphe::calculCp()
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
 {
-       std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
-       std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
+    std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+    std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
 
-       for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
-           s->setMarque(0);
+    for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
+        s->setMarque(0);
 
-       maFile.push(std::make_pair(m_sommets[premier], 0) );
-       m_sommets[premier]->setMarque(1);
+    maFile.push(std::make_pair(m_sommets[premier], 0) );
+    m_sommets[premier]->setMarque(1);
 
-       while(!maFile.empty())
-       {
-           int compt = 0;
-           std::pair<Sommet*,int> buffer;
+    while(!maFile.empty())
+    {
+        int compt = 0;
+        std::pair<Sommet*,int> buffer;
 
-           buffer = maFile.top();
-           maFile.pop();
+        buffer = maFile.top();
+        maFile.pop();
 
-           for(auto s : buffer.first->getAdjacent())
-           {
-               int total = buffer.second + s.second;
+        for(auto s : buffer.first->getAdjacent())
+        {
+            int total = buffer.second + s.second;
 
-               if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
-               {
-                   s.first->setMarque(1);
-                   maFile.push(std::make_pair(s.first, total));
-                   pred_I_total[s.first] = std::make_pair(buffer.first, total);
-               }
+            if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
+            {
+                s.first->setMarque(1);
+                maFile.push(std::make_pair(s.first, total));
+                pred_I_total[s.first] = std::make_pair(buffer.first, total);
+            }
 
-               ++compt;
-           }
-       }
-       return pred_I_total;
+            ++compt;
+        }
+    }
+    return pred_I_total;
 }
 
 std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet* depart)
 {
-   std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
-   std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total;
+    std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+    std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total;
 
     for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
         s->setMarque(0);
@@ -379,33 +379,33 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
     maFile.push(std::make_pair(depart, 0) );
     depart->setMarque(1);
 
-   while(!maFile.empty())
-   {
-       std::pair<Sommet*,int> buffer;
+    while(!maFile.empty())
+    {
+        std::pair<Sommet*,int> buffer;
 
-       buffer = maFile.top();
-       maFile.pop();
+        buffer = maFile.top();
+        maFile.pop();
 
-       for(auto s : buffer.first->getAdjacent())
-       {
-           int total = buffer.second + 1;
+        for(auto s : buffer.first->getAdjacent())
+        {
+            int total = buffer.second + 1;
 
-           if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
-           {
-               s.first->setMarque(1);
-               maFile.push(std::make_pair(s.first, total));
+            if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
+            {
+                s.first->setMarque(1);
+                maFile.push(std::make_pair(s.first, total));
 
-               std::vector<Sommet*> temp;
+                std::vector<Sommet*> temp;
                 temp.push_back(buffer.first);
                 pred_I_total[s.first] = std::make_pair(temp, total);
-           }
-           else if(pred_I_total[s.first].second == total)
-           {
-               s.first->setMarque(1);
-               pred_I_total[s.first].first.push_back(buffer.first);
-           }
-       }
-   }
+            }
+            else if(pred_I_total[s.first].second == total)
+            {
+                s.first->setMarque(1);
+                pred_I_total[s.first].first.push_back(buffer.first);
+            }
+        }
+    }
 
     return pred_I_total;
 }
@@ -419,28 +419,28 @@ void Graphe::calculCi()
 
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
     {
-        for(int d=0; d< m_sommets.size();++d)
-           {
-               for(int a=d; a< m_sommets.size();++a)
-               {
-                   if(d != a && i!=a && i!=d)
-                   {
-                       std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
-                       std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
-                       double cheminTotal = chemin.size();
+        for(size_t d=0; d< m_sommets.size(); ++d)
+        {
+            for(size_t a=d; a< m_sommets.size(); ++a)
+            {
+                if(d != a && i!=a && i!=d)
+                {
+                    std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
+                    std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
+                    double cheminTotal = chemin.size();
 
-                       double cheminVisite = 0;
+                    double cheminVisite = 0;
 
-                       for(auto c : chemin)
-                           for(auto s : c)
-                               if(s == m_sommets[i])
-                                   cheminVisite +=1;
+                    for(auto c : chemin)
+                        for(auto s : c)
+                            if(s == m_sommets[i])
+                                cheminVisite +=1;
 
-                       if(cheminVisite/cheminTotal > 0)
-                           ciS[i] += cheminVisite/cheminTotal;
-                   }
-               }
-           }
+                    if(cheminVisite/cheminTotal > 0)
+                        ciS[i] += cheminVisite/cheminTotal;
+                }
+            }
+        }
     }
 
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
@@ -461,14 +461,14 @@ std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std
     {
         for(auto i : pred[selec].first)
         {
-                std::vector<std::vector<Sommet*>> buffer;
-                buffer = recurCI(pred, i, depart);
+            std::vector<std::vector<Sommet*>> buffer;
+            buffer = recurCI(pred, i, depart);
 
-                for(auto a : buffer)
-                {
-                    a.push_back(selec);
-                    chemin.push_back(a);
-                }
+            for(auto a : buffer)
+            {
+                a.push_back(selec);
+                chemin.push_back(a);
+            }
         }
     }
 
@@ -483,13 +483,13 @@ void Graphe::afficherCentralite_Normalise(int selec)
         {
             std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
-            std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
+                std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
             std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
-            std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
+                std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
@@ -515,13 +515,13 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
         {
             std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
             for(auto it : m_sommets)
-            std::cout<<it->getNom()<<": "<<it->get_Cvp(false)<<std::endl;
+                std::cout<<it->getNom()<<": "<<it->get_Cvp(false)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
             std::cout<<std::endl<<"Affichage de la centralite de proximite des sommets : "<<std::endl;
             for(auto it : m_sommets)
-            std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
+                std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
         }
     }
     if(selec == 0 || selec == 4)
@@ -545,11 +545,10 @@ void Graphe::calculCentralite()
     {
         calculCvp();
         calculCp();
-        calculCi();
 
     }
     calculCd();
-
+    calculCi();
 }
 
 void Graphe::sauvegardeCentralite(std::string& nomFichier)
@@ -646,5 +645,91 @@ bool Graphe::connexite()
 bool Graphe::getPonde()const
 {
     return m_ponderation;
+
+}
+
+
+void Graphe::trouverTTchemins (std::vector<std::vector<Sommet*>>& tt_chemins, std::vector<Sommet*> chemin_divergent,Sommet* selectionne, Sommet* arrive)
+{
+    if (selectionne!=arrive) //tant que que je suis pas au sommet d'arrive
+    {
+        selectionne->setMarque(1);
+
+        for (auto it : selectionne->getAdjacent()) //retourne un std::vector< std::pair<Sommet*, double >>
+        {
+            if (it.first->getMarque()!=1)
+            {
+                if (it.first != selectionne)
+                {
+                    std::vector<Sommet*> temp;
+                    for (size_t i=0;i<chemin_divergent.size();++i)//je copie le chemin déjà parcouru
+                        temp.push_back(chemin_divergent[i]);
+                    temp.push_back(it.first); //j'ajoute le nv sommet parcouru
+                    it.first->setMarque(1);
+                    trouverTTchemins(tt_chemins,temp,it.first,arrive); //je continue le chemin en partant des adjacents
+
+                }
+            }
+        }
+        selectionne->setMarque(0);
+
+    }
+    else
+    {
+        selectionne->setMarque(0);
+        tt_chemins.push_back(chemin_divergent); //qd je suis arrive au bout, je l'ajoute à tout les chemins
+    }
+}
+
+void Graphe::k_connexite()
+{
+    //pour tout pair de sommet je cherche le nombre de chemin sommets-disjoints  allant de l'un à l'autre
+
+
+
+    if (connexite())
+    {
+        for(size_t d=0; d< m_sommets.size(); ++d)
+        {
+            for(size_t a=d; a< m_sommets.size(); ++a)
+            {
+                if(d != a)
+                {
+                    for (auto it : m_sommets)
+                        it->setMarque(0);
+
+                    std::vector<std::vector<Sommet*>> tt_chemins;
+                    std::vector<Sommet*> temp; //nous sert que pour le recursif de trouverTTchemin()
+
+                    trouverTTchemins(tt_chemins,temp,m_sommets[a],m_sommets[d]);
+
+                    std::cout<<std::endl<<m_sommets[a]->getNom()<<"-"<<m_sommets[d]->getNom()<<" :";
+                    for (auto it : tt_chemins)
+                    {
+                        std::cout<<std::endl;
+                        for (auto et : it)
+                            std::cout<<et->getNom();
+                    }
+                }
+            }
+        }
+    }
+    else
+        std::cout<<std::endl<<"Votre graphe est non connexe."
+                 <<std::endl<<"Etude de la k-connexite est impossible";
+
+//    for (auto it : m_sommets)
+//        it->setMarque(0);
+//
+//    trouverTTchemins(tt_chemins,temp,m_sommets[0],m_sommets[6]);
+//
+//    std::cout<<std::endl<<m_sommets[0]->getNom()<<"-"<<m_sommets[6]->getNom()<<" :";
+//    for (auto it : tt_chemins)
+//    {
+//        std::cout<<std::endl;
+//        for (auto et : it)
+//            std::cout<<et->getNom();
+//    }
+
 
 }

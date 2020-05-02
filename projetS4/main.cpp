@@ -10,40 +10,27 @@
 int main()
 {
 
-    //affichageCommande();
-
-    int autoCin=1;
-    do
-    {
-
-        if(autoCin==2)
-            autoCin=gererDeffilement(true);
-        else
-            autoCin=gererDeffilement(false);
-
-    }while (autoCin!=1);
-
-    changerCouleurConsole(5);//rouge
-    std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
-    changerCouleurConsole(4);//blanc
-
-//    Interface ensemble;
-//    ensemble.remplirFichier("graphe-test2.txt");
-//    ensemble.remplirPoids("ponde-test2.txt");
-//    ensemble.calculCentralite();
-//    ensemble.afficherCentralite_Normalise(0);
-//    std::string s1="B";
-//    std::string s2="A";
-//    ensemble.copieGraphe();
-//    ensemble.suppArrete(s1,s2);
-//    ensemble.calculCentralite();
-//    ensemble.afficherCentralite_Normalise(0);
+//    affichageCommande();
 //
-//    ensemble.comparaison(-1,0);
+//    int autoCin=1;
+//    do
+//    {
+//
+//        if(autoCin==2)
+//            autoCin=gererDeffilement(true);
+//        else
+//            autoCin=gererDeffilement(false);
+//
+//    }while (autoCin!=1);
+//
+//    changerCouleurConsole(5);//rouge
+//    std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
+//    changerCouleurConsole(4);//blanc
 
-
-
-    //ensemble.affichageSvg();
+    Interface ensemble;
+    ensemble.remplirFichier("graphe-test2.txt");
+    ensemble.afficherConsole();
+    ensemble.k_connexite();
 
 
     return 0;
@@ -85,7 +72,7 @@ int main()
    std::map<int,std::pair< int,std::vector< std::vector<int>>> > cheminIndice;
     int depart = 0;
     int arrive = 5;
-    
+
     std::queue<Sommet*> maFile;//file créé
     maFile.push(m_sommets[depart]);//on note se sommet dans file
 
@@ -94,7 +81,7 @@ int main()
         int *nbre = new int;
         *nbre = maFile.front()->getId();//on retient ID du sommet
         maFile.pop();//on libère la file
-        
+
         if(*nbre != arrive)
         {
             for(auto s : m_sommets[*nbre]->getAdjacent())//pour chaque adjacent
@@ -102,7 +89,7 @@ int main()
                 if(s.first->getId() != depart)//si blanc
                 {
                     maFile.push(s.first);//rajoute à file
-                    
+
                     if (cheminIndice.find(s.first->getId()) != cheminIndice.end())
                     {
                         if(cheminIndice[s.first->getId()].first > cheminIndice[m_sommets[*nbre]->getId()].first+1)
