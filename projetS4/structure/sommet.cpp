@@ -66,22 +66,87 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec, bool normalise,int comparaison)const
 {
     int r,g,b;
     double coeff;
-    
+    double indice_affiche;
+    int temp=0;
+
     if(selec == 0)
-        coeff = m_Cd-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cd-min;
+            //je recupere la valeur au centième près
+            temp=m_N_Cd*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Cd-min;
+            //je recupere la valeur au centième près
+            temp=m_Cd*100;
+            indice_affiche=(double)temp/100;
+        }
+
+    }
     else if(selec == 1)
-        coeff = m_Cvp-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cvp-min;
+            temp=m_N_Cvp*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Cvp-min;
+            temp=m_Cvp*100;
+            indice_affiche=(double)temp/100;
+
+        }
+
+    }
+
     else if(selec == 2)
-        coeff = m_Cp-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Cp-min;
+            temp=m_N_Cp*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Cp-min;
+            temp=m_Cp*1000;
+            indice_affiche=(double)temp/1000;
+        }
+    }
+
     else if(selec == 3)
-        coeff = m_Ci-min;
+    {
+        if (!normalise)
+        {
+            coeff = m_N_Ci-min;
+            temp=m_N_Ci*100;
+            indice_affiche=(double)temp/100;
+        }
+        else
+        {
+            coeff = m_Ci-min;
+            temp=m_Ci*100;
+            indice_affiche=(double)temp/100;
+        }
+    }
     else
+    {
         coeff = 0;
-    
+        temp =0;
+    }
+
+
     if(coeff < ((max-min) * 1/3) && max != 0)
     {
         r = 0;
@@ -106,26 +171,41 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         g = 0;
         b = 100;
     }
-    
-    
+
+    int milieu_ecran_x;
+    int milieu_ecran_y=400;
+    if (comparaison==0) //un seul grahe au centre
+        milieu_ecran_x=500;
+
+    if (comparaison==1) //graphe centre gauche = graphe lors d'une comparaison
+        milieu_ecran_x=250;
+
+    if (comparaison==2) //graphe centre droite = grpahe apres lors d'une comparaison
+        milieu_ecran_x=750;
+
+
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {
-        svgout.addDisk(500,400,5,svgout.makeRGB(r, g, b));
-        svgout.addText(500-5,400-10,m_nom,"black");
+        svgout.addDisk(milieu_ecran_x,milieu_ecran_y,5,svgout.makeRGB(r, g, b));
+        svgout.addText(milieu_ecran_x-5,milieu_ecran_y-10,m_nom,"black");
+        if (temp!=0) // afficher indice
+            svgout.addText(milieu_ecran_x,milieu_ecran_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
     else
     {
         int ecart_x=(milieu.getX()-m_coord.getX())*indice;
         int ecart_y=(milieu.getY()-m_coord.getY())*indice;
-        svgout.addDisk(500-ecart_x,400-ecart_y,5,svgout.makeRGB(r, g, b));
-        svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"balck");
+        svgout.addDisk(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y,5,svgout.makeRGB(r, g, b));
+        svgout.addText(milieu_ecran_x-ecart_x-5,milieu_ecran_y-ecart_y-10,m_nom,"balck");
+        if (temp!=0) // afficher indice
+            svgout.addText(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
 }
 
 void Sommet::suppAdjacent(Sommet* supprimer)
 {
     int compt = 0;
-    for(size_t i=0;i<m_adjacent.size();++i)
+    for(size_t i=0; i<m_adjacent.size(); ++i)
     {
         if(m_adjacent[i].first == supprimer)
             m_adjacent.erase(m_adjacent.begin() + compt);
@@ -160,7 +240,7 @@ double Sommet::get_SommeIndice()
 
     for(auto it : m_adjacent)
         somme+= it.first->get_Cvp(true);
-        
+
     return somme;
 }
 
@@ -170,9 +250,10 @@ void Sommet::set_Cp(double cp, int degre)
     m_N_Cp = cp;
 }
 
-void Sommet::caculCi()
+void Sommet::caculCi(double nbre, int degre)
 {
-
+    m_N_Ci = nbre;
+    m_Ci = (2*m_N_Ci)/(degre*degre - 3*degre +2);
 }
 
 
@@ -190,6 +271,14 @@ double Sommet::get_Cd(bool selec)
         return m_Cd;
     else
         return m_N_Cd;
+}
+
+double Sommet::get_Ci(bool selec)
+{
+    if(selec)
+        return m_Ci;
+    else
+        return m_N_Ci;
 }
 
 void Sommet::afficherConsole()const
