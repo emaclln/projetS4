@@ -181,8 +181,8 @@ void Interface::comparaison(int indice_compare, int selec)
                 comparaisonCvp(actuel,comparant);
             if(selec == 2 || selec == 4)
                 comparaisonCp(actuel,comparant);
-//          if(selec == 3 || selec == 4)
-//              comparaisonCi(actuel,comparant);
+            if(selec == 3 || selec == 4)
+                comparaisonCi(actuel,comparant);
 
             setSelecSVG(selec); //pour l'affichage des indice
             setNormaliseSVG(true); //pour l'affichage des indice
@@ -238,13 +238,13 @@ void Interface::comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
 
 void Interface::comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisé
 {
-//    std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets :";
-//    for (size_t i=0;i<actuel.size();++i)
-//    {
-//        std::cout<<std::endl<<actuel[i]->getNom()<<" : "
-//                           <<((actuel[i]->get_Ci(true)-comparant[i]->get_Ci(true))/comparant[i]->get_Ci(true))*100
-//                           <<"%";
-//    }
+    std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets :";
+    for (size_t i=0;i<actuel.size();++i)
+    {
+        std::cout<<std::endl<<actuel[i]->getNom()<<" : "
+                           <<((actuel[i]->get_Ci(true)-comparant[i]->get_Ci(true))/comparant[i]->get_Ci(true))*100
+                           <<"%";
+    }
 }
 
 void Interface::set_indice_comparantSVG(int indice)

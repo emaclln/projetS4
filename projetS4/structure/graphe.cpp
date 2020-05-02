@@ -378,7 +378,7 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
 
     maFile.push(std::make_pair(depart, 0) );
     depart->setMarque(1);
-    
+
    while(!maFile.empty())
    {
        std::pair<Sommet*,int> buffer;
@@ -394,7 +394,7 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
            {
                s.first->setMarque(1);
                maFile.push(std::make_pair(s.first, total));
-               
+
                std::vector<Sommet*> temp;
                 temp.push_back(buffer.first);
                 pred_I_total[s.first] = std::make_pair(temp, total);
@@ -410,13 +410,13 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
     return pred_I_total;
 }
 
-void Graphe::caculCi()
+void Graphe::calculCi()
 {
     std::vector<double> ciS;
-    
+
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
         ciS.push_back(0);
-    
+
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
     {
         for(int d=0; d< m_sommets.size();++d)
@@ -428,21 +428,21 @@ void Graphe::caculCi()
                        std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
                        std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
                        double cheminTotal = chemin.size();
-                       
+
                        double cheminVisite = 0;
-                       
+
                        for(auto c : chemin)
                            for(auto s : c)
                                if(s == m_sommets[i])
                                    cheminVisite +=1;
-                                              
+
                        if(cheminVisite/cheminTotal > 0)
                            ciS[i] += cheminVisite/cheminTotal;
                    }
                }
            }
     }
-    
+
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
         m_sommets[i]->caculCi(ciS[i], m_ordre);
 }
@@ -463,7 +463,7 @@ std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std
         {
                 std::vector<std::vector<Sommet*>> buffer;
                 buffer = recurCI(pred, i, depart);
-                
+
                 for(auto a : buffer)
                 {
                     a.push_back(selec);
@@ -471,7 +471,7 @@ std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std
                 }
         }
     }
-    
+
     return chemin;
 }
 
@@ -501,7 +501,7 @@ void Graphe::afficherCentralite_Normalise(int selec)
 
     if(selec == 3 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(true)<<std::endl;
     }
@@ -533,7 +533,7 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
 
     if(selec == 3 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(false)<<std::endl;
     }
@@ -545,6 +545,8 @@ void Graphe::calculCentralite()
     {
         calculCvp();
         calculCp();
+        calculCi();
+
     }
     calculCd();
 
