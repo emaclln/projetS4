@@ -1,6 +1,7 @@
 BIENVENUE ! <
 > Regle : Chaque etape correspond a une action <
-> sur le graphe (ajout ou suppression d'arrete) <
+> sur le graphe (ajout et suppression d'arrete <
+> ou ajout d'un graphe) <
 > Le telechargement correspond a l'etape 0 <
 > <
 > Voici vos commandes : <
@@ -16,7 +17,7 @@ BIENVENUE ! <
 > ajouter (A-B) => ajoute l'arrete A-B <
 > ajout graphe "nom fichier" <
 > test de connexite <
-> retour => revient a l'etape precedente <
+> retour => supprime l'etape actuelle <
 > stopAutoCin <
 > startScript <
 > help <

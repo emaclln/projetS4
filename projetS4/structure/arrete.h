@@ -23,17 +23,17 @@ private :
 public :
     Arrete(int indice, Sommet* un, Sommet* deux);
     Arrete(int indice, Sommet* un, Sommet* deux, int poids);
-   
-    void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation,bool ponderation)const;
+
+    void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation,bool ponderation,int comparaison)const;
     void remplirPoids(int& poids);
     void suppAdjacent();
     void afficherConsole()const;
-    
+
     int getPoids()const;
     int getIndice()const;
-    
+
     bool trouverArrete(std::string& s1, std::string& s2);
-    
+
     std::vector<Sommet*> getExtremite()const;
 };
 

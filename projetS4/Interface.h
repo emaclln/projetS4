@@ -7,8 +7,10 @@ class Interface
 {
 private :
     int m_indice; //coorespond à la "case" du vecteur pour indiquer sur quel grpahe on travail
-    int m_selecSVG; //permet d'afficher des couleurs pour les sommets en fonction des indices de centralitŽs
+    int m_selecSVG; //permet d'afficher des couleurs pour les sommets en fonction des indices de centralités
     bool m_normaliseSVG; //permet dans l'affichage s'il faut choisir les indices normalisés ou non
+    bool m_comparaisonSVG; //permet de savoir si on affiche 1 ou 2 graphes
+    int m_indice_comparantSVG; //permet de savoir l'indice du graphe à afficher pour la comparaison
     std::vector <Graphe*> m_graphes;
 public :
 
@@ -35,6 +37,10 @@ public :
 
     void setIndice(int indice);
     void setNormaliseSVG(bool normalise);
+    void set_indice_comparantSVG(int indice);
+    void setComparaisonSVG(bool comparaison);
+    int getComparaisonSVG()const;
+    bool get_indice_comparantSVG()const;
     int getIndice()const;
 
     void comparaison(int indice_compare,int selec);

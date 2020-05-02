@@ -18,6 +18,8 @@ void Interface::initialisation ()
     m_indice=-1;
     m_selecSVG=4;
     m_normaliseSVG=false;
+    m_indice_comparantSVG=-1;
+    m_comparaisonSVG=false;
 }
 
 void Interface::copieGraphe()
@@ -53,7 +55,20 @@ void Interface::affichageSvg ()const
     svgout.addGrid();
 
     if (!m_graphes.empty())
-        m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG);
+    {
+        if (!m_comparaisonSVG) //affichage graphe actuel
+            m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,m_comparaisonSVG);
+        else if (m_comparaisonSVG) //affichage graphe de la comparaison
+        {
+            m_graphes[m_indice_comparantSVG]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,1);
+            m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,2);
+        }
+
+
+    }
+
+
+
 }
 
 void Interface::remplirPoids(std::string nomFichier)
@@ -150,6 +165,10 @@ void Interface::comparaison(int indice_compare, int selec)
         m_graphes[m_indice]->calculCentralite(); //graphe actuel
         m_graphes[indice_compare]->calculCentralite();
 
+        //pour l'affichage SVG
+        set_indice_comparantSVG(indice_compare);
+        setComparaisonSVG(1); //affichae 2 graphes
+
         //calcul de difference
         std::vector<Sommet*> actuel=m_graphes[m_indice]->getSommets();
         std::vector<Sommet*> comparant=m_graphes[indice_compare]->getSommets();
@@ -162,12 +181,22 @@ void Interface::comparaison(int indice_compare, int selec)
                 comparaisonCvp(actuel,comparant);
             if(selec == 2 || selec == 4)
                 comparaisonCp(actuel,comparant);
-        }
-        if(selec == 0 || selec == 4)
-            comparaisonCd(actuel,comparant);
+//          if(selec == 3 || selec == 4)
+//              comparaisonCi(actuel,comparant);
 
-//        if(selec == 3 || selec == 4)
-//            comparaisonCi(actuel,comparant);
+            setSelecSVG(selec); //pour l'affichage des indice
+            setNormaliseSVG(true); //pour l'affichage des indice
+        }
+        else if (selec == 1 || selec ==2 || selec==4)
+            std::cout<<std::endl<<"En l'absence de poids, le calcul du Cvp et du Cp est impossible";
+        if(selec == 0 || selec == 4)
+        {
+            comparaisonCd(actuel,comparant);
+            setSelecSVG(selec);
+            setNormaliseSVG(true); //pour l'affichage des indice
+        }
+
+
     }
     else
         std::cout<<"Numero d'etape invalide";
@@ -216,4 +245,24 @@ void Interface::comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
 //                           <<((actuel[i]->get_Ci(true)-comparant[i]->get_Ci(true))/comparant[i]->get_Ci(true))*100
 //                           <<"%";
 //    }
+}
+
+void Interface::set_indice_comparantSVG(int indice)
+{
+    m_indice_comparantSVG=indice;
+}
+
+void Interface::setComparaisonSVG(bool comparaison)
+{
+  m_comparaisonSVG=comparaison;
+}
+
+int Interface::getComparaisonSVG()const
+{
+    return m_comparaisonSVG;
+}
+
+bool Interface::get_indice_comparantSVG()const
+{
+    return m_indice_comparantSVG;
 }

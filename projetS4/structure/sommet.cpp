@@ -66,7 +66,7 @@ std::string Sommet::getNom()const
     return m_nom;
 }
 
-void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec, bool normalise)const
+void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec, bool normalise,int comparaison)const
 {
     int r,g,b;
     double coeff;
@@ -172,22 +172,33 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         b = 100;
     }
 
+    int milieu_ecran_x;
+    int milieu_ecran_y=400;
+    if (comparaison==0) //un seul grahe au centre
+        milieu_ecran_x=500;
+
+    if (comparaison==1) //graphe centre gauche = graphe lors d'une comparaison
+        milieu_ecran_x=250;
+
+    if (comparaison==2) //graphe centre droite = grpahe apres lors d'une comparaison
+        milieu_ecran_x=750;
+
 
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {
-        svgout.addDisk(500,400,5,svgout.makeRGB(r, g, b));
-        svgout.addText(500-5,400-10,m_nom,"black");
+        svgout.addDisk(milieu_ecran_x,milieu_ecran_y,5,svgout.makeRGB(r, g, b));
+        svgout.addText(milieu_ecran_x-5,milieu_ecran_y-10,m_nom,"black");
         if (temp!=0) // afficher indice
-            svgout.addText(500,400+22,indice_affiche,svgout.makeRGB(r, g, b));
+            svgout.addText(milieu_ecran_x,milieu_ecran_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
     else
     {
         int ecart_x=(milieu.getX()-m_coord.getX())*indice;
         int ecart_y=(milieu.getY()-m_coord.getY())*indice;
-        svgout.addDisk(500-ecart_x,400-ecart_y,5,svgout.makeRGB(r, g, b));
-        svgout.addText(500-ecart_x-5,400-ecart_y-10,m_nom,"balck");
+        svgout.addDisk(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y,5,svgout.makeRGB(r, g, b));
+        svgout.addText(milieu_ecran_x-ecart_x-5,milieu_ecran_y-ecart_y-10,m_nom,"balck");
         if (temp!=0) // afficher indice
-            svgout.addText(500-ecart_x,400-ecart_y+22,indice_affiche,svgout.makeRGB(r, g, b));
+            svgout.addText(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
 }
 

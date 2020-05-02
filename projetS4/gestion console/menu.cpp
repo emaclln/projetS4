@@ -249,6 +249,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 selec=0;
             else if (commande.find("Ci")!=std::string::npos)
                 selec=3;
+
             std::string reponse;
             std::cout<<std::endl<<"Vous etes a l'etape "<<monInterface.getIndice()
                      <<std::endl<<"Avec quel graphe souhaitez vous comparer ?"
@@ -340,6 +341,16 @@ int gererCommande(std::string& commande,Interface& monInterface)
     }
 
     monInterface.affichageSvg();
+
+    if (monInterface.getComparaisonSVG()) //il faut afficher 2 graphes
+    {
+        //on initialise l'affichage pour le prochain affichage
+        monInterface.setComparaisonSVG(0);
+        monInterface.setNormaliseSVG(false);
+        monInterface.setSelecSVG(4);
+    }
+
+
 
     return stop;
 }
