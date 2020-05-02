@@ -18,6 +18,8 @@ class Arrete
 private :
     int m_indice;
     float m_poids;
+    double m_Ci;
+    double m_N_Ci;
     std::vector<Sommet*> m_extremite; //0 départ, 1 arrivé
 
 public :
@@ -28,9 +30,13 @@ public :
     void remplirPoids(int& poids);
     void suppAdjacent();
     void afficherConsole()const;
+    void caculCi(double nbre, int degre);
+
 
     int getPoids()const;
     int getIndice()const;
+    double get_Ci(bool selec);
+
 
     bool trouverArrete(std::string& s1, std::string& s2);
 

@@ -43,7 +43,8 @@ class Graphe
         void calculCd();
         void calculCvp();
         void calculCp();
-        void calculCi();
+        void calculCiSommet();
+        void calculCiArrete();
 
         bool connexite();
 

@@ -410,7 +410,7 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
     return pred_I_total;
 }
 
-void Graphe::calculCi()
+void Graphe::calculCiSommet()
 {
     std::vector<double> ciS;
 
@@ -419,9 +419,9 @@ void Graphe::calculCi()
 
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
     {
-        for(int d=0; d< m_sommets.size();++d)
+        for(size_t d=0; d< m_sommets.size();++d)
            {
-               for(int a=d; a< m_sommets.size();++a)
+               for(size_t a=d; a< m_sommets.size();++a)
                {
                    if(d != a && i!=a && i!=d)
                    {
@@ -505,6 +505,12 @@ void Graphe::afficherCentralite_Normalise(int selec)
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(true)<<std::endl;
     }
+    if(selec == 5 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des arretes : "<<std::endl;
+        for(auto it : m_arretes)
+            std::cout<<it->getIndice()<<": "<<it->get_Ci(true)<<std::endl;
+    }
 }
 
 void Graphe::afficherCentralite_NON_Normalise(int selec)
@@ -537,6 +543,12 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(false)<<std::endl;
     }
+    if(selec == 5 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite des arretes : "<<std::endl;
+        for(auto it : m_arretes)
+            std::cout<<it->getIndice()<<": "<<it->get_Ci(false)<<std::endl;
+    }
 }
 
 void Graphe::calculCentralite()
@@ -545,9 +557,8 @@ void Graphe::calculCentralite()
     {
         calculCvp();
         calculCp();
-        calculCi();
-
     }
+    calculCiSommet();
     calculCd();
 
 }
@@ -647,4 +658,53 @@ bool Graphe::getPonde()const
 {
     return m_ponderation;
 
+}
+
+void Graphe::calculCiArrete()
+{
+    std::vector<double> ciS;
+
+    for(size_t i = 0 ; i<m_arretes.size(); ++i)
+        ciS.push_back(0);
+
+    for(size_t i = 0 ; i<m_arretes.size(); ++i)
+    {
+        for(size_t d=0; d< m_sommets.size();++d)
+           {
+               for(size_t a=d; a< m_sommets.size();++a)
+               {
+                   if(d != a && m_arretes[i]->getExtremite()[0] != m_sommets[a] && m_arretes[i]->getExtremite()[1] != m_sommets[a] && m_arretes[i]->getExtremite()[0] != m_sommets[d] && m_arretes[i]->getExtremite()[1] != m_sommets[d])
+                   {
+                       std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
+                       std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
+                       double cheminTotal = chemin.size();
+
+                       double cheminVisite = 0;
+
+                       for(auto c : chemin)
+                       {
+                           for(size_t i = 0 ; i<c.size();++i)
+                           {
+                               for(auto it : m_arretes)
+                               {
+                                   int compteur=0;
+                                   for (auto it : it->getExtremite())
+                                       if(it ==  c[i] || it == c[i+1] )
+                                           compteur+=1;
+                                   
+                                   if(compteur == 2)
+                                       cheminVisite +=1;
+                               }
+                           }
+                       }
+
+                       if(cheminVisite/cheminTotal > 0)
+                           ciS[i] += cheminVisite/cheminTotal;
+                   }
+               }
+           }
+    }
+
+    for(size_t i = 0 ; i<m_arretes.size(); ++i)
+        m_arretes[i]->caculCi(ciS[i], m_taille);
 }

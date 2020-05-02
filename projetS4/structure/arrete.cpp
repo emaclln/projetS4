@@ -171,3 +171,17 @@ void Arrete::afficherConsole()const
     for (auto it : m_extremite)
         std::cout<<it->getId()<<" ";
 }
+
+void Arrete::caculCi(double nbre, int degre)
+{
+    m_N_Ci = nbre;
+    m_Ci = (2*m_N_Ci)/(degre*degre - 3*degre +2);
+}
+
+double Arrete::get_Ci(bool selec)
+{
+    if(selec)
+        return m_Ci;
+    else
+        return m_N_Ci;
+}
