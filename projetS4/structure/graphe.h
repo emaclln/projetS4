@@ -16,13 +16,13 @@ class Graphe
 {
     private :
 
-    bool m_orientation;
-    bool m_ponderation;
-    int m_ordre;
-    int m_taille;
+    bool m_orientation;//vrai si graphe orienté sinon faux
+    bool m_ponderation;//vrai si graphe est pondéré sinon faux
+    int m_ordre;//nbre de sommet
+    int m_taille;//nbre d'arrête
 
-    std::vector<Sommet*> m_sommets;
-    std::vector<Arrete*> m_arretes;
+    std::vector<Sommet*> m_sommets;//liste des sommets
+    std::vector<Arrete*> m_arretes;//liste des arrêtes
 
     public :
 

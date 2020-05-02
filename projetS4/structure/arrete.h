@@ -16,10 +16,10 @@ class Arrete
 {
 
 private :
-    int m_indice;
-    float m_poids;
-    double m_Ci;
-    double m_N_Ci;
+    int m_indice;//indice de l'arrête
+    float m_poids;//poids de l'arrête
+    double m_Ci;//indice normalisé intermédiarité
+    double m_N_Ci;//indice non normalisé intermédiarité
     std::vector<Sommet*> m_extremite; //0 dÈpart, 1 arrivÈ
 
 public :
