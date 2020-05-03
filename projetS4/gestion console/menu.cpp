@@ -402,8 +402,6 @@ void changerCouleurConsole(int couleur)
 int gererDeffilement(bool autoCin)
 {
     Interface monInterface;
-//    monInterface.remplirFichier("graphe-test2.txt");
-//    monInterface.remplirPoids("ponde-test2.txt");
     std::string commande; //recupere la saisi de l'utilisateur
     int stop;
 
