@@ -10,12 +10,11 @@
 int main()
 {
 
-    //affichageCommande();
+    affichageCommande();
 
     int autoCin=1;
     do
     {
-
         if(autoCin==2)
             autoCin=gererDeffilement(true);
         else
@@ -27,13 +26,6 @@ int main()
     std::cout<<std::endl<<"AU REVOIR !"<<std::endl;
     changerCouleurConsole(4);//blanc
 
-//    Interface ensemble;
-//    ensemble.remplirFichier("graphe-test2.txt");
-//    ensemble.afficherConsole();
-//    ensemble.k_connexite();
-
-
     return 0;
-
 }
 
