@@ -49,6 +49,8 @@ public :
     void comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
     void comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
 
+    void k_connexite();
+
 };
 
 

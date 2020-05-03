@@ -178,8 +178,6 @@ void Interface::comparaison(int indice_compare, int selec)
                 comparaisonCvp(actuel,comparant);
             if(selec == 2 || selec == 4)
                 comparaisonCp(actuel,comparant);
-            if(selec == 3 || selec == 4)
-                comparaisonCi(actuel,comparant);
 
             setSelecSVG(selec); //pour l'affichage des indice
             setNormaliseSVG(true); //pour l'affichage des indice
@@ -192,6 +190,13 @@ void Interface::comparaison(int indice_compare, int selec)
             setSelecSVG(selec);
             setNormaliseSVG(true); //pour l'affichage des indice
         }
+        if(selec == 3 || selec == 4)
+        {
+            comparaisonCi(actuel,comparant);
+            setSelecSVG(selec);
+            setNormaliseSVG(true);
+        }
+
 
 
     }
@@ -262,4 +267,9 @@ int Interface::getComparaisonSVG()const
 bool Interface::get_indice_comparantSVG()const
 {
     return m_indice_comparantSVG;
+}
+
+void Interface::k_connexite()
+{
+    m_graphes[m_indice]->k_connexite();
 }

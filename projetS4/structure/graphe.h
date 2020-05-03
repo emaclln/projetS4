@@ -60,6 +60,10 @@ class Graphe
         std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> disjtraCi(Sommet* depart);
         std::vector<std::vector<Sommet*>> recurCI(std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred, Sommet* selec, Sommet* depart);
 
+        void trouverTTchemins (std::vector<std::vector<Sommet*>>& tt_chemins, std::vector<Sommet*> chemin_divergent,Sommet* selectionne, Sommet* arrive);
+        void k_connexite();
+        int recherche_nb_chemin_sommets_disjoints(std::vector<std::vector<Sommet*>> tt_chemins);
+
 };
 
 #endif // GRAPHE_H_INCLUDED
