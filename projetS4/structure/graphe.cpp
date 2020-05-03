@@ -8,7 +8,7 @@
 
 #include "graphe.h"
 
-Graphe::Graphe(std::string nomFichier )
+Graphe::Graphe(std::string nomFichier )//constructeur par fichier
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
@@ -76,7 +76,7 @@ Graphe::Graphe(std::string nomFichier )
 
 };
 
-Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)//2eme constructeur
 {
     m_orientation=orient;
     m_ordre = (int) buffer_s.size();
@@ -103,28 +103,28 @@ Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool 
     }
 }
 
-Graphe::~Graphe()
+Graphe::~Graphe()//destructeur
 {
     for (auto it : m_sommets)
         delete it;
 }
 
-bool Graphe::getOrientation()const
+bool Graphe::getOrientation()const//permet de savoir si le graphe est orienté
 {
     return m_orientation;
 }
 
-int Graphe::getOrdre()const
+int Graphe::getOrdre()const//retourne la valeur du paramètre
 {
     return m_ordre;
 }
 
-int Graphe::getTaille()const
+int Graphe::getTaille()const//retourne la valeur du paramètre
 {
     return m_taille;
 }
 
-void Graphe::remplirPoids(std::string& nomFichier)
+void Graphe::remplirPoids(std::string& nomFichier)//permet le remplissage des attributs poids de sommets et arrêtes par la lecture de fichier
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
     if (ifs)
@@ -157,7 +157,7 @@ void Graphe::remplirPoids(std::string& nomFichier)
 
 }
 
-bool Graphe::suppArrete(std::string& s1, std::string& s2)
+bool Graphe::suppArrete(std::string& s1, std::string& s2)//supprime une arrête selon les noms des sommets en paramètre
 {
     int compt = 0;
     bool trouver = false;
@@ -179,7 +179,7 @@ bool Graphe::suppArrete(std::string& s1, std::string& s2)
     return trouver;
 }
 
-void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
+void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)//ajout une arrête selon les noms des sommets en paramètre
 {
     int indice1 = -1;
     int indice2 = -1;
@@ -306,13 +306,13 @@ void Graphe::affichageSvg (Svgfile& svgout,int selec,bool normalise,int comparai
         it->affichageSVG(svgout,indice,milieu,max,min,selec,normalise,comparaison);
 }
 
-void Graphe::calculCd()
+void Graphe::calculCd()//calcul pour tout sommets l'indice Cd
 {
     for(auto it : m_sommets)
         it->calculCd(m_ordre);
 }
 
-void Graphe::calculCvp()
+void Graphe::calculCvp()//calcul pour tout sommets l'indice Cvp
 {
     for(auto it : m_sommets)
         it->set_Cvp(1,1);
@@ -341,7 +341,7 @@ void Graphe::calculCvp()
     while(lambda - ancien_lambda == 0);
 }
 
-void Graphe::calculCp()
+void Graphe::calculCp()//calcul pour tout sommets l'indice Cp
 {
     for(auto it : m_sommets)
     {
@@ -349,7 +349,7 @@ void Graphe::calculCp()
 
         for(auto s : m_sommets)
         {
-            std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total = disjtra(it->getId(), s->getId());
+            std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total = disjtra(it->getId(), s->getId());//pour connaitre le chemin le plus court entre deux sommets
             Slongueur += pred_I_total[m_sommets[s->getId()]].second;
         }
 
@@ -360,41 +360,43 @@ void Graphe::calculCp()
 
 std::map<Sommet*, std::pair<Sommet*, int>> Graphe::disjtra (int premier, int dernier)//parcours disjtra
 {
-    std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
-    std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
 
-    for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
-        s->setMarque(0);
+       std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
+       std::map<Sommet*, std::pair<Sommet*, int>> pred_I_total;
 
-    maFile.push(std::make_pair(m_sommets[premier], 0) );
-    m_sommets[premier]->setMarque(1);
+       for(auto s : m_sommets)//initialisation des marques des sommets à 0 et création de predI
+           s->setMarque(0);
 
-    while(!maFile.empty())
-    {
-        int compt = 0;
-        std::pair<Sommet*,int> buffer;
+       maFile.push(std::make_pair(m_sommets[premier], 0) );
+       m_sommets[premier]->setMarque(1);
 
-        buffer = maFile.top();
-        maFile.pop();
+       while(!maFile.empty())
+       {
+           int compt = 0;
+           std::pair<Sommet*,int> buffer;
 
-        for(auto s : buffer.first->getAdjacent())
-        {
-            int total = buffer.second + s.second;
+           buffer = maFile.top();
+           maFile.pop();
 
-            if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
-            {
-                s.first->setMarque(1);
-                maFile.push(std::make_pair(s.first, total));
-                pred_I_total[s.first] = std::make_pair(buffer.first, total);
-            }
+           for(auto s : buffer.first->getAdjacent())
+           {
+               int total = buffer.second + 1;
 
-            ++compt;
-        }
-    }
-    return pred_I_total;
+               if (s.first->getMarque() == 0 || pred_I_total[s.first].second > total)
+               {
+                   s.first->setMarque(1);
+                   maFile.push(std::make_pair(s.first, total));
+                   pred_I_total[s.first] = std::make_pair(buffer.first, total);
+               }
+
+               ++compt;
+           }
+       }
+       return pred_I_total;
+
 }
 
-std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet* depart)
+std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet* depart)//disjtra modifié pour connaitre tout les parcours les plus courts entre 2 sommets
 {
     std::priority_queue< std::pair<Sommet*, int>, std::vector<std::pair<Sommet*,int> >,CompareSommet > maFile;
     std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total;
@@ -436,7 +438,9 @@ std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> Graphe::disjtraCi(Sommet*
     return pred_I_total;
 }
 
-void Graphe::calculCi()
+void Graphe::calculCiSommet()//calcul de l'indice Ci pour un sommet
+/*le 4eme et 3eme for permettent de créer les pairs de sommet
+ le 2eme for permet de savoir quel sommet étudier*/
 {
     std::vector<double> ciS;
 
@@ -445,35 +449,35 @@ void Graphe::calculCi()
 
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
     {
-        for(size_t d=0; d< m_sommets.size(); ++d)
-        {
-            for(size_t a=d; a< m_sommets.size(); ++a)
-            {
-                if(d != a && i!=a && i!=d)
-                {
-                    std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
-                    std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
-                    double cheminTotal = chemin.size();
+        for(size_t d=0; d< m_sommets.size();++d)
+           {
+               for(size_t a=d; a< m_sommets.size();++a)
+               {
+                   if(d != a && i!=a && i!=d)
+                   {
+                       std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);//connaitre tout les chemin entre un sommmet de départ et les autres
+                       std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);//renvoie tout les chemins possible entre dzux sommets
+                       double cheminTotal = chemin.size();
 
-                    double cheminVisite = 0;
+                       double cheminVisite = 0;
 
-                    for(auto c : chemin)
-                        for(auto s : c)
-                            if(s == m_sommets[i])
-                                cheminVisite +=1;
+                       for(auto c : chemin)
+                           for(auto s : c)
+                               if(s == m_sommets[i])
+                                   cheminVisite +=1;
 
-                    if(cheminVisite/cheminTotal > 0)
-                        ciS[i] += cheminVisite/cheminTotal;
-                }
-            }
-        }
+                       if(cheminVisite/cheminTotal > 0)
+                           ciS[i] += cheminVisite/cheminTotal;
+                   }
+               }
+           }
     }
 
     for(size_t i = 0 ; i<m_sommets.size(); ++i)
         m_sommets[i]->caculCi(ciS[i], m_ordre);
 }
 
-std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred, Sommet* selec, Sommet* depart)
+std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred, Sommet* selec, Sommet* depart)//programme récursif pour connaitre les chemins entre 2 sommmets
 {
     std::vector<std::vector<Sommet*>> chemin;
 
@@ -501,10 +505,9 @@ std::vector<std::vector<Sommet*>> Graphe::recurCI(std::map<Sommet*,std::pair<std
     return chemin;
 }
 
-void Graphe::afficherCentralite_Normalise(int selec)
+void Graphe::afficherCentralite_Normalise(int selec)//selon le parmaetre l'affichage est différent
 {
-    if(m_ponderation)
-    {
+
         if(selec == 1 || selec == 4)
         {
             std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets : "<<std::endl;
@@ -517,7 +520,7 @@ void Graphe::afficherCentralite_Normalise(int selec)
             for(auto it : m_sommets)
                 std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
-    }
+
     if(selec == 0 || selec == 4)
     {
         std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
@@ -531,12 +534,17 @@ void Graphe::afficherCentralite_Normalise(int selec)
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(true)<<std::endl;
     }
+    if(selec == 5 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des arretes : "<<std::endl;
+        for(auto it : m_arretes)
+            std::cout<<it->getIndice()<<": "<<it->get_Ci(true)<<std::endl;
+    }
 }
 
-void Graphe::afficherCentralite_NON_Normalise(int selec)
+void Graphe::afficherCentralite_NON_Normalise(int selec)//selon le parmaetre l'affichage est différent
 {
-    if(m_ponderation)
-    {
+   
         if(selec == 1 || selec == 4)
         {
             std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
@@ -549,7 +557,7 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
             for(auto it : m_sommets)
                 std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
         }
-    }
+    
     if(selec == 0 || selec == 4)
     {
         std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
@@ -563,21 +571,27 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(false)<<std::endl;
     }
+    if(selec == 5 || selec == 4)
+    {
+        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite des arretes : "<<std::endl;
+        for(auto it : m_arretes)
+            std::cout<<it->getIndice()<<": "<<it->get_Ci(false)<<std::endl;
+    }
 }
 
-void Graphe::calculCentralite()
+void Graphe::calculCentralite()//calcul tout les indices du graphe
 {
-    if(m_ponderation)
-    {
-        calculCvp();
-        calculCp();
 
-    }
+    calculCvp();
+    calculCp();
+    calculCiArrete();
+    calculCiSommet();
+
     calculCd();
     calculCi();
 }
 
-void Graphe::sauvegardeCentralite(std::string& nomFichier)
+void Graphe::sauvegardeCentralite(std::string& nomFichier)//sauvegarde les indices des sommets sur un fichier dont le nom est reçu en paramètre
 {
     std::ofstream monFlux(nomFichier.c_str());
 
@@ -596,7 +610,7 @@ void Graphe::sauvegardeCentralite(std::string& nomFichier)
     }
 }
 
-void Graphe::afficherListeAdjacence()const
+void Graphe::afficherListeAdjacence()const//pour tout sommets affiche les adjacent
 {
     std::cout<<std::endl
              <<"Liste d'adjacence :";
@@ -604,7 +618,7 @@ void Graphe::afficherListeAdjacence()const
         it->afficherListeAdjacence();
 }
 
-void Graphe::afficherConsole()const
+void Graphe::afficherConsole()const//affiche en console le graphe
 {
     std::cout<<std::endl
              <<"Graphe (format fichier):"
@@ -620,18 +634,18 @@ void Graphe::afficherConsole()const
         it->afficherConsole();
 }
 
-std::vector<Sommet*> Graphe::getSommets()const
+std::vector<Sommet*> Graphe::getSommets()const//retourne les sommets du graphe
 {
     return m_sommets;
 }
 
-std::vector <Arrete*> Graphe::getArretes () const
+std::vector <Arrete*> Graphe::getArretes () const//retourne les arrêtes du graphes
 {
     return m_arretes;
 }
 
 
-bool Graphe::connexite()
+bool Graphe::connexite()//si vrai alors le graphe est connexe
 {
     std::vector< Sommet* > pred_I;//vecteur des predescesseurs
     std::queue<Sommet*> maFile;//file créé
@@ -668,10 +682,70 @@ bool Graphe::connexite()
         return false;
 }
 
-bool Graphe::getPonde()const
+bool Graphe::getPonde()const//vrai si graphe est pondéré
 {
     return m_ponderation;
 
+}
+
+
+void Graphe::calculCiArrete()//calcul de l'indice Ci pour les arrêtes : même principe que les sommets
+{
+    std::vector<double> ciS;
+
+    for(size_t i = 0 ; i<m_arretes.size(); ++i)
+    {
+        ciS.push_back(0);
+        
+        for(size_t d=0; d< m_sommets.size();++d)
+           {
+               for(size_t a=d; a< m_sommets.size();++a)
+               {
+                   if(d != a)
+                   {
+                       std::map<Sommet*,std::pair<std::vector<Sommet*>, int>> pred_I_total = disjtraCi(m_sommets[d]);
+                       std::vector<std::vector<Sommet*>> chemin = recurCI(pred_I_total, m_sommets[a], m_sommets[d]);
+                       double cheminTotal = chemin.size();
+
+                       double cheminVisite = 0;
+
+                       for(auto c : chemin)
+                       {
+                           std::vector<Arrete*> buffer;
+                           
+                            for(size_t i = 0 ; i<c.size();++i)
+                            {
+                                if(i != c.size()-1)
+                                {
+                                     for(auto e : m_arretes)//cherche les arrêtes du chemin
+                                     {
+                                        int compteur=0;
+                                         
+                                        for (auto it : e->getExtremite())
+                                            if(it ==  c[i] || it == c[i+1] )
+                                                compteur+=1;
+                                         
+                                        if(compteur == 2)
+                                            buffer.push_back(e);
+                                     }
+                                }
+                            }
+                           
+                           for(auto a : buffer)//compare les arrêtes du chemin à l'arrête selectionné
+                               if(a == m_arretes[i])
+                                   cheminVisite +=1;
+                           
+                       }
+                       
+                       if(cheminVisite/cheminTotal > 0)
+                           ciS[i] += cheminVisite/cheminTotal;
+                   }
+               }
+           }
+    }
+
+    for(size_t i = 0 ; i<m_arretes.size(); ++i)
+        m_arretes[i]->caculCi(ciS[i], m_taille);
 }
 
 

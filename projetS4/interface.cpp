@@ -2,18 +2,18 @@
 
 
 
-Interface::Interface()
+Interface::Interface()//Constructeur de la classe Interface
 {
     initialisation();
 }
 
-Interface::~Interface()
+Interface::~Interface()//Destructeur
 {
     for (auto it : m_graphes)
         delete it;
 }
 
-void Interface::initialisation ()
+void Interface::initialisation ()//Initialise les attributs
 {
     m_indice=-1;
     m_selecSVG=4;
@@ -24,12 +24,14 @@ void Interface::initialisation ()
 
 void Interface::copieGraphe()
 {
+    /*On recupère les données du graphe à copier */
     std::vector<Sommet*> buffer_s = m_graphes[m_indice]->getSommets();
     std::vector<Arrete*> buffer_a = m_graphes[m_indice]->getArretes();
     bool orient = m_graphes[m_indice]->getOrientation();
     bool ponderation =m_graphes[m_indice]->getPonde();
-    m_graphes.push_back(new Graphe {buffer_s,buffer_a,orient,ponderation} );
-    m_indice += 1;
+    
+    m_graphes.push_back(new Graphe {buffer_s,buffer_a,orient,ponderation} );//Création du nouveau graphe
+    m_indice += 1;//mise à jour de l'indice du vector graphe
 }
 
 void Interface::suppArrete(std::string& s1,std::string& s2)
@@ -43,18 +45,18 @@ void Interface::suppArrete(std::string& s1,std::string& s2)
 
 void Interface::ajouterGraphe(std::string nomFichier)
 {
-    m_graphes.push_back(new Graphe {nomFichier});
+    m_graphes.push_back(new Graphe {nomFichier});//création d'un graphe par initialisation de fichier
     m_indice +=1;
 }
 
 
-void Interface::affichageSvg ()const
+void Interface::affichageSvg ()const //affichage par svg
 {
     Svgfile::s_verbose = false;
     Svgfile svgout;
     svgout.addGrid();
 
-    if (!m_graphes.empty())
+    if (!m_graphes.empty())//si m_graphe n'est pas vide
     {
         if (!m_comparaisonSVG) //affichage graphe actuel
             m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,m_comparaisonSVG);
@@ -63,12 +65,7 @@ void Interface::affichageSvg ()const
             m_graphes[m_indice_comparantSVG]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,1);
             m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,2);
         }
-
-
     }
-
-
-
 }
 
 void Interface::remplirPoids(std::string nomFichier)
@@ -89,17 +86,17 @@ void Interface::afficherListeAdjacence()const
     std::cout<<std::endl;
 }
 
-void Interface::ajouterArrete(std::string& s1,std::string& s2)
+void Interface::ajouterArrete(std::string& s1,std::string& s2)//En paramètre les noms des sommets selectionnées
 {
     m_graphes[m_indice]->ajoutArrete(s1, s2);
 }
 
-void Interface::afficherCentralite_Normalise(int selec)
+void Interface::afficherCentralite_Normalise(int selec)//En paramètre un int pour connaître ce qu'on affiche
 {
     m_graphes[m_indice]->afficherCentralite_Normalise(selec);
 }
 
-void Interface::afficherCentralite_NON_Normalise(int selec)
+void Interface::afficherCentralite_NON_Normalise(int selec)//En paramètre un int pour connaître ce qu'on affiche
 {
     m_graphes[m_indice]->afficherCentralite_NON_Normalise(selec);
 }
@@ -109,7 +106,7 @@ void Interface::calculCentralite()
     m_graphes[m_indice]->calculCentralite();
 }
 
-void Interface::sauvegarderCentralite(std::string nomFichier)
+void Interface::sauvegarderCentralite(std::string nomFichier)//En paramètre le nom du fichier de sauvegarde
 {
     m_graphes[m_indice]->sauvegardeCentralite(nomFichier);
 }
@@ -164,7 +161,7 @@ void Interface::comparaison(int indice_compare, int selec)
     if (indice_compare==-1) //etape precedente
         indice_compare=m_indice-1;
 
-    int id_dernier=m_graphes.size(); //conversion du size_t en int
+    int id_dernier=(int) m_graphes.size(); //conversion du size_t en int
 
     if (indice_compare >= 0 && indice_compare < id_dernier)//verifie numÈro positif et inferieur ‡ size
     {

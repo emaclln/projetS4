@@ -8,7 +8,7 @@
 
 #include "sommet.h"
 
-Sommet::Sommet(int indice, std::string nom, Coord mesCoord)
+Sommet::Sommet(int indice, std::string nom, Coord mesCoord)//Constructeur
 {
     m_indice = indice;
     m_nom = nom;
@@ -21,12 +21,12 @@ void Sommet::setMarque(int selec)//donne une valeur au paramètre
     m_marque = selec;
 }
 
-int Sommet::getMarque()const
+int Sommet::getMarque()const//retourne la valeur du paramètre
 {
     return m_marque;
 }
 
-void Sommet::set_poids(Sommet* extremite, double poids)
+void Sommet::set_poids(Sommet* extremite, double poids)//permet de donner une valeur au parametre poids de la pair m_adjacent
 {
     int compt = 0;
     for(auto it : m_adjacent)
@@ -41,27 +41,27 @@ void Sommet::set_poids(Sommet* extremite, double poids)
 
 }
 
-std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()
+std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()//retourne le parametre
 {
     return m_adjacent;
 }
 
-void Sommet::set_adjacent(Sommet* nouveau)
+void Sommet::set_adjacent(Sommet* nouveau)//ajoute un sommet à m_adjacent avec un poids null
 {
     m_adjacent.push_back(std::pair<Sommet*, double> (nouveau, 0));
 }
 
-Coord Sommet::getCoords()const
+Coord Sommet::getCoords()const//retourne le parametre : les coordonnées
 {
     return m_coord;
 }
 
-int Sommet::getId()const
+int Sommet::getId()const//retourne le parametre : l'indice
 {
     return m_indice;
 }
 
-std::string Sommet::getNom()const
+std::string Sommet::getNom()const//retourne le parametre : le nom
 {
     return m_nom;
 }
@@ -202,7 +202,7 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
     }
 }
 
-void Sommet::suppAdjacent(Sommet* supprimer)
+void Sommet::suppAdjacent(Sommet* supprimer)//supprime un adjacent selon le sommet en parametre
 {
     int compt = 0;
     for(size_t i=0; i<m_adjacent.size(); ++i)
@@ -214,19 +214,19 @@ void Sommet::suppAdjacent(Sommet* supprimer)
     }
 }
 
-void Sommet::calculCd(int degre)
+void Sommet::calculCd(int degre)//calcul de l'indice centralité de degré
 {
     m_N_Cd = m_adjacent.size();
     m_Cd = m_N_Cd / (degre-1);
 }
 
-void Sommet::set_Cvp(double cvpN, double lambda)
+void Sommet::set_Cvp(double cvpN, double lambda)//modifie la valeur de Cvp
 {
     m_Cvp = cvpN/lambda;
     m_N_Cvp = cvpN;
 }
 
-double Sommet::get_Cvp(bool selec)
+double Sommet::get_Cvp(bool selec)//retourne la valeur de Cvp si vrai
 {
     if(selec)
         return m_Cvp;
@@ -234,7 +234,7 @@ double Sommet::get_Cvp(bool selec)
         return m_N_Cvp;
 }
 
-double Sommet::get_SommeIndice()
+double Sommet::get_SommeIndice()//retourne la sommme des valeurs de Cvp des adjacent au sommet
 {
     double somme = 0;
 
@@ -244,20 +244,20 @@ double Sommet::get_SommeIndice()
     return somme;
 }
 
-void Sommet::set_Cp(double cp, int degre)
+void Sommet::set_Cp(double cp, int degre)//modifie la valeur de Cp
 {
     m_Cp = cp * (degre-1);
     m_N_Cp = cp;
 }
 
-void Sommet::caculCi(double nbre, int degre)
+void Sommet::caculCi(double nbre, int degre)//modifie la valeur de Ci
 {
     m_N_Ci = nbre;
     m_Ci = (2*m_N_Ci)/(degre*degre - 3*degre +2);
 }
 
 
-double Sommet::get_Cp(bool selec)
+double Sommet::get_Cp(bool selec)//retourne la valeur de Cp si vrai
 {
     if(selec)
         return m_Cp;
@@ -265,7 +265,7 @@ double Sommet::get_Cp(bool selec)
         return m_N_Cp;
 }
 
-double Sommet::get_Cd(bool selec)
+double Sommet::get_Cd(bool selec)//retourne la valeur de Cd si vrai
 {
     if(selec)
         return m_Cd;
@@ -273,7 +273,7 @@ double Sommet::get_Cd(bool selec)
         return m_N_Cd;
 }
 
-double Sommet::get_Ci(bool selec)
+double Sommet::get_Ci(bool selec)//retourne la valeur de Ci si vrai
 {
     if(selec)
         return m_Ci;
@@ -281,7 +281,7 @@ double Sommet::get_Ci(bool selec)
         return m_N_Ci;
 }
 
-void Sommet::afficherConsole()const
+void Sommet::afficherConsole()const//permet l'affichage du sommet dans la console
 {
     std::cout<<std::endl
              <<m_indice<<" "<<m_nom<<" ";
@@ -289,7 +289,7 @@ void Sommet::afficherConsole()const
 
 }
 
-void Sommet::afficherListeAdjacence()const
+void Sommet::afficherListeAdjacence()const//affiche les sommets adjacents dans la console
 {
     std::cout<<std::endl
              <<m_nom<<" : ";

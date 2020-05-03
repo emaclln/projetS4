@@ -8,7 +8,7 @@
 
 #include "arrete.h"
 
-Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux)//constructeur Un
 {
     m_indice = indice;
     m_poids = 0;
@@ -16,7 +16,7 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux)
     m_extremite.push_back( deux );
 }
 
-Arrete::Arrete(int indice, Sommet* un, Sommet* deux, int poids)
+Arrete::Arrete(int indice, Sommet* un, Sommet* deux, int poids)//Constructeur Deux
 {
     m_indice = indice;
     m_poids=poids;
@@ -123,35 +123,35 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
     }
 }
 
-void Arrete::remplirPoids(int& poids)
+void Arrete::remplirPoids(int& poids)//remplissage du paramètre poids
 {
     m_poids=poids;
     m_extremite[0]->set_poids(m_extremite[1], poids);
     m_extremite[1]->set_poids(m_extremite[0], poids);
 }
 
-int Arrete::getPoids()const
+int Arrete::getPoids()const//retourne la valeur du paramètre
 {
     return m_poids;
 }
 
-int Arrete::getIndice()const
+int Arrete::getIndice()const//retourne la valeur du paramètre
 {
     return m_indice;
 }
 
-void Arrete::suppAdjacent()
+void Arrete::suppAdjacent()//permet de supprimer l'arrête au niveau des sommets
 {
     m_extremite[0]->suppAdjacent(m_extremite[1]);
     m_extremite[1]->suppAdjacent(m_extremite[0]);
 }
 
-std::vector<Sommet*> Arrete::getExtremite()const
+std::vector<Sommet*> Arrete::getExtremite()const//retourne la valeur du paramètre
 {
     return m_extremite;
 }
 
-bool Arrete::trouverArrete(std::string& s1, std::string& s2)
+bool Arrete::trouverArrete(std::string& s1, std::string& s2)//si les noms recu en paramètre correspond aux noms des sommets de l'arrête alors retourne vrai sinon faux
 {
     int compteur=0;
     for (auto it : m_extremite)
@@ -164,10 +164,24 @@ bool Arrete::trouverArrete(std::string& s1, std::string& s2)
         return false;
 }
 
-void Arrete::afficherConsole()const
+void Arrete::afficherConsole()const//affichage en console
 {
     std::cout<<std::endl
              <<m_indice<<" ";
     for (auto it : m_extremite)
         std::cout<<it->getId()<<" ";
+}
+
+void Arrete::caculCi(double nbre, int degre)//calcul de l'indice Ci
+{
+    m_N_Ci = nbre;
+    m_Ci = m_N_Ci/((degre-1)*degre);
+}
+
+double Arrete::get_Ci(bool selec)//retourne la valeur du paramètre
+{
+    if(selec)
+        return m_Ci;
+    else
+        return m_N_Ci;
 }

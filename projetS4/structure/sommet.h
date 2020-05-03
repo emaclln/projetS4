@@ -17,21 +17,22 @@ class Sommet
 {
 private :
 
-    int m_indice;
-    int m_marque;
-    std::string m_nom;
-    Coord m_coord;
+    int m_indice;//indice du sommet
+    int m_marque;//permet de faire fonctionner des algo tel que disjrka
+    std::string m_nom;//nom du sommet
+    Coord m_coord;//coordonnées du sommet
 
-    std::vector< std::pair<Sommet*, double >> m_adjacent;
+    std::vector< std::pair<Sommet*, double >> m_adjacent;//listes des adjacents
 
-    double m_Cvp;
-    double m_Cd;
-    double m_Cp;
-    double m_Ci;
-    double m_N_Cvp;
-    double m_N_Cd;
-    double m_N_Cp;
-    double m_N_Ci;
+    /*les différents indices possible pour le sommet*/
+    double m_Cvp;//normalisé vecteur propre
+    double m_Cd;//normalisé degré
+    double m_Cp;//normalisé proximité
+    double m_Ci;//normalisé intermédiarité
+    double m_N_Cvp;// non normalisé
+    double m_N_Cd;// non normalisé
+    double m_N_Cp;// non normalisé
+    double m_N_Ci;// non normalisé
 
 public :
     Sommet(int indice, std::string nom, Coord mesCoord);
