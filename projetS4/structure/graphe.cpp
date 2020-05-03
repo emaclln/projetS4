@@ -12,48 +12,67 @@ Graphe::Graphe(std::string nomFichier )
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
-    ifs >> m_orientation;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture orientation du graphe");
-
-    ifs >> m_ordre;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture ordre du graphe");
-
-    for (int i=0; i<m_ordre; ++i)
+    if (ifs)
     {
-        int indice;
-        std::string nom;
-        Coord mesCoord;
-        int x;
-        int y;
+        int orientation;
+        ifs >> orientation;
+        if (! ifs.fail())
+        {
+            m_orientation=orientation;
 
-        ifs >> indice >> nom >> x >> y;
+            int ordre;
+            ifs >> ordre;
+            if (! ifs.fail())
+            {
+                m_ordre=ordre;
+                for (int i=0; i<m_ordre; ++i)
+                {
+                    int indice;
+                    std::string nom;
+                    Coord mesCoord;
+                    int x;
+                    int y;
 
-        mesCoord.set_coord(x,y);
+                    ifs >> indice >> nom >> x >> y;
 
-        m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
+                    mesCoord.set_coord(x,y);
+
+                    m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
+                }
+
+                int taille;
+                ifs>>taille;
+                if (!ifs.fail())
+                {
+                    m_taille=taille;
+                    for (int i=0; i<m_taille; ++i)
+                    {
+                        int indice;
+                        int num1;
+                        int num2;
+
+                        ifs >> indice >> num1 >> num2;
+
+                        m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
+                        m_sommets[num1]->set_adjacent(m_sommets[num2]);
+                        m_sommets[num2]->set_adjacent(m_sommets[num1]);
+                    }
+
+                    m_ponderation = false;
+                }
+                else
+                    std::cout<<std::endl<<"Probleme lecture taille du graphe";
+            }
+            else
+                std::cout<<std::endl<<"Probleme lecture ordre du graphe";
+        }
+        else
+            std::cout<<std::endl<<"Probleme lecture orientation du graphe";
     }
+    else
+        std::cout<<std::endl<<"Impossible d'ouvrir en lecture "<<nomFichier ;
 
-    ifs >> m_taille;
 
-    for (int i=0; i<m_taille; ++i)
-    {
-        int indice;
-        int num1;
-        int num2;
-
-        ifs >> indice >> num1 >> num2;
-
-        m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
-        m_sommets[num1]->set_adjacent(m_sommets[num2]);
-        m_sommets[num2]->set_adjacent(m_sommets[num1]);
-    }
-
-    m_ponderation = false;
 
 };
 
@@ -108,27 +127,34 @@ int Graphe::getTaille()const
 void Graphe::remplirPoids(std::string& nomFichier)
 {
     std::ifstream ifs{nomFichier};//lecture du fichier
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
-    int taille;
-    ifs>>taille;
-    if (ifs.fail())
-        throw std::runtime_error("Probleme lecture taille du graphe");
-
-    if (taille!=m_taille)
-        throw std::runtime_error("Probleme taille du graphe incompatible");
-    else
+    if (ifs)
     {
-        int indice,poids;
-        for (int i=0; i<taille; ++i)
+        int taille;
+        ifs>>taille;
+        if (!ifs.fail())
         {
-            ifs>>indice>>poids;
-            m_arretes[indice]->remplirPoids(poids);
-        }
-    }
+            if (taille==m_taille)
+            {
+                int indice,poids;
+                for (int i=0; i<taille; ++i)
+                {
+                    ifs>>indice>>poids;
+                    m_arretes[indice]->remplirPoids(poids);
+                }
+                m_ponderation = true;
 
-    m_ponderation = true;
+            }
+            else
+                std::cout<<std::endl<<"Probleme taille du graphe incompatible";
+        }
+        else
+            std::cout<<std::endl<<"Probleme lecture taille du graphe";
+
+    }
+    else
+        std::cout<<std::endl<<"Impossible d'ouvrir en lecture "<<nomFichier ;
+
+
 }
 
 bool Graphe::suppArrete(std::string& s1, std::string& s2)

@@ -21,7 +21,7 @@ public :
     void affichageSvg ()const;
     void copieGraphe();
     void remplirPoids(std::string nomFichier);
-    void remplirFichier(std::string nomFichier);
+    void ajouterGraphe(std::string nomFichier);
     void afficherListeAdjacence()const;
     void afficherConsole()const;
     void suppArrete(std::string& s1,std::string& s2);

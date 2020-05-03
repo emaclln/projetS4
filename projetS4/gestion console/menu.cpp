@@ -61,7 +61,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
                 fichier.erase(0,1);
                 monInterface.initialisation();
-                monInterface.remplirFichier(fichier);
+                monInterface.ajouterGraphe(fichier);
             }
             else
             {
@@ -299,7 +299,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
                 fichier.erase(0,1);
 
-                monInterface.remplirFichier(fichier);
+                monInterface.ajouterGraphe(fichier);
             }
             else
             {

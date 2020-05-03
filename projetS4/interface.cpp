@@ -41,7 +41,7 @@ void Interface::suppArrete(std::string& s1,std::string& s2)
 
 
 
-void Interface::remplirFichier(std::string nomFichier)
+void Interface::ajouterGraphe(std::string nomFichier)
 {
     m_graphes.push_back(new Graphe {nomFichier});
     m_indice +=1;
@@ -117,8 +117,14 @@ void Interface::sauvegarderCentralite(std::string nomFichier)
 void Interface::retourEnArriere()
 {
     int selec = (int) m_graphes.size() - 1;
-    delete m_graphes[selec];
-    m_indice = selec -1;
+    if (selec > 0)
+    {
+        delete m_graphes[selec];
+        m_indice = selec -1;
+    }
+    else
+        std::cout<<std::endl<<"Retour en arriere impossible";
+
 }
 
 void Interface::setSelecSVG(int selec)
