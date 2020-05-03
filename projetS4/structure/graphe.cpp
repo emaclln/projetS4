@@ -662,7 +662,7 @@ void Graphe::trouverTTchemins (std::vector<std::vector<Sommet*>>& tt_chemins, st
                 if (it.first != selectionne)
                 {
                     std::vector<Sommet*> temp;
-                    for (size_t i=0;i<chemin_divergent.size();++i)//je copie le chemin déjà parcouru
+                    for (size_t i=0; i<chemin_divergent.size(); ++i) //je copie le chemin déjà parcouru
                         temp.push_back(chemin_divergent[i]);
                     temp.push_back(it.first); //j'ajoute le nv sommet parcouru
                     it.first->setMarque(1);
@@ -698,13 +698,15 @@ void Graphe::k_connexite()
                     for (auto it : m_sommets)
                         it->setMarque(0);
 
-                    std::vector<std::vector<Sommet*>> tt_chemins;
+                    std::vector<std::vector<Sommet*>> tt_chemins_sa_sd;
                     std::vector<Sommet*> temp; //nous sert que pour le recursif de trouverTTchemin()
 
-                    trouverTTchemins(tt_chemins,temp,m_sommets[a],m_sommets[d]);
+                    trouverTTchemins(tt_chemins_sa_sd,temp,m_sommets[a],m_sommets[d]);
 
-                    std::cout<<std::endl<<m_sommets[a]->getNom()<<"-"<<m_sommets[d]->getNom()<<" :";
-                    for (auto it : tt_chemins)
+                    int nb_chemin_sommets_disjoints_sa_sd=recherche_nb_chemin_sommets_disjoints(tt_chemins_sa_sd);
+
+                    std::cout<<std::endl<<m_sommets[a]->getNom()<<"-"<<m_sommets[d]->getNom()<<" : "<<nb_chemin_sommets_disjoints_sa_sd;
+                    for (auto it : tt_chemins_sa_sd)
                     {
                         std::cout<<std::endl;
                         for (auto et : it)
@@ -721,9 +723,14 @@ void Graphe::k_connexite()
 //    for (auto it : m_sommets)
 //        it->setMarque(0);
 //
-//    trouverTTchemins(tt_chemins,temp,m_sommets[0],m_sommets[6]);
+//    std::vector<std::vector<Sommet*>> tt_chemins;
+//    std::vector<Sommet*> temp;
 //
-//    std::cout<<std::endl<<m_sommets[0]->getNom()<<"-"<<m_sommets[6]->getNom()<<" :";
+//    trouverTTchemins(tt_chemins,temp,m_sommets[4],m_sommets[2]);
+//
+//    int nb_chemin_sommets_disjoints =recherche_nb_chemin_sommets_disjoints(tt_chemins);
+//
+//    std::cout<<std::endl<<m_sommets[4]->getNom()<<"-"<<m_sommets[2]->getNom()<<" :"<<nb_chemin_sommets_disjoints;
 //    for (auto it : tt_chemins)
 //    {
 //        std::cout<<std::endl;
@@ -733,3 +740,107 @@ void Graphe::k_connexite()
 
 
 }
+
+int Graphe::recherche_nb_chemin_sommets_disjoints(std::vector<std::vector<Sommet*>> tt_chemins)
+{
+    int nb_chemin_sommets_disjoints=0;
+//    std::vector <std::vector<Sommet*>> chemins_disjoints;
+//    std::vector <std::vector<Sommet*>> chemins_taille_min;
+//    std::vector <Sommet*> sommets_des_chemins_disjoints;
+//
+//
+//    int taille_min=999;
+//    //je recupère le chemin le plus et si y en a plusieurs ceux qui sont sommets disjoints
+//    for (auto it : tt_chemins)
+//    {
+//        if ((int)it.size()!=1) //on prend pas en compte
+//        {
+//            if ((int)it.size()<taille_min)
+//                taille_min=(int)it.size();
+//
+//        }
+//    }
+//    do
+//    {
+//        for (auto it : tt_chemins)
+//        {
+//            if ((int)it.size()==taille_min)
+//                chemins_taille_min.push_back(it);
+//        }
+//        if (chemins_taille_min.size()!=1)
+//        {
+//            for (size_t j=0; j<chemins_taille_min.size(); ++j)
+//            {
+//                for  (size_t k=j; k<chemins_taille_min.size(); ++k)
+//                {
+//                    if (k!=j)
+//                    {
+//                        int compt=0;
+//                        for (size_t l=0; l<chemins_taille_min[j].size()-1; ++l)
+//                            for (size_t e=0; e<chemins_taille_min[k].size()-1; ++e)
+//                                if (chemins_taille_min[j][l] == chemins_taille_min[k][e])
+//                                {
+//                                    compt=+1;
+//                                }
+//
+//                        if (compt==0)
+//                        {
+//                            chemins_disjoints.push_back(chemins_taille_min[j]);
+//                            chemins_disjoints.push_back(chemins_taille_min[k]);
+//                            for (size_t l=0; l<chemins_taille_min[j].size()-1; ++l)
+//                                sommets_des_chemins_disjoints.push_back(tt_chemins[j][l]);
+//                            for (size_t e=0; e<chemins_taille_min[k].size()-1; ++e)
+//                                sommets_des_chemins_disjoints.push_back(tt_chemins[k][e]);
+//                            for (auto it : tt_chemins)
+//                                if ((int)it.size()==taille_min)
+//                                    it.clear();
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            chemins_disjoints.push_back(chemins_taille_min[0]);
+//            for (size_t l=0; l<chemins_taille_min[0].size()-1; ++l)
+//                sommets_des_chemins_disjoints.push_back(tt_chemins[0][l]);
+//            for (auto it : tt_chemins)
+//                if ((int)it.size()==taille_min)
+//                    it.clear();
+//
+//        }
+//        taille_min=+1;
+//
+//    }
+//    while (sommets_des_chemins_disjoints.empty());
+//
+//    int i=0;
+//
+//
+//    do
+//    {
+//        int compteur=0;
+//        if (tt_chemins[i].size()==1) //chemin direct
+//            chemins_disjoints.push_back(tt_chemins[i]);
+//        else
+//        {
+//            for (size_t j=0; j<tt_chemins[i].size();++j)
+//                for (auto it : sommets_des_chemins_disjoints)
+//                    if (tt_chemins[i][j]==it)
+//                        compteur=+1;
+//            if (compteur == 0)
+//            {
+//                chemins_disjoints.push_back(tt_chemins[i]);
+//                for (size_t l=0; l<tt_chemins[i].size()-1; ++l)
+//                    sommets_des_chemins_disjoints.push_back(tt_chemins[i][l]);
+//            }
+//        }
+//        ++i;
+//
+//    }
+//    while (i<(int)tt_chemins.size());
+//
+    return nb_chemin_sommets_disjoints;
+
+}
+

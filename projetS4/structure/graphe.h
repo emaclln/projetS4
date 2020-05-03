@@ -61,6 +61,7 @@ class Graphe
 
         void trouverTTchemins (std::vector<std::vector<Sommet*>>& tt_chemins, std::vector<Sommet*> chemin_divergent,Sommet* selectionne, Sommet* arrive);
         void k_connexite();
+        int recherche_nb_chemin_sommets_disjoints(std::vector<std::vector<Sommet*>> tt_chemins);
 
 };
 
