@@ -41,7 +41,7 @@ void Sommet::set_poids(Sommet* extremite, double poids)//permet de donner une va
 
 }
 
-std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()//retourne le parametre
+std::vector< std::pair<Sommet*, double >> Sommet::getAdjacent()//retourne le vector d'adjacent
 {
     return m_adjacent;
 }
@@ -68,12 +68,12 @@ std::string Sommet::getNom()const//retourne le parametre : le nom
 
 void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double max,double min, int selec, bool normalise,int comparaison)const
 {
-    int r,g,b;
-    double coeff;
-    double indice_affiche;
+    int r,g,b; // couleur
+    double coeff; // coefficient de couleur en focntion de l'indice
+    double indice_affiche; //indice affiché en svg
     int temp=0;
 
-    if(selec == 0)
+    if(selec == 0) //Cd
     {
         if (!normalise)
         {
@@ -91,7 +91,7 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         }
 
     }
-    else if(selec == 1)
+    else if(selec == 1) //Cvp
     {
         if (!normalise)
         {
@@ -109,7 +109,7 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
 
     }
 
-    else if(selec == 2)
+    else if(selec == 2) //Cp
     {
         if (!normalise)
         {
@@ -120,12 +120,13 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         else
         {
             coeff = m_Cp-min;
+            //affichage au millième près
             temp=m_Cp*1000;
             indice_affiche=(double)temp/1000;
         }
     }
 
-    else if(selec == 3)
+    else if(selec == 3) // Ci
     {
         if (!normalise)
         {
@@ -140,13 +141,13 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
             indice_affiche=(double)temp/100;
         }
     }
-    else
+    else // aucun indice
     {
         coeff = 0;
         temp =0;
     }
 
-
+    //calcul du coeff couleur
     if(coeff < ((max-min) * 1/3) && max != 0)
     {
         r = 0;
@@ -172,8 +173,10 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
         b = 100;
     }
 
+    //determine le milieu de l'ecran en fonction de si on affiche 1 ou 2 graphe
     int milieu_ecran_x;
     int milieu_ecran_y=400;
+
     if (comparaison==0) //un seul grahe au centre
         milieu_ecran_x=500;
 
@@ -183,7 +186,7 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
     if (comparaison==2) //graphe centre droite = grpahe apres lors d'une comparaison
         milieu_ecran_x=750;
 
-
+    //si le sommet est au centre
     if (m_coord.getX()==milieu.getX() && m_coord.getY()==milieu.getY() )
     {
         svgout.addDisk(milieu_ecran_x,milieu_ecran_y,5,svgout.makeRGB(r, g, b));
@@ -193,10 +196,13 @@ void Sommet::affichageSVG (Svgfile& svgout,int& indice, Coord& milieu, double ma
     }
     else
     {
+        //sinon je dertermine sa position en fonction du milieu
         int ecart_x=(milieu.getX()-m_coord.getX())*indice;
         int ecart_y=(milieu.getY()-m_coord.getY())*indice;
+
         svgout.addDisk(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y,5,svgout.makeRGB(r, g, b));
         svgout.addText(milieu_ecran_x-ecart_x-5,milieu_ecran_y-ecart_y-10,m_nom,"balck");
+
         if (temp!=0) // afficher indice
             svgout.addText(milieu_ecran_x-ecart_x,milieu_ecran_y-ecart_y+22,indice_affiche,svgout.makeRGB(r, g, b));
     }
@@ -210,7 +216,7 @@ void Sommet::suppAdjacent(Sommet* supprimer)//supprime un adjacent selon le somm
         if(m_adjacent[i].first == supprimer)
             m_adjacent.erase(m_adjacent.begin() + compt);
 
-        compt +=1;
+        compt +=1; // pour avoir la position de l'adjacent à supprimer dans le vector
     }
 }
 

@@ -16,17 +16,17 @@ class Arrete
 {
 
 private :
-    int m_indice;//indice de l'arrête
-    float m_poids;//poids de l'arrête
-    double m_Ci;//indice normalisé intermédiarité
-    double m_N_Ci;//indice non normalisé intermédiarité
+    int m_indice;//indice de l'arrete
+    float m_poids;//poids de l'arrete
+    double m_Ci;//indice normalise intermediarite
+    double m_N_Ci;//indice non normalise intermediarite
     std::vector<Sommet*> m_extremite; //0 dÈpart, 1 arrivÈ
 
 public :
     Arrete(int indice, Sommet* un, Sommet* deux);
     Arrete(int indice, Sommet* un, Sommet* deux, int poids);
 
-    void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation,bool ponderation,int comparaison)const;
+    void affichageSVG(Svgfile& svgout,int& indice,Coord& milieu,bool orientation,bool ponderation,int comparaison, bool normalise,int selec)const;
     void remplirPoids(int& poids);
     void suppAdjacent();
     void afficherConsole()const;

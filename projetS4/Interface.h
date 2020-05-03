@@ -11,7 +11,7 @@ private :
     bool m_normaliseSVG; //permet dans l'affichage s'il faut choisir les indices normalisés ou non
     bool m_comparaisonSVG; //permet de savoir si on affiche 1 ou 2 graphes
     int m_indice_comparantSVG; //permet de savoir l'indice du graphe à afficher pour la comparaison
-    std::vector <Graphe*> m_graphes;
+    std::vector <Graphe*> m_graphes; //ensemble des graphes
 public :
 
     Interface();
@@ -21,7 +21,7 @@ public :
     void affichageSvg ()const;
     void copieGraphe();
     void remplirPoids(std::string nomFichier);
-    void remplirFichier(std::string nomFichier);
+    void ajouterGraphe(std::string nomFichier);
     void afficherListeAdjacence()const;
     void afficherConsole()const;
     void suppArrete(std::string& s1,std::string& s2);
@@ -47,7 +47,8 @@ public :
     void comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
     void comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
     void comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
-    void comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+    void comparaisonCiSommet(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant);
+    void comparaisonCiArrete(std::vector <Arrete*>& actuel,std::vector<Arrete*>& comparant);
 
     void k_connexite();
 

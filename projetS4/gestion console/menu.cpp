@@ -7,7 +7,7 @@
 #include "../Interface.h"
 #include "util.h"
 
-/// Code des fonction associés à la commande ///
+/// Code d'appel des fonction associés à la commande ///
 
 int gererCommande(std::string& commande,Interface& monInterface)
 {
@@ -17,7 +17,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
         std::cout<<std::endl<<"Vous n'avez pas demander d'action."<<std::endl;
     else
     {
-        if (commande.find("ponderation") != std::string::npos) //recharger le dernier fichier ouvert
+        if (commande.find("ponderation") != std::string::npos) //charge le fichier de pondération
         {
             if (commande.find("load")!=std::string::npos)
             {
@@ -31,13 +31,13 @@ int gererCommande(std::string& commande,Interface& monInterface)
                     for (auto i=debut; i<commande.size(); ++i)
                         fichier+=commande[i];
 
-                    fichier.erase(0,1);
+                    fichier.erase(0,1); //efface l'espace
                     monInterface.remplirPoids(fichier);
                 }
                 else
                 {
                     changerCouleurConsole(3); //rouge
-                    std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                    std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                     changerCouleurConsole(4); //blanc
                 }
             }
@@ -59,22 +59,22 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 for (auto i=debut; i<commande.size(); ++i)
                     fichier+=commande[i];
 
-                fichier.erase(0,1);
+                fichier.erase(0,1); //efface l'espace
                 monInterface.initialisation();
-                monInterface.remplirFichier(fichier);
+                monInterface.ajouterGraphe(fichier);
             }
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                 changerCouleurConsole(4); //blanc
             }
         }
-        else if (commande.find("calculer indice") != std::string::npos) //revenir a l'etat precedent (la derniere copie)
+        else if (commande.find("calculer indice") != std::string::npos) //calculer les indice de centralité
         {
             monInterface.calculCentralite();
 
-            //affichage
+            //definission des parametres affichage
             int selec=4;
             if (commande.find("Cvp")!=std::string::npos)
                 selec=1;
@@ -82,8 +82,10 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 selec=2;
             else if (commande.find("Cd")!=std::string::npos)
                 selec=0;
-            else if (commande.find("Ci")!=std::string::npos)
+            else if (commande.find("Ci sommet")!=std::string::npos)
                 selec=3;
+            else if (commande.find("Ci arrete")!=std::string::npos)
+                selec=5;
             monInterface.setSelecSVG(selec);
 
             if (commande.find("non normalise")!=std::string::npos)
@@ -101,17 +103,17 @@ int gererCommande(std::string& commande,Interface& monInterface)
             {
                 monInterface.afficherCentralite_NON_Normalise(selec);
                 monInterface.afficherCentralite_Normalise(selec);
-                monInterface.setNormaliseSVG(false); //affichage non normalise par defaut
+                monInterface.setNormaliseSVG(false); //affichage SVG non normalise par defaut
             }
 
         }
-        else if (commande.find("save indice") != std::string::npos) //enregistrer dans un fichier la situation actuelle
+        else if (commande.find("save indice") != std::string::npos) //sauvegarde dans un fichier les indices calculer
         {
-            commande.erase(0,12);
+            commande.erase(0,12); //efface 'save inidice'
             if (commande.find(" ")!=std::string::npos)
             {
                 std::string fichier;
-                size_t debut = commande.find(" ");
+                size_t debut = commande.find(" ")+1;
 
                 //recupere le nom du fichier
                 for (auto i=debut; i<commande.size(); ++i)
@@ -122,12 +124,12 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"de sauvegarde";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier de sauvegarde";
                 changerCouleurConsole(4); //blanc
             }
         }
 
-        else if (commande.find("supprimer") != std::string::npos) //cacher les noms des blocs
+        else if (commande.find("supprimer") != std::string::npos) //supprime une arrete
         {
             if (commande.find('(') != std::string::npos)
             {
@@ -137,9 +139,6 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 {
                     std::string nom_extremite1;
                     std::string nom_extremite2;
-
-                    nom_extremite1.erase();
-                    nom_extremite2.erase();
 
                     for (size_t i=debut; i<commande.find('-'); ++i)
                     {
@@ -154,9 +153,9 @@ int gererCommande(std::string& commande,Interface& monInterface)
                         }
                         ///creation par copie
                         monInterface.copieGraphe();
+                        ///suppression de l'arrete
                         monInterface.suppArrete(nom_extremite1,nom_extremite2);
-                        ///suppression de l'arrete
-
+                        ///calcul automatique des nouveaux indices
                         monInterface.calculCentralite();
                     }
                     else
@@ -176,11 +175,11 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
+                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete a supprimer";
                 changerCouleurConsole(4); //blanc
             }
         }
-        else if (commande.find("ajouter") != std::string::npos) //cacher les noms des blocs
+        else if (commande.find("ajouter") != std::string::npos) //ajout d'une arrete
         {
             if (commande.find('(') != std::string::npos)
             {
@@ -207,9 +206,9 @@ int gererCommande(std::string& commande,Interface& monInterface)
                         }
                         ///creation par copie
                         monInterface.copieGraphe();
+                        ///ajout de l'arrete
                         monInterface.ajouterArrete(nom_extremite1,nom_extremite2);
-                        ///suppression de l'arrete
-
+                        //calcul des nouveaux indices
                         monInterface.calculCentralite();
                     }
                     else
@@ -229,16 +228,21 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
+                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete a supprimer";
                 changerCouleurConsole(4); //blanc
             }
         }
-        else if (commande.find("test de connexite")!=std::string::npos) //enregistrer en memoire (pas fichier) un copie de l'etat actuel
+        else if (commande.find("test de k-connexite")!=std::string::npos) //test la k-connexite du graphe actuel
+        {
+            monInterface.k_connexite();
+        }
+        else if (commande.find("test de connexite")!=std::string::npos) //test la connexite du graphe actuel
         {
             monInterface.connexite();
         }
-        else if (commande.find("comparaison")!=std::string::npos)
+        else if (commande.find("comparaison")!=std::string::npos) //compare les indices entre 2 graphes
         {
+            ///on determine les options de comparaison et d'affichage
             int selec=4;
             int indice_compare;
             if (commande.find("Cvp")!=std::string::npos)
@@ -247,8 +251,10 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 selec=2;
             else if (commande.find("Cd")!=std::string::npos)
                 selec=0;
-            else if (commande.find("Ci")!=std::string::npos)
+            else if (commande.find("Ci sommet")!=std::string::npos)
                 selec=3;
+            else if (commande.find("Ci arrete")!=std::string::npos)
+                selec=5;
 
             std::string reponse;
             std::cout<<std::endl<<"Vous etes a l'etape "<<monInterface.getIndice()
@@ -280,11 +286,11 @@ int gererCommande(std::string& commande,Interface& monInterface)
             }
 
         }
-        else if (commande.find("retour")!=std::string::npos)
+        else if (commande.find("retour")!=std::string::npos) //supprime l'etape actuelle et revient à l'étape d'avant
         {
             monInterface.retourEnArriere();
         }
-        else if (commande.find("ajout graphe")!=std::string::npos)
+        else if (commande.find("ajout graphe")!=std::string::npos) //ajoute un graphe
         {
             commande.erase(0,12); //on efface "ajout graphe "
             if (commande.find(".txt")!=std::string::npos)
@@ -299,33 +305,34 @@ int gererCommande(std::string& commande,Interface& monInterface)
 
                 fichier.erase(0,1);
 
-                monInterface.remplirFichier(fichier);
+                monInterface.ajouterGraphe(fichier);
             }
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                 changerCouleurConsole(4); //blanc
             }
+        }
+        else if (commande.find("affichage console adjacence")!=std::string::npos)  // afficher la liste d'adjacence du graphe actuel
+        {
+            monInterface.afficherListeAdjacence();
+        }
+        else if (commande.find("affichage console graphe")!=std::string::npos)  // afficher le graphe actuel façon fichier
+        {
+            monInterface.afficherConsole();
         }
         else if (commande.find("help")!=std::string::npos)  // afficher les commandes
         {
             affichageCommande();
         }
-        else if(commande.find("stopAuto")!=std::string::npos)
+        else if(commande.find("stopAuto")!=std::string::npos) //à mettre à la fin du script si on veut en créé un
         {
             util::stopAutoCin();
         }
-        else if(commande.find("startScript")!=std::string::npos)
+        else if(commande.find("startScript")!=std::string::npos) //lance un un fichier "script.txt" qui fait des commandes automatiques
         {
             stop=2;
-        }
-        else if(commande.find("sommet indice")!=std::string::npos)
-        {
-            commande.erase(0,13); //on efface "ajout graphe "
-            size_t debut = commande.find(" ");
-
-            monInterface.setSelecSVG(commande[debut+1] - 48);
         }
         else if (commande.find("exit") != std::string::npos) //quitter l'application
         {
@@ -340,7 +347,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
         }
     }
 
-    monInterface.affichageSvg();
+    monInterface.affichageSvg(); //affiche le graphe actuel
 
     if (monInterface.getComparaisonSVG()) //il faut afficher 2 graphes
     {
@@ -397,7 +404,7 @@ void changerCouleurConsole(int couleur)
 
 
 
-///Boucle de jeu ///
+///Boucle de commande ///
 
 int gererDeffilement(bool autoCin)
 {
@@ -406,7 +413,8 @@ int gererDeffilement(bool autoCin)
     int stop;
 
     if (autoCin)
-        util::startAutoCin("script.txt",100);
+        util::startAutoCin("script.txt",100); //si jamais on veut faire un script c'est possible
+                                             // actuellement aucun fichier script a été créé
 
     do
     {
@@ -422,7 +430,7 @@ int gererDeffilement(bool autoCin)
         stop = gererCommande(commande,monInterface);
         std::cout<<std::endl;
     }
-    while(stop!=1 && stop!=2);
+    while(stop!=1 && stop!=2); //en fonction de l'autoCin ou pas
 
     return stop;
 }

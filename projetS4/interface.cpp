@@ -1,66 +1,70 @@
 #include "Interface.h"
 
 
-
-Interface::Interface()//Constructeur de la classe Interface
+/// Constructeur de la classe Interface ///
+Interface::Interface()
 {
     initialisation();
 }
 
-Interface::~Interface()//Destructeur
+/// Destructeur ///
+Interface::~Interface()
 {
     for (auto it : m_graphes)
         delete it;
 }
 
-void Interface::initialisation ()//Initialise les attributs
+/// Initialise les attributs ///
+void Interface::initialisation ()
 {
     m_indice=-1;
     m_selecSVG=4;
     m_normaliseSVG=false;
     m_indice_comparantSVG=-1;
     m_comparaisonSVG=false;
+    m_graphes.clear();
 }
 
+/// Ajoute un graphe par copie de celui actuel ///
 void Interface::copieGraphe()
 {
-    /*On recupère les données du graphe à copier */
+    /*On recupËre les donnÈes du graphe ‡ copier */
     std::vector<Sommet*> buffer_s = m_graphes[m_indice]->getSommets();
     std::vector<Arrete*> buffer_a = m_graphes[m_indice]->getArretes();
     bool orient = m_graphes[m_indice]->getOrientation();
     bool ponderation =m_graphes[m_indice]->getPonde();
-    
-    m_graphes.push_back(new Graphe {buffer_s,buffer_a,orient,ponderation} );//Création du nouveau graphe
-    m_indice += 1;//mise à jour de l'indice du vector graphe
+
+    m_graphes.push_back(new Graphe {buffer_s,buffer_a,orient,ponderation} );//CrÈation du nouveau graphe
+    m_indice += 1;//mise ‡ jour de l'indice du vector graphe
 }
 
+/// Supprime l'arrete choisie par l'utilisateur ///
 void Interface::suppArrete(std::string& s1,std::string& s2)
 {
-
     if(!m_graphes[m_indice]->suppArrete(s1,s2)) //si l'arrete n'a pas ÈtÈ trouvÈ donc pas de supp
         retourEnArriere(); //on supprime le graphe crÈÈ
 }
 
 
-
-void Interface::remplirFichier(std::string nomFichier)
+/// Ajoute un graphe par lecture de fichier ///
+void Interface::ajouterGraphe(std::string nomFichier)
 {
-    m_graphes.push_back(new Graphe {nomFichier});//création d'un graphe par initialisation de fichier
+    m_graphes.push_back(new Graphe {nomFichier});//crÈation d'un graphe par initialisation de fichier
     m_indice +=1;
 }
 
-
-void Interface::affichageSvg ()const //affichage par svg
+/// Affichage par svg ///
+void Interface::affichageSvg ()const
 {
     Svgfile::s_verbose = false;
     Svgfile svgout;
-    svgout.addGrid();
+    svgout.addGrid(); //ajout du repËre
 
     if (!m_graphes.empty())//si m_graphe n'est pas vide
     {
         if (!m_comparaisonSVG) //affichage graphe actuel
             m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,m_comparaisonSVG);
-        else if (m_comparaisonSVG) //affichage graphe de la comparaison
+        else if (m_comparaisonSVG) //affichage graphes de la comparaison
         {
             m_graphes[m_indice_comparantSVG]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,1);
             m_graphes[m_indice]->affichageSvg(svgout,m_selecSVG,m_normaliseSVG,2);
@@ -68,62 +72,73 @@ void Interface::affichageSvg ()const //affichage par svg
     }
 }
 
+/// Remplis le poids pour le graphe actuel ///
 void Interface::remplirPoids(std::string nomFichier)
 {
     if (!m_graphes.empty())
         m_graphes[m_indice]->remplirPoids(nomFichier);
 }
 
+/// Afficher sur la console le graphe actuel en mode fichier ///
 void Interface::afficherConsole()const
 {
     m_graphes[m_indice]->afficherConsole();
     std::cout<<std::endl;
 }
 
+/// Afficher sur la console la liste d'adjacence du graphe actuel ///
 void Interface::afficherListeAdjacence()const
 {
     m_graphes[m_indice]->afficherListeAdjacence();
     std::cout<<std::endl;
 }
 
-void Interface::ajouterArrete(std::string& s1,std::string& s2)//En paramètre les noms des sommets selectionnées
+/// Ajout d'une arrete ///
+void Interface::ajouterArrete(std::string& s1,std::string& s2)//En paramËtre les noms des sommets selectionnÈes
 {
     m_graphes[m_indice]->ajoutArrete(s1, s2);
 }
 
-void Interface::afficherCentralite_Normalise(int selec)//En paramètre un int pour connaître ce qu'on affiche
+/// Affiche en console les centralite normalise ///
+void Interface::afficherCentralite_Normalise(int selec)//En paramËtre un int pour connaÓtre ce qu'on affiche
 {
     m_graphes[m_indice]->afficherCentralite_Normalise(selec);
 }
 
-void Interface::afficherCentralite_NON_Normalise(int selec)//En paramètre un int pour connaître ce qu'on affiche
+/// Affiche en console les centralite ///
+void Interface::afficherCentralite_NON_Normalise(int selec)//En paramËtre un int pour connaÓtre ce qu'on affiche
 {
     m_graphes[m_indice]->afficherCentralite_NON_Normalise(selec);
 }
 
+/// Calcul de toutes les centralite pour le graphe actuel ///
 void Interface::calculCentralite()
 {
     m_graphes[m_indice]->calculCentralite();
 }
 
-void Interface::sauvegarderCentralite(std::string nomFichier)//En paramètre le nom du fichier de sauvegarde
+/// Sauvegarde dans un fichier de toutes les centralite pour le graphe actuel ///
+void Interface::sauvegarderCentralite(std::string nomFichier)//En paramËtre le nom du fichier de sauvegarde
 {
     m_graphes[m_indice]->sauvegardeCentralite(nomFichier);
 }
 
+/// Retourne ‡ l'Ètape precedente ///
 void Interface::retourEnArriere()
 {
-    int selec = (int) m_graphes.size() - 1;
-    delete m_graphes[selec];
-    m_indice = selec -1;
+    int selec = (int) m_graphes.size() - 1; //indice de la suppression
+    if (selec > 0) //verifie que c'est possible
+    {
+        delete m_graphes[selec];
+        m_graphes.erase(m_graphes.begin()+selec);
+        m_indice = selec -1;
+    }
+    else
+        std::cout<<std::endl<<"Retour en arriere impossible";
+
 }
 
-void Interface::setSelecSVG(int selec)
-{
-    m_selecSVG = selec;
-}
-
-
+/// test la connexite du graphe actuel ///
 void Interface::connexite()
 {
     if(m_graphes[m_indice]->connexite())
@@ -132,24 +147,14 @@ void Interface::connexite()
         std::cout<<"Le graphe selectionne n'est pas un graphe connexe"<<std::endl;
 }
 
-void Interface::setNormaliseSVG(bool normalise)
+/// test la k-connexite du graphe actuel ///
+void Interface::k_connexite()
 {
-    m_normaliseSVG=normalise;
+    m_graphes[m_indice]->k_connexite();
 }
 
-void Interface::setIndice(int indice)
-{
-    if (indice>0)
-        m_indice=indice;
-    else
-        std::cout<<std::endl<<"Indice invalide";
-}
-
-int Interface::getIndice()const
-{
-    return m_indice;
-}
-
+/// Programme de comparaison ///
+//appel les differentes comparaisons selon la selection de l'utilisateur
 void Interface::comparaison(int indice_compare, int selec)
 {
     if (indice_compare==-1) //etape precedente
@@ -172,30 +177,28 @@ void Interface::comparaison(int indice_compare, int selec)
 
         std::cout<<std::endl<<"Comparaison des inidices pour chaque sommet :";
 
-        if(m_graphes[m_indice]->getPonde())
-        {
-            if(selec == 1 || selec == 4)
-                comparaisonCvp(actuel,comparant);
-            if(selec == 2 || selec == 4)
-                comparaisonCp(actuel,comparant);
+        if(selec == 1 || selec == 4)
+            comparaisonCvp(actuel,comparant);
 
-            setSelecSVG(selec); //pour l'affichage des indice
-            setNormaliseSVG(true); //pour l'affichage des indice
-        }
-        else if (selec == 1 || selec ==2 || selec==4)
-            std::cout<<std::endl<<"En l'absence de poids, le calcul du Cvp et du Cp est impossible";
+        if(selec == 2 || selec == 4)
+            comparaisonCp(actuel,comparant);
+
         if(selec == 0 || selec == 4)
-        {
             comparaisonCd(actuel,comparant);
-            setSelecSVG(selec);
-            setNormaliseSVG(true); //pour l'affichage des indice
-        }
+
         if(selec == 3 || selec == 4)
+            comparaisonCiSommet(actuel,comparant);
+
+        if (selec == 5 || selec == 4)
         {
-            comparaisonCi(actuel,comparant);
-            setSelecSVG(selec);
-            setNormaliseSVG(true);
+            std::vector<Arrete*> actuel_a = m_graphes[m_indice]->getArretes();
+            std::vector<Arrete*> comparant_a = m_graphes[indice_compare]->getArretes();
+            comparaisonCiArrete(actuel_a,comparant_a);
         }
+
+        // modifie les option d'affichage
+        setSelecSVG(selec);
+        setNormaliseSVG(true);
 
 
 
@@ -207,7 +210,7 @@ void Interface::comparaison(int indice_compare, int selec)
 
 void Interface::comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisÈ
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur"<<std::endl<<" propre des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -218,7 +221,7 @@ void Interface::comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>
 
 void Interface::comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisÈ
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de degre"<<std::endl<<" des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -229,7 +232,7 @@ void Interface::comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
 
 void Interface::comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisÈ
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de"<<std::endl<<" proximite des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -238,9 +241,9 @@ void Interface::comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
     }
 }
 
-void Interface::comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisÈ
+void Interface::comparaisonCiSommet(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisÈ
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des sommets :";
     for (size_t i=0;i<actuel.size();++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -249,6 +252,19 @@ void Interface::comparaisonCi(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
     }
 }
 
+void Interface::comparaisonCiArrete(std::vector <Arrete*>& actuel,std::vector<Arrete*>& comparant)
+{
+    std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des arretes :";
+    for (size_t i=0;i<actuel.size();++i)
+    {
+        std::vector<Sommet*> temp=actuel[i]->getExtremite();
+        std::cout<<std::endl<<temp[0]->getNom()<<"-"<<temp[1]->getNom()<<" : "
+                           <<((actuel[i]->get_Ci(true)-comparant[i]->get_Ci(true))/comparant[i]->get_Ci(true))*100
+                           <<"%";
+    }
+}
+
+/// Ensemble des set ///
 void Interface::set_indice_comparantSVG(int indice)
 {
     m_indice_comparantSVG=indice;
@@ -259,6 +275,25 @@ void Interface::setComparaisonSVG(bool comparaison)
   m_comparaisonSVG=comparaison;
 }
 
+void Interface::setNormaliseSVG(bool normalise)
+{
+    m_normaliseSVG=normalise;
+}
+
+void Interface::setSelecSVG(int selec)
+{
+    m_selecSVG = selec;
+}
+
+void Interface::setIndice(int indice)
+{
+    if (indice>0 && indice < (int)m_graphes.size())
+        m_indice=indice;
+    else
+        std::cout<<std::endl<<"Indice invalide";
+}
+
+/// Ensemble des get ///
 int Interface::getComparaisonSVG()const
 {
     return m_comparaisonSVG;
@@ -269,7 +304,7 @@ bool Interface::get_indice_comparantSVG()const
     return m_indice_comparantSVG;
 }
 
-void Interface::k_connexite()
+int Interface::getIndice()const
 {
-    m_graphes[m_indice]->k_connexite();
+    return m_indice;
 }

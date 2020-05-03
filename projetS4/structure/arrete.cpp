@@ -29,10 +29,27 @@ Arrete::Arrete(int indice, Sommet* un, Sommet* deux, int poids)//Constructeur De
     m_extremite[1]->set_poids(m_extremite[0],m_poids);
 }
 
-void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation, bool ponderation, int comparaison)const
+void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orientation, bool ponderation, int comparaison, bool normalise,int selec)const
 {
+    double Ci=0;
+    int temp;
+    if (normalise)
+    {
+        //j'arondi au milième
+        temp=m_Ci*1000;
+        Ci=(double)temp/1000;
+    }
+    else
+    {
+        //j'arondis au centième
+        temp=m_N_Ci*100;
+        Ci=(double)temp/100;
+    }
+
+    //je determine le centre du graphe selon si on aficche 1 ou 2 graphes
     int milieu_ecran_x;
     int milieu_ecran_y=400;
+
     if (comparaison==0) //un seul grahe au centre
         milieu_ecran_x=500;
 
@@ -42,10 +59,13 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
     if (comparaison==2) //graphe centre droite = grpahe apres lors d'une comparaison
         milieu_ecran_x=750;
 
+    //si l'extremite 0 est le milieu du graphe
     if (m_extremite[0]->getCoords().getX()==milieu.getX() && m_extremite[0]->getCoords().getY()==milieu.getY())
     {
+        //calcul de coordonnées de la 2e extremite
         int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
         int ecart_y1=(milieu.getY()-m_extremite[1]->getCoords().getY())*indice;
+
         svgout.addLine(milieu_ecran_x,milieu_ecran_y,milieu_ecran_x-ecart_x1,milieu_ecran_y-ecart_y1,"black");
 
         if (orientation) //s'il est orienté
@@ -54,21 +74,28 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 
         }
 
-        if (ponderation)//affichage poids
+        if (ponderation || selec==5)//affichage soit indice Ci arrete soit poids
         {
             int milieu_arrete_x,milieu_arrete_y;
             milieu_arrete_x=ecart_x1/2;
             milieu_arrete_y=ecart_y1/2;
 
-            svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
+            if (selec == 5) // si Ci
+                svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,Ci,"red");
+
+            else
+                svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
         }
     }
     else
     {
+        //si l'extremite 1 est le milieu du graphe
         if (m_extremite[1]->getCoords().getX()==milieu.getX() && m_extremite[1]->getCoords().getY()==milieu.getY() )
         {
+            //calcul de coordonnées de la 2e extremite
             int ecart_x0=(milieu.getX()-m_extremite[0]->getCoords().getX())*indice;
             int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
+
             svgout.addLine(milieu_ecran_x,milieu_ecran_y,milieu_ecran_x-ecart_x0,milieu_ecran_y-ecart_y0,"black");
 
             if (orientation) //s'il est orienté
@@ -77,15 +104,22 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
 
             }
 
-            if (ponderation)//affichage poids
+            if (ponderation || selec == 5)//affichage poids ou indice Ci
             {
-                int milieu_arrete_x=ecart_x0/2;
-                int milieu_arrete_y=ecart_y0/2;
-                svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
+                int milieu_arrete_x,milieu_arrete_y;
+                milieu_arrete_x=ecart_x0/2;
+                milieu_arrete_y=ecart_y0/2;
+
+                if (selec == 5) //si Ci
+                    svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,Ci,"red");
+
+                else
+                    svgout.addText(milieu_ecran_x-milieu_arrete_x,milieu_ecran_y-milieu_arrete_y+5,m_poids,"blue");
             }
         }
         else
         {
+            //Sinon je calcule les coordonnée des extremite en fonction du milieu
             int ecart_x0=(milieu.getX()-m_extremite[0]->getCoords().getX())*indice;
             int ecart_y0=(milieu.getY()-m_extremite[0]->getCoords().getY())*indice;
             int ecart_x1=(milieu.getX()-m_extremite[1]->getCoords().getX())*indice;
@@ -94,10 +128,12 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
             svgout.addLine(milieu_ecran_x-ecart_x0,milieu_ecran_y-ecart_y0,milieu_ecran_x-ecart_x1,
                            milieu_ecran_y-ecart_y1,"black");
 
-            if (ponderation)//affichage poids
+            if (ponderation || selec == 5)//affichage poids ou indice
             {
                 int milieu_arrete_x, milieu_arrete_y;
                 milieu_arrete_y=(milieu_ecran_y-ecart_y0+milieu_ecran_y-ecart_y1)/2;
+
+                //calcul en focntion de la position des sommets l'un à l'autre
                 if (milieu_ecran_x-ecart_x0>=milieu_ecran_x-ecart_x1)
                     milieu_arrete_x=((milieu_ecran_x-ecart_x0-milieu_ecran_x+ecart_x1)/2)+milieu_ecran_x-ecart_x1;
                 else
@@ -108,8 +144,11 @@ void Arrete::affichageSVG(Svgfile& svgout, int& indice, Coord& milieu,bool orien
                 else
                     milieu_arrete_y=((milieu_ecran_y-ecart_y1-milieu_ecran_y+ecart_y0)/2)+milieu_ecran_y-ecart_y0;
 
+                if (selec == 5) // si Ci
+                    svgout.addText(milieu_arrete_x,milieu_arrete_y+5,Ci,"red");
 
-                svgout.addText(milieu_arrete_x,milieu_arrete_y,m_poids,"blue");
+                else
+                    svgout.addText(milieu_arrete_x,milieu_arrete_y+5,m_poids,"blue");
             }
 
             if (orientation) //s'il est orienté
