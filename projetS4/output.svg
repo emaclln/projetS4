@@ -61,45 +61,168 @@
 <line x1="1000" y1="0" x2="1000" y2="800" stroke="lightgrey" />
 <text x="1005" y="15" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >1000</text>
 <text x="1005" y="15" fill="lightgrey" font-size="18px" text-anchor="middle" >1000</text>
-<line x1="500" y1="200" x2="400" y2="300" stroke="black" />
-<line x1="500" y1="200" x2="600" y2="300" stroke="black" />
-<line x1="500" y1="400" x2="400" y2="300" stroke="black" />
-<line x1="500" y1="400" x2="600" y2="300" stroke="black" />
-<line x1="500" y1="400" x2="400" y2="500" stroke="black" />
-<line x1="500" y1="400" x2="600" y2="500" stroke="black" />
-<line x1="400" y1="300" x2="300" y2="600" stroke="black" />
-<line x1="600" y1="300" x2="700" y2="600" stroke="black" />
-<line x1="400" y1="500" x2="500" y2="500" stroke="black" />
-<line x1="500" y1="500" x2="600" y2="500" stroke="black" />
-<line x1="600" y1="500" x2="700" y2="600" stroke="black" />
-<line x1="400" y1="500" x2="300" y2="600" stroke="black" />
-<circle cx="500" cy="200" r="5" fill="rgb(170,0,100)" />
-<text x="495" y="190" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >A</text>
-<text x="495" y="190" fill="balck" font-size="18px" text-anchor="middle" >A</text>
-<circle cx="400" cy="300" r="5" fill="rgb(170,0,100)" />
-<text x="395" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >B</text>
-<text x="395" y="290" fill="balck" font-size="18px" text-anchor="middle" >B</text>
-<circle cx="600" cy="300" r="5" fill="rgb(170,0,100)" />
-<text x="595" y="290" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >C</text>
-<text x="595" y="290" fill="balck" font-size="18px" text-anchor="middle" >C</text>
-<circle cx="500" cy="400" r="5" fill="rgb(170,0,100)" />
-<text x="495" y="390" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >D</text>
-<text x="495" y="390" fill="black" font-size="18px" text-anchor="middle" >D</text>
-<circle cx="400" cy="500" r="5" fill="rgb(170,0,100)" />
-<text x="395" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >E</text>
-<text x="395" y="490" fill="balck" font-size="18px" text-anchor="middle" >E</text>
-<circle cx="500" cy="500" r="5" fill="rgb(170,0,100)" />
-<text x="495" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >F</text>
-<text x="495" y="490" fill="balck" font-size="18px" text-anchor="middle" >F</text>
-<circle cx="600" cy="500" r="5" fill="rgb(170,0,100)" />
-<text x="595" y="490" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >G</text>
-<text x="595" y="490" fill="balck" font-size="18px" text-anchor="middle" >G</text>
-<circle cx="300" cy="600" r="5" fill="rgb(170,0,100)" />
-<text x="295" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >H</text>
-<text x="295" y="590" fill="balck" font-size="18px" text-anchor="middle" >H</text>
-<circle cx="700" cy="600" r="5" fill="rgb(170,0,100)" />
-<text x="695" y="590" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >I</text>
-<text x="695" y="590" fill="balck" font-size="18px" text-anchor="middle" >I</text>
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="453" y2="400" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<line x1="594" y1="447" x2="359" y2="494" stroke="black" />
+<circle cx="594" cy="447" r="5" fill="rgb(170,0,100)" />
+<text x="589" y="437" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >PAR</text>
+<text x="589" y="437" fill="balck" font-size="18px" text-anchor="middle" >PAR</text>
+<circle cx="782" cy="776" r="5" fill="rgb(170,0,100)" />
+<text x="777" y="766" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >AJA</text>
+<text x="777" y="766" fill="balck" font-size="18px" text-anchor="middle" >AJA</text>
+<circle cx="829" cy="729" r="5" fill="rgb(170,0,100)" />
+<text x="824" y="719" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >BIA</text>
+<text x="824" y="719" fill="balck" font-size="18px" text-anchor="middle" >BIA</text>
+<circle cx="406" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="401" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >BIQ</text>
+<text x="401" y="672" fill="balck" font-size="18px" text-anchor="middle" >BIQ</text>
+<circle cx="453" cy="635" r="5" fill="rgb(170,0,100)" />
+<text x="448" y="625" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >BOD</text>
+<text x="448" y="625" fill="balck" font-size="18px" text-anchor="middle" >BOD</text>
+<circle cx="359" cy="494" r="5" fill="rgb(170,0,100)" />
+<text x="354" y="484" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >BES</text>
+<text x="354" y="484" fill="balck" font-size="18px" text-anchor="middle" >BES</text>
+<circle cx="500" cy="447" r="5" fill="rgb(170,0,100)" />
+<text x="495" y="437" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >CFR</text>
+<text x="495" y="437" fill="balck" font-size="18px" text-anchor="middle" >CFR</text>
+<circle cx="782" cy="729" r="5" fill="rgb(170,0,100)" />
+<text x="777" y="719" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >CLY</text>
+<text x="777" y="719" fill="balck" font-size="18px" text-anchor="middle" >CLY</text>
+<circle cx="594" cy="588" r="5" fill="rgb(170,0,100)" />
+<text x="589" y="578" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >CFE</text>
+<text x="589" y="578" fill="balck" font-size="18px" text-anchor="middle" >CFE</text>
+<circle cx="829" cy="776" r="5" fill="rgb(170,0,100)" />
+<text x="824" y="766" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >FSC</text>
+<text x="824" y="766" fill="balck" font-size="18px" text-anchor="middle" >FSC</text>
+<circle cx="453" cy="588" r="5" fill="rgb(170,0,100)" />
+<text x="448" y="578" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >LRH</text>
+<text x="448" y="578" fill="balck" font-size="18px" text-anchor="middle" >LRH</text>
+<circle cx="594" cy="400" r="5" fill="rgb(170,0,100)" />
+<text x="589" y="390" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >LIL</text>
+<text x="589" y="390" fill="balck" font-size="18px" text-anchor="middle" >LIL</text>
+<circle cx="359" cy="494" r="5" fill="rgb(170,0,100)" />
+<text x="354" y="484" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >LRT</text>
+<text x="354" y="484" fill="balck" font-size="18px" text-anchor="middle" >LRT</text>
+<circle cx="594" cy="588" r="5" fill="rgb(170,0,100)" />
+<text x="589" y="578" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >LYS</text>
+<text x="589" y="578" fill="balck" font-size="18px" text-anchor="middle" >LYS</text>
+<circle cx="641" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="636" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >MRS</text>
+<text x="636" y="672" fill="balck" font-size="18px" text-anchor="middle" >MRS</text>
+<circle cx="735" cy="447" r="5" fill="rgb(170,0,100)" />
+<text x="730" y="437" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >ETZ</text>
+<text x="730" y="437" fill="balck" font-size="18px" text-anchor="middle" >ETZ</text>
+<circle cx="594" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="589" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >MPL</text>
+<text x="589" y="672" fill="balck" font-size="18px" text-anchor="middle" >MPL</text>
+<circle cx="406" cy="541" r="5" fill="rgb(170,0,100)" />
+<text x="401" y="531" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >NTE</text>
+<text x="401" y="531" fill="balck" font-size="18px" text-anchor="middle" >NTE</text>
+<circle cx="735" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="730" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >NCE</text>
+<text x="730" y="672" fill="balck" font-size="18px" text-anchor="middle" >NCE</text>
+<circle cx="500" cy="729" r="5" fill="rgb(170,0,100)" />
+<text x="495" y="719" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >PUF</text>
+<text x="495" y="719" fill="balck" font-size="18px" text-anchor="middle" >PUF</text>
+<circle cx="641" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="636" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >PGF</text>
+<text x="636" y="672" fill="balck" font-size="18px" text-anchor="middle" >PGF</text>
+<circle cx="359" cy="494" r="5" fill="rgb(170,0,100)" />
+<text x="354" y="484" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >UIP</text>
+<text x="354" y="484" fill="balck" font-size="18px" text-anchor="middle" >UIP</text>
+<circle cx="453" cy="400" r="5" fill="rgb(170,0,100)" />
+<text x="448" y="390" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >RNE</text>
+<text x="448" y="390" fill="balck" font-size="18px" text-anchor="middle" >RNE</text>
+<circle cx="782" cy="494" r="5" fill="rgb(170,0,100)" />
+<text x="777" y="484" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >SXB</text>
+<text x="777" y="484" fill="balck" font-size="18px" text-anchor="middle" >SXB</text>
+<circle cx="547" cy="682" r="5" fill="rgb(170,0,100)" />
+<text x="542" y="672" stroke="#ffffff" stroke-opacity="1" font-size="18px" stroke-width="8" text-anchor="middle" >TLS</text>
+<text x="542" y="672" fill="balck" font-size="18px" text-anchor="middle" >TLS</text>
 
 
 </svg>

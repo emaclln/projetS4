@@ -8,56 +8,77 @@
 
 #include "graphe.h"
 
-Graphe::Graphe(std::string nomFichier )//constructeur par fichier
+/// constructeur par fichier
+Graphe::Graphe(std::string nomFichier)
 {
 
     std::ifstream ifs{nomFichier};//lecture du fichier
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
-    ifs >> m_orientation;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture orientation du graphe");
-
-    ifs >> m_ordre;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture ordre du graphe");
-
-    for (int i=0; i<m_ordre; ++i)
+    if (ifs)
     {
-        int indice;
-        std::string nom;
-        Coord mesCoord;
-        int x;
-        int y;
+        int orientation;
+        ifs >> orientation;
+        if (! ifs.fail())
+        {
+            m_orientation=orientation;
 
-        ifs >> indice >> nom >> x >> y;
+            int ordre;
+            ifs >> ordre;
+            if (! ifs.fail())
+            {
+                m_ordre=ordre;
+                for (int i=0; i<m_ordre; ++i)
+                {
+                    int indice;
+                    std::string nom;
+                    Coord mesCoord;
+                    int x;
+                    int y;
 
-        mesCoord.set_coord(x,y);
+                    ifs >> indice >> nom >> x >> y;
 
-        m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
+                    mesCoord.set_coord(x,y);
+
+                    m_sommets.push_back( new Sommet(indice, nom, mesCoord) );
+                }
+
+                int taille;
+                ifs>>taille;
+                if (!ifs.fail())
+                {
+                    m_taille=taille;
+                    for (int i=0; i<m_taille; ++i)
+                    {
+                        int indice;
+                        int num1;
+                        int num2;
+
+                        ifs >> indice >> num1 >> num2;
+
+                        m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
+                        m_sommets[num1]->set_adjacent(m_sommets[num2]);
+                        m_sommets[num2]->set_adjacent(m_sommets[num1]);
+                    }
+
+                    m_ponderation = false;
+                }
+                else
+                    std::cout<<std::endl<<"Probleme lecture taille du graphe";
+            }
+            else
+                std::cout<<std::endl<<"Probleme lecture ordre du graphe";
+        }
+        else
+            std::cout<<std::endl<<"Probleme lecture orientation du graphe";
     }
+    else
+        std::cout<<std::endl<<"Impossible d'ouvrir en lecture "<<nomFichier ;
 
-    ifs >> m_taille;
 
-    for (int i=0; i<m_taille; ++i)
-    {
-        int indice;
-        int num1;
-        int num2;
-
-        ifs >> indice >> num1 >> num2;
-
-        m_arretes.push_back(new Arrete(indice, m_sommets[num1], m_sommets[num2]));
-        m_sommets[num1]->set_adjacent(m_sommets[num2]);
-        m_sommets[num2]->set_adjacent(m_sommets[num1]);
-    }
-
-    m_ponderation = false;
 
 };
 
-Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)//2eme constructeur
+/// Constructeur par copie
+Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool orient,bool ponderation)
 {
     m_orientation=orient;
     m_ordre = (int) buffer_s.size();
@@ -83,8 +104,8 @@ Graphe::Graphe(std::vector<Sommet*> buffer_s,std::vector<Arrete*> buffer_a,bool 
         m_arretes.push_back(new Arrete{buffer_a[i]->getIndice(),m_sommets[id_e1],m_sommets[id_e2],buffer_a[i]->getPoids()});
     }
 }
-
-Graphe::~Graphe()//destructeur
+/// destructeur
+Graphe::~Graphe()
 {
     for (auto it : m_sommets)
         delete it;
@@ -107,33 +128,40 @@ int Graphe::getTaille()const//retourne la valeur du paramètre
 
 void Graphe::remplirPoids(std::string& nomFichier)//permet le remplissage des attributs poids de sommets et arrêtes par la lecture de fichier
 {
-    std::ifstream ifs{nomFichier};//lecture du fichier
-    if (!ifs)
-        throw std::runtime_error( "Impossible d'ouvrir en lecture " + nomFichier );
-
-    int taille;
-    ifs>>taille;
-    if (ifs.fail())
-        throw std::runtime_error("Probleme lecture taille du graphe");
-
-    if (taille!=m_taille)
-        throw std::runtime_error("Probleme taille du graphe incompatible");
-    else
+    std::ifstream ifs{nomFichier};//ouverture du fichier
+    if (ifs)
     {
-        int indice,poids;
-        for (int i=0; i<taille; ++i)
+        int taille;
+        ifs>>taille;
+        if (!ifs.fail())
         {
-            ifs>>indice>>poids;
-            m_arretes[indice]->remplirPoids(poids);
-        }
-    }
+            if (taille==m_taille)
+            {
+                int indice,poids;
+                for (int i=0; i<taille; ++i)
+                {
+                    ifs>>indice>>poids;
+                    m_arretes[indice]->remplirPoids(poids);
+                }
+                m_ponderation = true;
 
-    m_ponderation = true;
+            }
+            else
+                std::cout<<std::endl<<"Probleme taille du graphe incompatible";
+        }
+        else
+            std::cout<<std::endl<<"Probleme lecture taille du graphe";
+
+    }
+    else
+        std::cout<<std::endl<<"Impossible d'ouvrir en lecture "<<nomFichier ;
+
+
 }
 
 bool Graphe::suppArrete(std::string& s1, std::string& s2)//supprime une arrête selon les noms des sommets en paramètre
 {
-    int compt = 0;
+    int compt = 0; //determine l'indice de l'arrete à supprimer
     bool trouver = false;
 
     for(auto it : m_arretes)
@@ -164,7 +192,7 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
         if(it->trouverArrete(extremite_un,extremite_deux))
             exist = true;
 
-    if(!exist)
+    if(!exist) //si l' arrete n'existe pas
     {
         for(auto it : m_sommets)
         {
@@ -179,7 +207,8 @@ void Graphe::ajoutArrete(std::string& extremite_un, std::string& extremite_deux)
             ++compt;
         }
 
-        m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2]));
+        m_arretes.push_back(new Arrete( (int) m_arretes.size(), m_sommets[indice1], m_sommets[indice2])); //ajout de l'arrete au graphe
+        //ajoute un adjacent a chaque extremite de la nouvelle arrete
         m_sommets[indice1]->set_adjacent(m_sommets[indice2]);
         m_sommets[indice2]->set_adjacent(m_sommets[indice1]);
     }
@@ -223,14 +252,14 @@ void Graphe::affichageSvg (Svgfile& svgout,int selec,bool normalise,int comparai
             else if (temp_x<min_x)
                 min_x=temp_x;
         }
-        if (max_x*indice>max_ecran_x || max_y*indice>max_ecran_y) //depace
+        if (max_x*indice>max_ecran_x || max_y*indice>max_ecran_y) //si ça depace
         {
             indice=indice-1;
-            stop=false; //on revérifie qu'avec cet nouvel indice ce soit bon
+            stop=false; //on revérifie qu'avec cet nouvel indice que ce soit bon
         }
 
     }
-    while (!stop);//tant que le grpahe rentre enier
+    while (!stop);//tant que le grpahe rentre entier
 
     ///centrage
 
@@ -248,14 +277,15 @@ void Graphe::affichageSvg (Svgfile& svgout,int selec,bool normalise,int comparai
         temp_y=(temp_y+1)/2; //milieu
 
     Coord milieu;
-    milieu.set_coord(temp_x,temp_y);
+    milieu.set_coord(temp_x,temp_y); //milieu du graphe
 
     ///dessin
     for (auto it : m_arretes)
     {
-        it->affichageSVG(svgout,indice,milieu,m_orientation,m_ponderation,comparaison);
+        it->affichageSVG(svgout,indice,milieu,m_orientation,m_ponderation,comparaison,normalise,selec);
     }
 
+    //determine la couleur des sommets en fonction de l'indice
     double max = 0;
     double min = 100;
 
@@ -518,7 +548,7 @@ void Graphe::afficherCentralite_Normalise(int selec)//selon le parmaetre l'affic
 
 void Graphe::afficherCentralite_NON_Normalise(int selec)//selon le parmaetre l'affichage est différent
 {
-   
+
         if(selec == 1 || selec == 4)
         {
             std::cout<<std::endl<<"Affichage de la centralite de vecteur propre des sommets : "<<std::endl;
@@ -531,7 +561,7 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)//selon le parmaetre l'a
             for(auto it : m_sommets)
                 std::cout<<it->getNom()<<": "<<it->get_Cp(false)<<std::endl;
         }
-    
+
     if(selec == 0 || selec == 4)
     {
         std::cout<<std::endl<<"Affichage de la centralite de degre des sommets : "<<std::endl;
@@ -555,14 +585,12 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)//selon le parmaetre l'a
 
 void Graphe::calculCentralite()//calcul tout les indices du graphe
 {
-
+    calculCd();
     calculCvp();
     calculCp();
     calculCiArrete();
     calculCiSommet();
 
-    calculCd();
-    calculCi();
 }
 
 void Graphe::sauvegardeCentralite(std::string& nomFichier)//sauvegarde les indices des sommets sur un fichier dont le nom est reçu en paramètre
@@ -670,7 +698,7 @@ void Graphe::calculCiArrete()//calcul de l'indice Ci pour les arrêtes : même p
     for(size_t i = 0 ; i<m_arretes.size(); ++i)
     {
         ciS.push_back(0);
-        
+
         for(size_t d=0; d< m_sommets.size();++d)
            {
                for(size_t a=d; a< m_sommets.size();++a)
@@ -686,7 +714,7 @@ void Graphe::calculCiArrete()//calcul de l'indice Ci pour les arrêtes : même p
                        for(auto c : chemin)
                        {
                            std::vector<Arrete*> buffer;
-                           
+
                             for(size_t i = 0 ; i<c.size();++i)
                             {
                                 if(i != c.size()-1)
@@ -694,23 +722,23 @@ void Graphe::calculCiArrete()//calcul de l'indice Ci pour les arrêtes : même p
                                      for(auto e : m_arretes)//cherche les arrêtes du chemin
                                      {
                                         int compteur=0;
-                                         
+
                                         for (auto it : e->getExtremite())
                                             if(it ==  c[i] || it == c[i+1] )
                                                 compteur+=1;
-                                         
+
                                         if(compteur == 2)
                                             buffer.push_back(e);
                                      }
                                 }
                             }
-                           
+
                            for(auto a : buffer)//compare les arrêtes du chemin à l'arrête selectionné
                                if(a == m_arretes[i])
                                    cheminVisite +=1;
-                           
+
                        }
-                       
+
                        if(cheminVisite/cheminTotal > 0)
                            ciS[i] += cheminVisite/cheminTotal;
                    }
