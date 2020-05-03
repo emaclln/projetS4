@@ -514,33 +514,33 @@ void Graphe::afficherCentralite_Normalise(int selec)//selon le parmaetre l'affic
 
         if(selec == 1 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre"<<std::endl<<" des sommets : "<<std::endl;
             for(auto it : m_sommets)
                 std::cout<<it->getNom()<<": "<<it->get_Cvp(true)<<std::endl;
         }
         if(selec == 2 || selec == 4)
         {
-            std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets : "<<std::endl;
+            std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite"<<std::endl<<" des sommets : "<<std::endl;
             for(auto it : m_sommets)
                 std::cout<<it->getNom()<<": "<<it->get_Cp(true)<<std::endl;
         }
 
     if(selec == 0 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee de degre"<<std::endl<<" des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Cd(true)<<std::endl;
     }
 
     if(selec == 3 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(true)<<std::endl;
     }
     if(selec == 5 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des arretes : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des arretes : "<<std::endl;
         for(auto it : m_arretes)
             std::cout<<it->getIndice()<<": "<<it->get_Ci(true)<<std::endl;
     }
@@ -571,13 +571,13 @@ void Graphe::afficherCentralite_NON_Normalise(int selec)//selon le parmaetre l'a
 
     if(selec == 3 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite des sommets : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite"<<std::endl<<" des sommets : "<<std::endl;
         for(auto it : m_sommets)
             std::cout<<it->getNom()<<": "<<it->get_Ci(false)<<std::endl;
     }
     if(selec == 5 || selec == 4)
     {
-        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite des arretes : "<<std::endl;
+        std::cout<<std::endl<<"Affichage de la centralite d'intermediarite"<<std::endl<<" des arretes : "<<std::endl;
         for(auto it : m_arretes)
             std::cout<<it->getIndice()<<": "<<it->get_Ci(false)<<std::endl;
     }
@@ -608,7 +608,7 @@ void Graphe::sauvegardeCentralite(std::string& nomFichier)//sauvegarde les indic
     }
     else
     {
-        std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la sauvegarde des indices de centralite." << std::endl;
+        std::cout << "ERREUR: Impossible d'ouvrir le fichier lors de la"<<std::endl<<" sauvegarde des indices de centralite." << std::endl;
     }
 }
 
@@ -790,7 +790,7 @@ void Graphe::k_connexite()
     if (connexite())
     {
         int k = -1;
-        
+        //parcours de chaque pair de sommet
         for(size_t d=0; d< m_sommets.size(); ++d)
         {
             for(size_t a=d; a< m_sommets.size(); ++a)
@@ -798,12 +798,12 @@ void Graphe::k_connexite()
                 std::string A = m_sommets[d]->getNom();
                 std::string B = m_sommets[a]->getNom();
                 bool vrai = true;
-                
+
                 for(auto s : m_arretes)
                     if(s->trouverArrete(A, B))
                         vrai = false;
-                    
-                if(d != a && vrai)
+
+                if(d != a && vrai) //si les 2 sommets sont différents et s'ils ne sont pas adjacents
                 {
                     for (auto it : m_sommets)
                         it->setMarque(0);
@@ -812,14 +812,14 @@ void Graphe::k_connexite()
                     std::vector<Sommet*> temp; //nous sert que pour le recursif de trouverTTchemin()
 
                     trouverTTchemins(tt_chemins_sa_sd,temp,m_sommets[a],m_sommets[d]);
-                    
+
                     std::priority_queue< std::vector<Arrete*>, std::vector<std::vector<Arrete*> >,CompareChemin > maFile;
                     std::set<Arrete*> mesArretes;
-                    
+
                     for(auto c : tt_chemins_sa_sd)
                     {
                         std::vector<Arrete*> buffer;
-                        
+
                          for(size_t i = 0 ; i<c.size();++i)
                          {
                              if(i != c.size()-1)
@@ -827,20 +827,20 @@ void Graphe::k_connexite()
                                   for(auto e : m_arretes)//cherche les arrêtes du chemin
                                   {
                                      int compteur=0;
-                                      
+
                                      for (auto it : e->getExtremite())
                                          if(it ==  c[i] || it == c[i+1] )
                                              compteur+=1;
-                                      
+
                                      if(compteur == 2)
                                          buffer.push_back(e);
                                   }
                              }
                          }
-                        
+
                         maFile.push(buffer);
                     }
-                    
+
                     int c = 0;
                     while(!maFile.empty())
                     {
@@ -848,24 +848,24 @@ void Graphe::k_connexite()
                         for(auto i : maFile.top())
                             if(mesArretes.find(i) != mesArretes.end())
                                 vrai = false;
-                        
+
                         if(vrai)
                         {
                             c += 1;
                             for(auto i : maFile.top())
                                 mesArretes.insert(i);
                         }
-                        
+
                         maFile.pop();
                     }
-                    
+
                     if( (k == -1 || k>c) && c != 0)
                         k = c;
                 }
             }
         }
-        
-        std::cout<<"Enlever "<<k<<" arrete(s) pour former au minimum 2 composantes connexes."<<std::endl;
+
+        std::cout<<"Enlever "<<k<<" arrete(s) pour former au minimum"<<std::endl<<" 2 composantes connexes."<<std::endl;
     }
     else
         std::cout<<std::endl<<"Votre graphe est non connexe."

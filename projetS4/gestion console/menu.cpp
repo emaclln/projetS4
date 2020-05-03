@@ -37,7 +37,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 else
                 {
                     changerCouleurConsole(3); //rouge
-                    std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                    std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                     changerCouleurConsole(4); //blanc
                 }
             }
@@ -66,7 +66,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                 changerCouleurConsole(4); //blanc
             }
         }
@@ -124,7 +124,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"de sauvegarde";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier de sauvegarde";
                 changerCouleurConsole(4); //blanc
             }
         }
@@ -139,9 +139,6 @@ int gererCommande(std::string& commande,Interface& monInterface)
                 {
                     std::string nom_extremite1;
                     std::string nom_extremite2;
-
-                    nom_extremite1.erase();
-                    nom_extremite2.erase();
 
                     for (size_t i=debut; i<commande.find('-'); ++i)
                     {
@@ -178,7 +175,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
+                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete a supprimer";
                 changerCouleurConsole(4); //blanc
             }
         }
@@ -231,7 +228,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete "<<std::endl<<"a supprimer";
+                std::cout<<std::endl<<"Vous n'avez pas indiquer l'arrete a supprimer";
                 changerCouleurConsole(4); //blanc
             }
         }
@@ -313,7 +310,7 @@ int gererCommande(std::string& commande,Interface& monInterface)
             else
             {
                 changerCouleurConsole(3); //rouge
-                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier"<<std::endl<<"a ouvrir";
+                std::cout<<std::endl<<"Vous n'avez pas donne le nom du fichier a ouvrir";
                 changerCouleurConsole(4); //blanc
             }
         }

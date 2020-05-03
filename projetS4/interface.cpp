@@ -41,7 +41,6 @@ void Interface::copieGraphe()
 /// Supprime l'arrete choisie par l'utilisateur ///
 void Interface::suppArrete(std::string& s1,std::string& s2)
 {
-
     if(!m_graphes[m_indice]->suppArrete(s1,s2)) //si l'arrete n'a pas été trouvé donc pas de supp
         retourEnArriere(); //on supprime le graphe créé
 }
@@ -131,6 +130,7 @@ void Interface::retourEnArriere()
     if (selec > 0) //verifie que c'est possible
     {
         delete m_graphes[selec];
+        m_graphes.erase(m_graphes.begin()+selec);
         m_indice = selec -1;
     }
     else
@@ -210,7 +210,7 @@ void Interface::comparaison(int indice_compare, int selec)
 
 void Interface::comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisé
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur propre des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de vecteur"<<std::endl<<" propre des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -221,7 +221,7 @@ void Interface::comparaisonCvp(std::vector<Sommet*>& actuel,std::vector<Sommet*>
 
 void Interface::comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisé
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de degre des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de degre"<<std::endl<<" des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -232,7 +232,7 @@ void Interface::comparaisonCd(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
 
 void Interface::comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisé
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee de proximite des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee de"<<std::endl<<" proximite des sommets :";
     for (size_t i=0; i<actuel.size(); ++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -243,7 +243,7 @@ void Interface::comparaisonCp(std::vector<Sommet*>& actuel,std::vector<Sommet*>&
 
 void Interface::comparaisonCiSommet(std::vector<Sommet*>& actuel,std::vector<Sommet*>& comparant) //valeur normalisé
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des sommets :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des sommets :";
     for (size_t i=0;i<actuel.size();++i)
     {
         std::cout<<std::endl<<actuel[i]->getNom()<<" : "
@@ -254,7 +254,7 @@ void Interface::comparaisonCiSommet(std::vector<Sommet*>& actuel,std::vector<Som
 
 void Interface::comparaisonCiArrete(std::vector <Arrete*>& actuel,std::vector<Arrete*>& comparant)
 {
-    std::cout<<std::endl<<"Affichage de la centralite normalisee d'intermediarite des arretes :";
+    std::cout<<std::endl<<"Affichage de la centralite normalisee"<<std::endl<<" d'intermediarite des arretes :";
     for (size_t i=0;i<actuel.size();++i)
     {
         std::vector<Sommet*> temp=actuel[i]->getExtremite();
